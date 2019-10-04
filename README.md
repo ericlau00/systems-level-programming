@@ -1,8 +1,96 @@
-# systems_work
-Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
-------
+# Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
-## 3 October 2019 
+## Friday, 4 October 2019 
+pointers 
+variable type for storing memory addresses
+8 bytes large 
+
+| Primitives | Byte Size |
+|------|-|
+|char  |1|
+|short |2|
+|int   |4|
+|long  |8|
+|float |4|
+|double|8|
+ 
+### Pointers
+- pointers are unsigned integers of 8 bytes (unless more specialized)
+- stores a memory address(integer) that fits in 8 bytes or less 
+- pointers can point to pointers 
+- 8 bytes is a combination of os and hardware restrictions 
+
+#### CPU
+- stuff goes into a CPU (instruction (add next two values to come in/ copy next value to memory location) or data)
+    - instructions (e.g. add next two values to come in, copy next value to memory location)
+    - several inputs are fed in at once / all read at same time 
+    - each input is a bit
+    - As standard, 64 bits (8 bytes) come in at a time 
+- CPU outputs a result
+    - 2 gHz - runs 2 billion cycles per second
+
+- processer must be able to read memory address in one input 
+    - thus pointers are 8 bytes in 64 bit processer machines 
+    - size of the pointer will depend on the size of the processing available 
+    - running same program on different computers may result in different pointer sizes 
+    - there are 2^64 theoretical memory addresses 
+
+int x;
+
+in memory x refers to a 4 byte chunck of memory 
+has address 2000; 
+
+int *p;
+
+in memory p refers to a 8 byte chunk of memory 
+has address 2010;
+
+x = 12; 
+in x, there is 12
+
+uninitialized pointers point to unknown memory address
+
+p = 51;
+assigning a literal value to a pointer is a bad idea
+points to memory address 51. (get a segmentation error probably)
+
+only literal value is 0 -> does not point to anything (actually it points to null)
+
+p = &x; (address of x)
+p has a value of 2000; 
+p points to x;
+
+*(dereference)
+
+*p = 6;
+dereference means go to this location and interact with value; 
+
+at memory location 2000, the value is now 6; 
+
+go to this memory location 
+get me the value 
+
+pointers as parameters 
+def foo(int *f) {
+    *f = 10;
+}
+
+foo(p)
+
+functions get own memory address space 
+every parameter is copied because it is copied 
+
+new variable f is made in the memory space for foo 
+f is a copy of p
+value of f is 2000 
+
+f has its own memory address (20)
+
+can modify primitive if you have its address
+
+adding one to int star adds 4 to the memory address 
+
+## Thursday, 3 October 2019 
 java .java -> .class -> jvm -> os -> hardware 
 
 c .c -> executable ->os -> hardware 
@@ -38,4 +126,3 @@ segmentation fault
  
  p = "hello" //now points to the immutable literal 
  
-
