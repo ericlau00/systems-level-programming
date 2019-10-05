@@ -15,10 +15,11 @@ variable type for storing memory addresses
 |double|8|
  
 ### Pointers
+- pointers are variable types for storing memory addresses
 - pointers are unsigned integers of 8 bytes (unless more specialized)
 - stores a memory address(integer) that fits in 8 bytes or less 
 - pointers can point to pointers 
-- 8 bytes is a combination of os and hardware restrictions 
+- the reason for pointers being 8 bytes large is a combination of os and hardware restrictions 
 
 #### CPU
 - stuff goes into a CPU (instruction (add next two values to come in/ copy next value to memory location) or data)
@@ -35,60 +36,48 @@ variable type for storing memory addresses
     - running same program on different computers may result in different pointer sizes 
     - there are 2^64 theoretical memory addresses 
 
-int x;
+```
+int x; // in memory, x refers to a 4 byte chunk (for example purposes, the address is 2000)
 
-in memory x refers to a 4 byte chunck of memory 
-has address 2000; 
+int *p; // in memory, p refers to an 8 byte chunk (for example purposes, theg address is 2010)
 
-int *p;
+x = 12; // the value 12 is assigned to x
 
-in memory p refers to a 8 byte chunk of memory 
-has address 2010;
+// uninitialized pointers point to unknown memory address
 
-x = 12; 
-in x, there is 12
+p = 51; 
+//assigning a literal value to a pointer is a bad idea
+// points to memory address 51. (get a segmentation error probably)
 
-uninitialized pointers point to unknown memory address
-
-p = 51;
-assigning a literal value to a pointer is a bad idea
-points to memory address 51. (get a segmentation error probably)
-
-only literal value is 0 -> does not point to anything (actually it points to null)
+//only literal value  that is viable is 0 -> points to null
 
 p = &x; (address of x)
-p has a value of 2000; 
-p points to x;
+//p has a value of 2000; 
+//p points to x;
 
-*(dereference)
+//* (dereference means go to this location and interact with value)
 
-*p = 6;
-dereference means go to this location and interact with value; 
+*p = 6; //at memory location 2000, the value is now 6; 
 
-at memory location 2000, the value is now 6; 
-
-go to this memory location 
-get me the value 
-
-pointers as parameters 
+// pointers as parameters 
 def foo(int *f) {
     *f = 10;
 }
 
 foo(p)
 
-functions get own memory address space 
-every parameter is copied because it is copied 
+//functions get own memory address space and every parameter is copied
 
-new variable f is made in the memory space for foo 
-f is a copy of p
-value of f is 2000 
+//new variable f is made in the memory space for foo 
+//f is a copy of p
+//value of f is 2000 
 
-f has its own memory address (20)
+//f has its own memory address (20)
 
-can modify primitive if you have its address
+//can modify primitive if you have its address
 
-adding one to int star adds 4 to the memory address 
+//adding one to int star adds 4 to the memory address 
+```
 
 ## Thursday, 3 October 2019 
 java .java -> .class -> jvm -> os -> hardware 
