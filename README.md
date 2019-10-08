@@ -1,10 +1,33 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
-## Friday, 4 October 2019 
-pointers 
-variable type for storing memory addresses
-8 bytes large 
+## Tuesday, 8 October 2019 
+### Makefile
+- automates creation of executables 
+- not specific to C though it was made in mind for C
+- puts different files together for single executable 
+- gcc outputs executable file via system
+- javac outputs a java .class file (binary machine code) that is not fully executable 
+- .class files are run by java virtual machine
+- can only have one main function in C program
+- multi-file C program has one main with various other functions 
+- however C files you have, you should have that many separate make compilation components 
+- gcc -c makes C files into machine code that goes into gcc -o to make an executable file 
+- each compilation should be .c file and all .h dependencies
+- there should be a .o file for each .c file, and these .o files should  be put in the all executable creation line 
+- create make files even for one file programs for convenience
+- make stops when there is an error in one of the lines of execution 
 
+### Finding your type 
+- size_t is a primitive 
+- typedef provides a new name for an existing data type 
+- `typedef real_name new_name;`
+- `typedef unsigned long size_t;`
+- `size_t x = 139; //x is really of type unsigned long`
+- better readability 
+- size_t tells you more about a variable type than unsigned long does 
+- do not have to worry about the size of size_t despite being on different computers that have different variable type sizes 
+
+## Friday, 4 October 2019 
 | Primitives | Byte Size |
 |------|-|
 |char  |1|
