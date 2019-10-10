@@ -1,5 +1,12 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Thursday, 10 October 2019
+### Finding your type (cont'd)
+- using `typedef` is useful so that the same source doe is portable to different systems.
+- size of a pointer is 8 and size of a size_t is 8 on 64 bit machine 
+- size of a pointer is 4 and size of a size_t is 4 on 32 bit machine 
+- can typedef a typedef
+
 ## Tuesday, 8 October 2019 
 ### Makefile
 - automates creation of executables 
