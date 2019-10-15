@@ -1,5 +1,37 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Tuesday, 15 October 2019
+### Struct
+- create a new type that is a collection of values 
+- similar to an enum
+- Student data (string name, id integer, average double) 
+- these do not work like objects 
+  - they have no methods 
+- struct declaration 
+` struct {int a; char x; } s;  //s is a variable of type: struct {int a; char x;} `
+- struct instantiation 
+- we use the .operator to access a value inside a struct 
+- `s.a = 10; s.x = '@'; `
+- c interacts with structs the same way it does primitives 
+- structs passed into functions will have a copy made of them for local function 
+  - values of original struct are not changed even if changed in passed struct 
+- may have extra memory for padding but has guaranteed amount of variables inside structs 
+- storing pointers in a struct is not advised if you want to actually store values in an array because it will only have enough space for the pointer, not whole array 
+- ` struct foo {int a; char x;}; //variable name is NOT foo. foo is the "name" of the structure so it is no longer anonymous `
+- foo is a prototype for the struct 
+- ` struct foo s0; ` 
+- gcc will correctly transfer values between non-anon structs 
+- generally a bad idea to typedef a struct
+  - this hides that a variable is a struct 
+- there needs to be a semicolon after brace closes struct because gcc expects a variable name at end of struct prototype.
+- normally don't declare structs inside main
+  - struct prototypes are defined outside of any particular function 
+  - can also declare struct prototypes in header files 
+- . operator has precedence over the * (dereference) operator
+  - To access data from a struct pointer, you would do:
+  - ` struct foo *p; p = &s; (*p).a; `
+  - new operater is `p->x;`
+  
 ## Thursday, 10 October 2019
 ### Finding your type (cont'd)
 - using `typedef` is useful so that the same source doe is portable to different systems.
