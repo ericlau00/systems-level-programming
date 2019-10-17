@@ -1,11 +1,15 @@
 struct wallet {
     char* first_name;
     char* last_name;
-    double money; 
+    int money; 
 };
 
-struct wallet * createWallet();
+struct wallet createWallet();
 
-int printWallet(struct wallet wallet);
+int printWallet(struct wallet* wallet);
 
-int spendMoney(double amount);
+int spendMoney(struct wallet* wallet, int amount);
+
+int getMoney(struct wallet* wallet, int amount);
+
+int changeOwner(struct wallet* wallet, char* first_name, char* last_name);
