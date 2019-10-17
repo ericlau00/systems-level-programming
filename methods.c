@@ -21,13 +21,18 @@ int printWallet(struct wallet* wallet) {
 }
 
 int spendMoney(struct wallet* wallet, int amount) {
-
+    wallet->money -= amount;
+    return 0;
 }
 
-int getMoney(struct wallet* wallet, int amount) {
+int gainMoney(struct wallet* wallet, int amount) {
+    wallet->money += amount;
+    return 0;
 
 }
 
 int changeOwner(struct wallet* wallet, char* first_name, char* last_name) {
-
+    wallet->first_name = first_name;
+    wallet->last_name = last_name;
+    return 0;
 }
