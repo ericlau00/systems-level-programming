@@ -1,5 +1,11 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Friday, 18 October 2019
+`struct login u = new_account(4190);`
+- memory is allocated of size `struct login` for u
+- new_account creates a `struct login` locally but returns the data
+- this data is copied over into the memory at u. 
+
 ## Tuesday, 15 October 2019
 ### Struct
 - create a new type that is a collection of values 
