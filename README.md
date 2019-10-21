@@ -1,5 +1,42 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Monday, 21 October 2019
+How to get into a heap of trouble 
+```c
+struct login {
+  char password[100];
+  int id;
+};
+```
+- can be an efficiency problem if you copy the login struct over and over again if passing to method or returning it 
+- if login struct instead has a pointer to an array, you cannot be sure that that array will exist forever
+
+### Stack memory vs Heap memory 
+- every program can have its own stack and heap 
+- Stack memory 
+  - as a data structure, it is last in first out (push stuff onto stacks and then pop them off)
+  - Stores all normally declared variables including pointers, structs, arrays, and function calls 
+  - Functions are pushed onto the stack in the order that they are called, and popped off when completed 
+  - When a function is popped off the stack, the stack memory associated with it is released 
+
+```c
+int main(){
+  printf("%lf\n", sqrt(2));
+  return 0;
+}
+```
+- sqrt is the third function call that is put on the stack 
+  - sqrt completes and gets popped off 
+- printf is the second function call that is put on the stack 
+  - printf completes and gets popped off
+- main is the first function call that is put on the stack 
+  - main completes and gets popped off 
+
+- Heap memory 
+  - Stores dynamically allocated memory
+  - memory is allocated during runtime 
+  - Data will remain in the heap until it is manually released (or the program terminates)
+    
 ## Friday, 18 October 2019
 `struct login u = new_account(4190);`
 - memory is allocated of size `struct login` for u
@@ -30,7 +67,7 @@
 - generally a bad idea to typedef a struct
   - this hides that a variable is a struct 
 - there needs to be a semicolon after brace closes struct because gcc expects a variable name at end of struct prototype.
-- normally don't declare structs inside main
+- normally don't declare structs inside mai
   - struct prototypes are defined outside of any particular function 
   - can also declare struct prototypes in header files 
 - . operator has precedence over the * (dereference) operator
