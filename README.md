@@ -1,5 +1,34 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Tuesday, 22 October 2019
+### Malloc & Free: The Dynamic Duo!
+
+- Dynamic memory allocation 
+```c
+  malloc(size_t x)
+  // allocates x bytes of heap memory
+  // returns the address at the beginning of the allocation
+  // returns a void * 
+  
+  int *p
+  p = malloc(5 * sizeof(int));
+  
+  // variable type limits what you can do
+  
+  free(void * p)
+  // releases dynamically allocated memory 
+  // has one parameter, a pointer to the beginning of a dynamically allocated block of memory 
+  // cannot free parts of allocation have to free all of an allocation 
+  // can still access a piece of memory after releasing it but this is not a good idea 
+  // set a pointer to NULL after freeing it as a caution
+  
+  // every call to malloc/calloc should have a corresponding free. 
+  
+  calloc(size_t n, size_t x)
+  
+  // allocates n * x bytes of memory, ensuring every bit is 0; 
+```
+
 ## Monday, 21 October 2019
 How to get into a heap of trouble 
 ```c
