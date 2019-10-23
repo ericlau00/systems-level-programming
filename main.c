@@ -3,6 +3,24 @@
 #include "headers.h"
 
 int main() {
-    struct node *n0
-    return 0;
+    struct node * list = malloc(sizeof(struct node));
+    list = NULL;
+
+    printf("Printing empty list:\n");
+    print_list(list);
+
+    printf("Adding #s 0-9 to list.\n");
+    int value;
+    for( value = 0; value < 10; value++) {
+        list = insert_front(list, value);
+    }
+
+    printf("Printing list:\n");
+    print_list(list);
+
+    printf("Freeing list.\n");
+    list = free_list(list);
+
+    printf("Printing list:\n");
+    print_list(list);
 }

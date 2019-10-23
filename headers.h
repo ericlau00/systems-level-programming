@@ -1,7 +1,7 @@
 struct node {
     int i;
     struct node * next;
-}
+};
 
 void print_list(struct node * node);
 
