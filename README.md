@@ -1,5 +1,31 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Wednesday, 23 October 2019
+```c
+  calloc(size_t n, size_t x)
+  
+  // allocates n * x bytes of memory, ensuring every bit is 0; 
+  // extra work is being done by the os by malloc
+  // no need to use calloc if you immediately add data 
+  // use when making strings so you know you have a terminating null
+  
+  //works like malloc in all other ways
+  
+  realloc(void *p, size_t x)
+  
+  // changes the amount of memory allocated for a block to x bytes 
+  // x is not how much you increase the allocation by
+  
+  // p must point to the beginning of a block 
+  
+  // returns a pointer to the beginning of the block ( this is not always the same as p )
+  
+  // if x is smaller than the original size of the allocation, the extra bytes will be released 
+  // if x is larger than the original size then either:
+      // 1. if there is enough space at the end of the original allocation, the original allocation will be updated 
+      // 2. if there is not enough space, a new allocation will be created, containing all the original values. The original allocation will be freed
+```
+
 ## Tuesday, 22 October 2019
 ### Malloc & Free: The Dynamic Duo!
 
