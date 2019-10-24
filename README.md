@@ -23,7 +23,7 @@
   - Tool for debugging memory issues in C programs
   - You must compile with -g in order to use valgrind 
   - Usage:
-    - `valgrind --leak-check=yes program`
+    - `valgrind --leak-check=yes ./program`
     - provides heap memory summary 
     
 ## Wednesday, 23 October 2019
