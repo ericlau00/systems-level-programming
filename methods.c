@@ -26,3 +26,7 @@ struct node * free_list(struct node * node) {
     }
     return node;
 }
+
+struct node * remove(struct node * front, int data) {
+    for(; front != NULL; front )
+}
