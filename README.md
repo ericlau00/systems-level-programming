@@ -1,5 +1,31 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Thursday, 24 October 2019
+### Get 'Dem Bugs
+- GDB - GNU DeBugger
+  - to use gdb, you must compile using the -g flag with gcc
+  - Basic usage `$ gdb program`
+    - This starts a gdb shell from which you can run your program
+  - Commands from in the gdb shell
+    - run: runs the program until it ends, crashes, gets a signal
+    - list: show the lines of code run around a crash
+    - print var: print the value of var
+    - backtrace: show the current stack 
+    - break number: breaks at line number
+  - Running a program in pieces
+    - run: restarts the program
+    - continue: run the program until the next breakpoint, crash, end
+    - next: runs the next line of the program 
+      - if next line is a function call, it will call entire function
+    - step: run the next line of the program, if that is a function call, run only the next line of that function 
+
+- Valgrind
+  - Tool for debugging memory issues in C programs
+  - You must compile with -g in order to use valgrind 
+  - Usage:
+    - `valgrind --leak-check=yes program`
+    - provides heap memory summary 
+    
 ## Wednesday, 23 October 2019
 ```c
   calloc(size_t n, size_t x)
