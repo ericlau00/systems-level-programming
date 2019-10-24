@@ -3,8 +3,7 @@
 #include "headers.h"
 
 int main() {
-    struct node * list = malloc(sizeof(struct node));
-    list = NULL;
+    struct node * list;
 
     printf("Printing empty list:\n");
     print_list(list);
@@ -23,4 +22,5 @@ int main() {
 
     printf("Printing list:\n");
     print_list(list);
+
 }
