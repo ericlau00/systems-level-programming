@@ -3,7 +3,7 @@
 #include "headers.h"
 
 int main() {
-    struct node * list;
+    struct node * list = NULL;
 
     printf("Printing empty list:\n");
     print_list(list);
@@ -27,29 +27,29 @@ int main() {
 
     printf("\n");
 
-    printf("Removing 8:\n");
-    list = remove_node(list, 8);
-    print_list(list);
+    // printf("Removing 8:\n");
+    // list = remove_node(list, 8);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 0:\n");
-    list = remove_node(list, 0);
-    print_list(list);
+    // printf("Removing 0:\n");
+    // list = remove_node(list, 0);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 1:\n");
-    list = remove_node(list, 1);
-    print_list(list);
+    // printf("Removing 1:\n");
+    // list = remove_node(list, 1);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 5:\n");
-    list = remove_node(list, 5);
-    print_list(list);
+    // printf("Removing 5:\n");
+    // list = remove_node(list, 5);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
     printf("Freeing list.\n");
     list = free_list(list);

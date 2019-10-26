@@ -13,3 +13,6 @@ run:
 clean:
 	rm *.o
 	rm program
+
+val:
+	valgrind --leak-check=yes --track-origins=yes ./program
