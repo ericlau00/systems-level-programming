@@ -1,5 +1,19 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Monday, 28 October 2019
+`make DEBUG=true` compiles gcc with -g flag 
+
+```make
+ifeq ($(DEBUG), true) //variable DEBUG is defined at the commandline 
+  CC = gcc -g //convention that variable names are all caps 
+else 
+  CC = gcc
+endif
+
+all: main.o llist.o
+  $(CC) -o test_list main.o llist.o
+```
+
 ## Thursday, 24 October 2019
 ### Get 'Dem Bugs
 - GDB - GNU DeBugger
