@@ -19,43 +19,43 @@ int main() {
     printf("Printing list:\n");
     print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 10:\n");
-    list = remove_node(list, 10);
-    print_list(list);
+    // printf("Removing 10:\n");
+    // list = remove_node(list, 10);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 9:\n");
-    list = remove_node(list, 9);
-    print_list(list);
+    // printf("Removing 9:\n");
+    // list = remove_node(list, 9);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 8:\n");
-    list = remove_node(list, 8);
-    print_list(list);
+    // printf("Removing 8:\n");
+    // list = remove_node(list, 8);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 0:\n");
-    list = remove_node(list, 0);
-    print_list(list);
+    // printf("Removing 0:\n");
+    // list = remove_node(list, 0);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 1:\n");
-    list = remove_node(list, 1);
-    print_list(list);
+    // printf("Removing 1:\n");
+    // list = remove_node(list, 1);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
-    printf("Removing 5:\n");
-    list = remove_node(list, 5);
-    print_list(list);
+    // printf("Removing 5:\n");
+    // list = remove_node(list, 5);
+    // print_list(list);
 
-    printf("\n");
+    // printf("\n");
 
     printf("Freeing list.\n");
     list = free_list(list);
@@ -63,4 +63,5 @@ int main() {
     printf("Printing list:\n");
     print_list(list);
 
+    return 0;
 }

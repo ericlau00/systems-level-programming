@@ -1,11 +1,11 @@
 all: main.o methods.o
-	gcc -o program main.o methods.o
+	gcc -g -o program main.o methods.o
 
 main.o: main.c headers.h
-	gcc -c -g main.c
+	gcc -g -c main.c
 
 methods.o: methods.c headers.h
-	gcc -c -g methods.c 
+	gcc -g -c methods.c 
 
 run: 
 	./program

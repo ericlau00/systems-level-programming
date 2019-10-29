@@ -18,9 +18,10 @@ struct node * insert_front(struct node * node, int value) {
 }
 
 struct node * free_list(struct node * node) {
-    for(; node != NULL; node = node->next) {
+    for(; node != NULL;) {
         printf("freeing node: %d\n", node->i);
         struct node * current = node;
+        node = node -> next;
         free(current);
         current = NULL;
     }
@@ -29,17 +30,26 @@ struct node * free_list(struct node * node) {
 
 struct node * remove_node(struct node * front, int data) {
     struct node * current = front; 
-    struct node * previous = NULL;
-    for(; current != NULL; previous = current, current = current -> next) { 
-        if(current->i == data) {
-            struct node * nix = current;
-            
-            if(previous == NULL) front = front->next;
-            else previous->next = nix->next;
-            
-            free(nix);
-            nix = NULL;
+    if (front == NULL ) return front;
+    else {
+        if(front->i == data) {
+            front = front -> next;
+            free(current);
+            current = NULL;
+            return front;
+        }
+        else {
+            while(current->next != NULL) {
+                if(current->next->i == data) {
+                    struct node * nix = current;
+                    current = current ->next -> next; 
+                    free(nix);
+                    nix = NULL;
+                    return front;
+                }
+                current = current -> next;
+            }
         }
     }
-    return front; 
+    return 0;
 }
