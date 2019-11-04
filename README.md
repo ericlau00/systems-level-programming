@@ -41,6 +41,15 @@ r = a ^ b
 b = r ^ b => a ^ b ^ b = 0 ^ a 
 a = r ^ b => a ^ b ^ a = 0 ^ b
 ```
+- **Swapping Bits Using Only Bitwise Operators**
+
+| a | b | a = a ^ b | b = a ^ b | a = b ^ a | 
+|---|---|-----------|-----------|-----------|
+| T | T | F         | T         | T         |
+| T | F | T         | T         | F         |
+| F | T | T         | F         | T         |
+| F | F | F         | F         | F         |
+
 ## Monday, 28 October 2019
 `make DEBUG=true` compiles gcc with -g flag 
 
