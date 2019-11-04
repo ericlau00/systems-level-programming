@@ -1,5 +1,46 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Monday, 4 November 2019
+### A Bit O' Wisdom
+- binary, octal and hexadecimal integers
+- `%d //decimal intenger`
+- `%o //octal integer`
+- `%x //hexadecimal integer `
+
+- you can define native integers in base 2, 8 and 16 by using the following prefixes 
+- `0b : binary`
+- `0 : octal `
+- `0x : hexadecimal`
+
+- Why do programmers confuse halloween with christmas?
+- Because 31 oct is 25 dec
+
+#### Bitwise operators 
+- Evaluated on every bit of a value 
+- ~x is negation (flip every bit of x)
+- a | b is bitwise or (perform logical or for each pair of bits in (a,b))
+- a & b is bitwise and (perform logical and for each pair of bits in (a,b))
+- a ^ b is bitwise xor 
+```c
+char i = 13
+i: 00001101
+
+!i: 0 
+~i: 11110010
+
+char x = 8;
+x: 00001000
+~i | x : 11111010
+~i & x : 00000000
+
+a = a ^ b // a contains bits not in common
+b = a ^ b // b now contains a 
+a = b ^ a // a now contains b 
+
+r = a ^ b 
+b = r ^ b => a ^ b ^ b = 0 ^ a 
+a = r ^ b => a ^ b ^ a = 0 ^ b
+```
 ## Monday, 28 October 2019
 `make DEBUG=true` compiles gcc with -g flag 
 
