@@ -1,5 +1,36 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Wednesday, 6 November 2019
+### Opening up a world of possibilities 
+- Everything is a file 
+- File permissions 
+  - 3 types of permissions 
+    - read
+    - write
+    - execute 
+  - See permissions with `ls -l`
+  - Permissions can be represented as 3-digit binary #s, or 1-digit octal #s
+    - 100 <==> 4 => read only
+    - 111 <==> 7 => read, write, execute 
+  - There are 3 permission "areas"
+    - user, group, others 
+    - Membership in each area is mutually exclusive
+    - The creator of the file is the default setting for the user and group of a file. 
+  - `chmod permissions file`
+    - command line utility to change file permissions
+    - The owner of a file (or root) can change permissions
+    - File ownership and group can be changed with the `chown` and `chgrp` command line utilities 
+- File Table
+  - A list of all files being used by a program while it is running 
+  - Contains basic information like the file's location and size 
+  - The file table has limited space, which contains a power of 2 and commonly 256.
+  - `getdtablesize()` will return the file table size 
+  - Each file is given an integer index, starting a 0, this is the file descriptor 
+  - There are 3 files always open in the table:
+    - 0 or STDIN_FILENO: stdin
+    - 1 or STDOUT_FILENO: stdout
+    - 2 or STDERR_FILENO: stderr
+    
 ## Monday, 4 November 2019
 ### A Bit O' Wisdom
 - binary, octal and hexadecimal integers
