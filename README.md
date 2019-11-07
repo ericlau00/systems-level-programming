@@ -1,5 +1,24 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Thursday, 7 November 2019
+- ` open - <fcntl.h>`
+  - Add a file to the file table and returns its file descriptor
+  - If open fails, -1 is returned, extra error information can be found in errno. 
+    - errno is an int variable that can be found in `<errno.h>`
+    - `strerror(errno)` returns the string descriptor of the errno
+  - `open(path, flags, mode)` 
+    - mode 
+      - only used when creating a file. Set the new file's permissions using a 3 digit octal #. 
+    - flags
+      - determine what you plan to do with the file, using the following constants and combine with |:
+        - O_RDONLY
+        - O_WRONLY
+        - O_RDWR
+        - O_APPEND
+        - O_TRUNC
+        - O_CREAT
+        - O_EXCL: when combined with O_CREAT, will return an error if the file exists. 
+  
 ## Wednesday, 6 November 2019
 ### Opening up a world of possibilities 
 - Everything is a file 
@@ -16,7 +35,7 @@
     - user, group, others 
     - Membership in each area is mutually exclusive
     - The creator of the file is the default setting for the user and group of a file. 
-  - `chmod permissions file`
+  - `chmod permissions file` (change mode)
     - command line utility to change file permissions
     - The owner of a file (or root) can change permissions
     - File ownership and group can be changed with the `chown` and `chgrp` command line utilities 
