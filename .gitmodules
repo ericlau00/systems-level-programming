@@ -1,9 +1,0 @@
-[submodule "13_make"]
-	path = 13_make
-	url = git@github.com:mks65/make-ericlau00.git
-[submodule "09_arrays"]
-	path = 09_arrays
-	url = git@github.com:mks65/array-swap-ericlau00.git
-[submodule "14_string"]
-	path = 14_string
-	url = git@github.com:mks65/strings-solon.git
