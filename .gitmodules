@@ -1,0 +1,3 @@
+[submodule "03_euler"]
+	path = 03_euler
+	url = git@github.com:mks65/euler-ericlau00.git
