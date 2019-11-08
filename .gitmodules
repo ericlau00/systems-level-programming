@@ -10,3 +10,6 @@
 [submodule "intro/14_strings"]
 	path = intro/14_strings
 	url = git@github.com:mks65/strings-solon.git
+[submodule "projects/00_my-tunes"]
+	path = projects/00_my-tunes
+	url = git@github.com:MattChann/systems-p00.git
