@@ -1,6 +1,3 @@
-[submodule "03_euler"]
-	path = 03_euler
-	url = git@github.com:mks65/euler-ericlau00.git
 [submodule "13_make"]
 	path = 13_make
 	url = git@github.com:mks65/make-ericlau00.git
