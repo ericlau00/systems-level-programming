@@ -7,3 +7,6 @@
 [submodule "14_string"]
 	path = 14_string
 	url = git@github.com:mks65/strings-solon.git
+[submodule "03_euler"]
+	path = 03_euler
+	url = git@github.com:mks65/euler-ericlau00.git
