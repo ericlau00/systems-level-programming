@@ -1,5 +1,275 @@
 # Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
+## Thursday, 7 November 2019
+- ` open - <fcntl.h>`
+  - Add a file to the file table and returns its file descriptor
+  - If open fails, -1 is returned, extra error information can be found in errno. 
+    - errno is an int variable that can be found in `<errno.h>`
+    - `strerror(errno)` returns the string descriptor of the errno
+  - `open(path, flags, mode)` 
+    - mode 
+      - only used when creating a file. Set the new file's permissions using a 3 digit octal #. 
+    - flags
+      - determine what you plan to do with the file, using the following constants and combine with |:
+        - O_RDONLY
+        - O_WRONLY
+        - O_RDWR
+        - O_APPEND
+        - O_TRUNC
+        - O_CREAT
+        - O_EXCL: when combined with O_CREAT, will return an error if the file exists. 
+  
+## Wednesday, 6 November 2019
+### Opening up a world of possibilities 
+- Everything is a file 
+- File permissions 
+  - 3 types of permissions 
+    - read
+    - write
+    - execute 
+  - See permissions with `ls -l`
+  - Permissions can be represented as 3-digit binary #s, or 1-digit octal #s
+    - 100 <==> 4 => read only
+    - 111 <==> 7 => read, write, execute 
+  - There are 3 permission "areas"
+    - user, group, others 
+    - Membership in each area is mutually exclusive
+    - The creator of the file is the default setting for the user and group of a file. 
+  - `chmod permissions file` (change mode)
+    - command line utility to change file permissions
+    - The owner of a file (or root) can change permissions
+    - File ownership and group can be changed with the `chown` and `chgrp` command line utilities 
+- File Table
+  - A list of all files being used by a program while it is running 
+  - Contains basic information like the file's location and size 
+  - The file table has limited space, which contains a power of 2 and commonly 256.
+  - `getdtablesize()` will return the file table size 
+  - Each file is given an integer index, starting a 0, this is the file descriptor 
+  - There are 3 files always open in the table:
+    - 0 or STDIN_FILENO: stdin
+    - 1 or STDOUT_FILENO: stdout
+    - 2 or STDERR_FILENO: stderr
+    
+## Monday, 4 November 2019
+### A Bit O' Wisdom
+- binary, octal and hexadecimal integers
+- `%d //decimal intenger`
+- `%o //octal integer`
+- `%x //hexadecimal integer `
+
+- you can define native integers in base 2, 8 and 16 by using the following prefixes 
+- `0b : binary`
+- `0 : octal `
+- `0x : hexadecimal`
+
+- Why do programmers confuse halloween with christmas?
+- Because 31 oct is 25 dec
+
+#### Bitwise operators 
+- Evaluated on every bit of a value 
+- ~x is negation (flip every bit of x)
+- a | b is bitwise or (perform logical or for each pair of bits in (a,b))
+- a & b is bitwise and (perform logical and for each pair of bits in (a,b))
+- a ^ b is bitwise xor 
+```c
+char i = 13
+i: 00001101
+
+!i: 0 
+~i: 11110010
+
+char x = 8;
+x: 00001000
+~i | x : 11111010
+~i & x : 00000000
+
+a = a ^ b // a contains bits not in common
+b = a ^ b // b now contains a 
+a = b ^ a // a now contains b 
+
+r = a ^ b 
+b = r ^ b => a ^ b ^ b = 0 ^ a 
+a = r ^ b => a ^ b ^ a = 0 ^ b
+```
+- **Swapping Bits Using Only Bitwise Operators**
+
+| a | b | a = a ^ b | b = a ^ b | a = b ^ a | 
+|---|---|-----------|-----------|-----------|
+| T | T | F         | T         | T         |
+| T | F | T         | T         | F         |
+| F | T | T         | F         | T         |
+| F | F | F         | F         | F         |
+
+## Monday, 28 October 2019
+`make DEBUG=true` compiles gcc with -g flag 
+
+```make
+ifeq ($(DEBUG), true) //variable DEBUG is defined at the commandline 
+  CC = gcc -g //convention that variable names are all caps 
+else 
+  CC = gcc
+endif
+
+all: main.o llist.o
+  $(CC) -o test_list main.o llist.o
+```
+
+## Thursday, 24 October 2019
+### Get 'Dem Bugs
+- GDB - GNU DeBugger
+  - to use gdb, you must compile using the -g flag with gcc
+  - Basic usage `$ gdb program`
+    - This starts a gdb shell from which you can run your program
+  - Commands from in the gdb shell
+    - run: runs the program until it ends, crashes, gets a signal
+    - list: show the lines of code run around a crash
+    - print var: print the value of var
+    - backtrace: show the current stack 
+    - break number: breaks at line number
+  - Running a program in pieces
+    - run: restarts the program
+    - continue: run the program until the next breakpoint, crash, end
+    - next: runs the next line of the program 
+      - if next line is a function call, it will call entire function
+    - step: run the next line of the program, if that is a function call, run only the next line of that function 
+
+- Valgrind
+  - Tool for debugging memory issues in C programs
+  - You must compile with -g in order to use valgrind 
+  - Usage:
+    - `valgrind --leak-check=yes ./program`
+    - provides heap memory summary 
+    
+## Wednesday, 23 October 2019
+```c
+  calloc(size_t n, size_t x)
+  
+  // allocates n * x bytes of memory, ensuring every bit is 0; 
+  // extra work is being done by the os by malloc
+  // no need to use calloc if you immediately add data 
+  // use when making strings so you know you have a terminating null
+  
+  //works like malloc in all other ways
+  
+  realloc(void *p, size_t x)
+  
+  // changes the amount of memory allocated for a block to x bytes 
+  // x is not how much you increase the allocation by
+  
+  // p must point to the beginning of a block 
+  
+  // returns a pointer to the beginning of the block ( this is not always the same as p )
+  
+  // if x is smaller than the original size of the allocation, the extra bytes will be released 
+  // if x is larger than the original size then either:
+      // 1. if there is enough space at the end of the original allocation, the original allocation will be updated 
+      // 2. if there is not enough space, a new allocation will be created, containing all the original values. The original allocation will be freed
+```
+
+## Tuesday, 22 October 2019
+### Malloc & Free: The Dynamic Duo!
+
+- Dynamic memory allocation 
+```c
+  malloc(size_t x)
+  // allocates x bytes of heap memory
+  // returns the address at the beginning of the allocation
+  // returns a void * 
+  
+  int *p
+  p = malloc(5 * sizeof(int));
+  
+  // variable type limits what you can do
+  
+  free(void * p)
+  // releases dynamically allocated memory 
+  // has one parameter, a pointer to the beginning of a dynamically allocated block of memory 
+  // cannot free parts of allocation have to free all of an allocation 
+  // can still access a piece of memory after releasing it but this is not a good idea 
+  // set a pointer to NULL after freeing it as a caution
+  
+  // every call to malloc/calloc should have a corresponding free. 
+  
+  calloc(size_t n, size_t x)
+  
+  // allocates n * x bytes of memory, ensuring every bit is 0; 
+```
+
+## Monday, 21 October 2019
+How to get into a heap of trouble 
+```c
+struct login {
+  char password[100];
+  int id;
+};
+```
+- can be an efficiency problem if you copy the login struct over and over again if passing to method or returning it 
+- if login struct instead has a pointer to an array, you cannot be sure that that array will exist forever
+
+### Stack memory vs Heap memory 
+- every program can have its own stack and heap 
+- Stack memory 
+  - as a data structure, it is last in first out (push stuff onto stacks and then pop them off)
+  - Stores all normally declared variables including pointers, structs, arrays, and function calls 
+  - Functions are pushed onto the stack in the order that they are called, and popped off when completed 
+  - When a function is popped off the stack, the stack memory associated with it is released 
+
+```c
+int main(){
+  printf("%lf\n", sqrt(2));
+  return 0;
+}
+```
+- sqrt is the third function call that is put on the stack 
+  - sqrt completes and gets popped off 
+- printf is the second function call that is put on the stack 
+  - printf completes and gets popped off
+- main is the first function call that is put on the stack 
+  - main completes and gets popped off 
+
+- Heap memory 
+  - Stores dynamically allocated memory
+  - memory is allocated during runtime 
+  - Data will remain in the heap until it is manually released (or the program terminates)
+    
+## Friday, 18 October 2019
+`struct login u = new_account(4190);`
+- memory is allocated of size `struct login` for u
+- new_account creates a `struct login` locally but returns the data
+- this data is copied over into the memory at u. 
+
+## Tuesday, 15 October 2019
+### Struct
+- create a new type that is a collection of values 
+- similar to an enum
+- Student data (string name, id integer, average double) 
+- these do not work like objects 
+  - they have no methods 
+- struct declaration 
+` struct {int a; char x; } s;  //s is a variable of type: struct {int a; char x;} `
+- struct instantiation 
+- we use the .operator to access a value inside a struct 
+- `s.a = 10; s.x = '@'; `
+- c interacts with structs the same way it does primitives 
+- structs passed into functions will have a copy made of them for local function 
+  - values of original struct are not changed even if changed in passed struct 
+- may have extra memory for padding but has guaranteed amount of variables inside structs 
+- storing pointers in a struct is not advised if you want to actually store values in an array because it will only have enough space for the pointer, not whole array 
+- ` struct foo {int a; char x;}; //variable name is NOT foo. foo is the "name" of the structure so it is no longer anonymous `
+- foo is a prototype for the struct 
+- ` struct foo s0; ` 
+- gcc will correctly transfer values between non-anon structs 
+- generally a bad idea to typedef a struct
+  - this hides that a variable is a struct 
+- there needs to be a semicolon after brace closes struct because gcc expects a variable name at end of struct prototype.
+- normally don't declare structs inside mai
+  - struct prototypes are defined outside of any particular function 
+  - can also declare struct prototypes in header files 
+- . operator has precedence over the * (dereference) operator
+  - To access data from a struct pointer, you would do:
+  - ` struct foo *p; p = &s; (*p).a; `
+  - new operater is `p->x;`
+  
 ## Thursday, 10 October 2019
 ### Finding your type (cont'd)
 - using `typedef` is useful so that the same source doe is portable to different systems.
