@@ -56,6 +56,12 @@ If you do not set the mode argument when creaing a file, you will get random per
   - If open fails, -1 is returned, extra error information can be found in errno. 
     - errno is an int variable that can be found in `<errno.h>`
     - `strerror(errno)` returns the string descriptor of the errno
+    ```c
+    if (fd < 0) {
+        printf("errno: %d error: %s\n", errno, strerror(errno));
+        return 0;
+    }
+    ```
   - `open(path, flags, mode)` 
     - mode 
       - only used when creating a file. Set the new file's permissions using a 3 digit octal #. 
