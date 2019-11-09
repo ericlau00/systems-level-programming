@@ -14,4 +14,5 @@ run:
 	./program
 
 clean:
+	rm numbers
 	rm program
