@@ -34,7 +34,7 @@ If you do not set the mode argument when creaing a file, you will get random per
     - buff must be a pointer 
 ```c
   char buff[100];
-  int fd = open("foo", 0_RDONLY);
+  int fd = open("foo", O_RDONLY);
   read(fd, buff, sizeof(buff));
 ```
   
