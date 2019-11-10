@@ -1,4 +1,7 @@
-# Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
+# systems-level-programming
+Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
+
+This repository contains notes, work from introductory lessons, and projects of the course.
 
 ## Friday, 8 November 2019
 ### Read your writes!
