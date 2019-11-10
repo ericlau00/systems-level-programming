@@ -44,8 +44,8 @@ int main() {
         printf("errno: %d error: %s\n", errno, strerror(errno));
         return 0; 
     }
-    int * buff = malloc( size_bytes );
-    if( read(fd, buff, size_bytes) < 0) {
+    int buff[10];
+    if( read(fd, &buff, size_bytes) < 0) {
         printf("errno: %d error: %s\n", errno, strerror(errno));
         return 0;
     }
@@ -55,25 +55,22 @@ int main() {
         printf("\t random %d: %d\n", i, buff[i]);
     }
 
-    free(buff);
     close(fd);
 
     return 0;
 }
 
 int _random() {
-    int * buff = malloc(sizeof(int));
+    int random;
     int fd = open("/dev/random", O_RDONLY); 
     if (fd < 0) {
         printf("errno: %d error: %s\n", errno, strerror(errno));
         return 0;
     } 
-    if (read(fd, buff, sizeof(int)) < 0) {
+    if (read(fd, &random, sizeof(int)) < 0) {
         printf("errno: %d error: %s\n", errno, strerror(errno));
         return 0;
     } 
-    int rand = *buff;
-    free(buff);
     close(fd);
-    return rand;
+    return random;
 }
