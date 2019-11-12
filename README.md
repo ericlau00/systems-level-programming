@@ -3,6 +3,20 @@ Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Tuesday, 12 November 2019
+### Seek and ye shall find 
+`lseek - <unistd.h>`
+  - Set the ucrrent position in an open file
+  - `lseek(file_descriptor, offset, whence)`
+    - `offset` - number of bytes to move the position by. Can be negative  
+    - `whence` - where to measure the offset from
+      - `SEEK_SET` - offset is evaluated from the beginning of the file 
+      - `SEEK_CUR` - offset is relative to the current position in the file
+      - `SEEK_END` - offset is evaluated from the end of the file 
+    - returns the number of bytes the current position is from the beginning of the file or -1 (errno).
+
+**Files are storage, not memory. You cannot go past the bounds of a file!**
+
 ## Friday, 8 November 2019
 ### Read your writes!
 ```c 
