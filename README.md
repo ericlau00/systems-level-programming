@@ -22,6 +22,9 @@ This repository contains notes, work from introductory lessons, and projects of 
           - file permissions of int type 
         - `st_atime, st_mtime`
           - last access, last modification
+          - These are `time_t` variables. We can use functions in `time.h` to make sense of them
+            - `ctime(time)` returns a string based on time variable
+            
 ## Tuesday, 12 November 2019
 ### Seek and ye shall find 
 `lseek - <unistd.h>`
