@@ -1,6 +1,6 @@
-# 03_linked_list
+# Work 03: Enlist Your C Skillz
 
-This will be due Monday (10/28) morning.
+This will be due **Monday (10/28) morning**.
 
 Write a simple linked list program. You will need a define a node struct with the following data members:
 - A piece of data (your choice)
