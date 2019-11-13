@@ -3,6 +3,25 @@ Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Wednesday, 13 November 2019 
+### Seek and ye shall find
+`stat - <sys/stat.h`
+  - Get information about a file (metadata)
+    - As storage got cheaper and OSs got faster, more metadata exists 
+    - For text files, metadata contains hash tables for the contents of the file, allowing for searches to return relevant returns based on content queries. 
+  - `stat(path, stat_buffer)`
+    - `stat_buffer`
+      - must be a pointer to a `struct stat`
+      - All the file information gets put into the stat buffer 
+      - Some of the fields in `struct stat`:
+        - `st_size`
+          - file size in bytes
+        - `st_uid, st_gid`
+          - user id, group id
+        - `st_mode`
+          - file permissions of int type 
+        - `st_atime, st_mtime`
+          - last access, last modification
 ## Tuesday, 12 November 2019
 ### Seek and ye shall find 
 `lseek - <unistd.h>`
