@@ -3,7 +3,7 @@
 There is a function called `stat`. It is used to get information about a file. Write a program that uses stat to display the following information about a file:
 - file size
 - mode (permissions)
-- time of last access (displayed in the following format: `Fri Oct 28 09:03:01 2016`
+- time of last access (displayed in the following format: `Fri Oct 28 09:03:01 2016`)
 - Note
     - You may hardcode the file that your program uses, make sure the program works when I download and run it.
     - If only there were some file that you know I will have and where it is... hmm...
