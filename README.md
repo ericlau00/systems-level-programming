@@ -10,10 +10,10 @@ There is a function called `stat`. It is used to get information about a file. W
 
 Once you have that, try the following:
 - Modify the size so it is printed out in human readable form (that is using B, KB, MB, GB).
-You may want to look into the `sprintf` function to help.
+    - You may want to look into the `sprintf` function to help.
 - Attempt to print out the permissions in ls -l form, ignoring the early bits that include the file type information
-Permissions are of type `mode_t`, which is an integer type.
-The permissions section of the mode is stored in the last 9 bits of the `mode_t` data type.
+    - Permissions are of type `mode_t`, which is an integer type.
+    - The permissions section of the mode is stored in the last 9 bits of the `mode_t` data type.
 
 Github clone url:
 **https://github.com/mks65/stat.git**
