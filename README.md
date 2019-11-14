@@ -1,11 +1,29 @@
 # systems-level-programming
-Systems Level Programming w/ Mr. Dyrland-Weaver at Stuyvesant 2019-2020
+Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Thursday, 14 November 2019
+### Where do compsci clergy keep their files? - In d'rectory!
+All directories are 4096 bytes and are executable. 
+
+Directories 
+- A linux directory is a file containing the names of the files within the directory along with basic information, like file type.
+- Linux will increase the directory size if needed.
+
+`opendir - <dirent.h>`
+  - open a directory file
+  - This will ***not*** change the current working directory (cwd), it only allows your program to read the contents of the directory file
+  - `opendir(path)`
+    - Returns a pointer to a directory stream (`DIR *`)
+
+`readdir - <dirent.h>`
+  - `readdir(dir_stream)`
+    - Returns a pointer to the next entry in a directory steam, or NULL if all entries have alreadty been returned. 
+    -`struct dirent - <sys/types.h>`
 ## Wednesday, 13 November 2019 
 ### Seek and ye shall find
-`stat - <sys/stat.h`
+`stat - <sys/stat.h>`
   - Get information about a file (metadata)
     - As storage got cheaper and OSs got faster, more metadata exists 
     - For text files, metadata contains hash tables for the contents of the file, allowing for searches to return relevant returns based on content queries. 
