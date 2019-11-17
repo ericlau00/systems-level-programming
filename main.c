@@ -37,11 +37,11 @@ int main() {
 
         print_permissions(buff.st_mode % 01000);
 
-        printf(" %ld", buff.st_nlink);  
+        printf(" %2ld", buff.st_nlink);  
 
         //2 left justifies 
         //user and group owners 
-        printf(" %2s %s", getpwuid(buff.st_uid)->pw_name, getgrgid(buff.st_gid)->gr_name);
+        printf(" %s %s", getpwuid(buff.st_uid)->pw_name, getgrgid(buff.st_gid)->gr_name);
         
         //5 left justifies 
         printf(" %5ld", buff.st_size);
