@@ -47,8 +47,10 @@ long print_directory(char * path, int sub) {
             }
 
             size += print_file(buff, file);
-
-            if(file->d_type == DT_DIR && strcmp(file->d_name, "..") != 0 && strcmp(file->d_name, ".") != 0) {
+            if(strcmp(file->d_name, ".git") == 0) {
+                printf("\tI AM NOT RECURSING THROUGH .git FOR CLARITY'S SAKE.\n");
+            }
+            else if(file->d_type == DT_DIR && strcmp(file->d_name, "..") != 0 && strcmp(file->d_name, ".") != 0) {
                 size += print_directory(file_path, sub+1);
             }
         }
