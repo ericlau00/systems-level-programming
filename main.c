@@ -18,16 +18,29 @@ long print_file(struct stat buff, struct dirent * file);
 int print_permissions(int perm);
 int print_time(char * time); 
 
-int main() {
-    char * path = ".";
-    printf("Statistics for directory: %s\n", path);
-    printf("Total size: %ld bytes\n", print_directory(path, 0));
+int main(int argc, char * argv[]) {
+    char directory[256];
+    if(argc == 1) {
+        printf("Enter a directory to scan: ");
+        fgets(directory, sizeof(directory), stdin);
+    } else {
+        strcpy(directory, argv[1]);
+    }
+    int i;
+    for(i = 0; i < sizeof(directory); i++) {
+        if(directory[i] == '\n') {
+            directory[i] = '\0';
+        }
+    }
+    printf("Statistics for directory: %s\n", directory);
+    printf("Total size: %ld bytes\n", print_directory(directory, 0));
     return 0;
 }
 
 long print_directory(char * path, int sub) {
     long total_size = 0;
     struct stat buff = fill_buff(path);
+    // printf("%s\n",path);
     // st_mode returns the permissions and whether is directory. 
     // the first digit is 4 if is a directory 
     if(buff.st_mode / 010000 == DT_DIR) {
@@ -47,10 +60,7 @@ long print_directory(char * path, int sub) {
             }
 
             size += print_file(buff, file);
-            if(strcmp(file->d_name, ".git") == 0) {
-                printf("\tI AM NOT RECURSING THROUGH .git FOR CLARITY'S SAKE.\n");
-            }
-            else if(file->d_type == DT_DIR && strcmp(file->d_name, "..") != 0 && strcmp(file->d_name, ".") != 0) {
+            if(file->d_type == DT_DIR && strcmp(file->d_name, "..") != 0 && strcmp(file->d_name, ".") != 0) {
                 size += print_directory(file_path, sub+1);
             }
         }

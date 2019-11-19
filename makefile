@@ -11,7 +11,7 @@ val:
 	valgrind --leak-check=yes --track-origins=yes ./program
 
 run: 
-	./program
+	./program hello t
 
 clean:
 	rm program
