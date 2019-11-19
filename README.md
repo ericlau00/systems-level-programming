@@ -3,6 +3,19 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Tuesday, 19 November 2019
+### You want Input? fget(s) about it!
+`sscanf - <stdio.h>`
+  - Reads in data from a string using a format string to determine types 
+  - `sscanf( char * s, char * format, void * var 0, void * var1, ...)`
+  - Copies the data into each variable 
+  - example: 
+    ```c
+    int x; float f; double d;
+    sscanf(s, "%d, %f, %lf", &x, &f, &d);
+    ```
+  - returns number of conversions made
+    
 ## Monday, 18 November 2019
 ### You want Input? fget(s) about it!
 Command Line Arguments:
@@ -19,7 +32,7 @@ Command Line Arguments:
   - Reads at most `n - 1` characters from file stream `f` and stores it in `s`, appends `NULL` to the end. 
 - Stops at newline, end of file, or the byte limit. 
 - File stream
-  - `File *` type, more complex than a file descriptor, allows for buffered input. 
+  - `FILE *` type, more complex than a file descriptor, allows for buffered input. 
   - `stdin` is a `FILE *` variable
 - Example:
   - `fgets(s, 100, stdin)`
