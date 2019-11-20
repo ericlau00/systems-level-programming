@@ -3,6 +3,13 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Wednesday, 20 November 2019
+### Are your processes runing? - Then go out and catch them!
+- Processes 
+  - Every running program is a process 
+  - A process can create subprocesses, but these are no different from regular processes
+  - A processor can handle 1 process per cycle (per core).
+  - "Multitasking" appears to happen because the processor switches between all the active processes quickly.
 ## Tuesday, 19 November 2019
 ### You want Input? fget(s) about it!
 `sscanf - <stdio.h>`
