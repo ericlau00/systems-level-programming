@@ -3,6 +3,19 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Thursday, 21 November 2019
+### Mixed Signals
+- Signal 
+  - Limited way of sending information to a process.
+  - Sends an integer value to a process 
+  - `$ kill`
+    - Command line utility to send a signal to a process
+    - `$ kill pid`
+      - Sends signal 15 (`SIGTERM`) to `pid`
+    - `$ kill -signal pid`
+      - Sends `signal` to `pid`
+    - `$ killall [-signal] process_name`
+    - Signals in c programs `<signal.h>`
 ## Wednesday, 20 November 2019
 ### Are your processes runing? - Then go out and catch them!
 - Processes 
