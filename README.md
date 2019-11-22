@@ -3,6 +3,32 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Friday, 22 November 2019
+```c
+static void sighandler(int signo) {
+  if(signo == SIGINT) {
+    printf("haha! Can't touch this!\n");
+  }
+  if(signo == SIGSEGV) {
+    printf("northing to see here..\n");
+  }
+}
+```
+
+### Sending Mixed Signals 
+Signal handling in c programs `<signal.h>`
+- `sighandler`
+  - To intercept signals in a c program you must create a signal handling function 
+  - Some signals (like `SIGKILL`, `SIGSTOP`) cannot be caught 
+  - `static void sighandler( int signo )`
+    - Must be `static`, must be `void`, must take a single `int` parameter 
+    - `static`
+      - Static values in c exist outside the normall call stack, they can be accessed regardless of the function at the top.
+      - For static variables, this also means they retain their value even if the function they are declared in has ended.
+      - Static values (variables and functions) can only be access from within the file they are declared. 
+- `exit(int)`
+  - quits a program
+      
 ## Thursday, 21 November 2019
 ### Mixed Signals
 - Signal 
