@@ -3,6 +3,33 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Monday, 25 November 2019
+### Executive Decisions
+
+The `exec` family - `<unistd.h>`
+- A group of c functions that can be used to run other programs.
+- Replaces the current process with the new program. 
+- `execl`
+  - `execl(path, command, arg0, arg1 ... NULL)`
+    - `path` - the path to the program (ex: `"/bin/ls"`)
+    - `command` - the name of the program (ex: `"ls"`)
+    - `arg 0 ...` - Each command line argument you wish to give the program (ex: `"-a", "-l"`)
+    - The last argument must be `NULL` to signify the end of the number of arguments  
+- `which <program-name>` gives location of where program is located 
+- `echo <text>` prints stuff 
+- `echo $PATH` gives list of directories where shell looks for executable programs (PATH environment variables)
+- `execlp`
+  - `execlp(path, command, arg0, arg1 ... NULL)`
+  - Works like `execl`, except it used the `$PATH` environment variable for commands.
+- `execvp`
+  - `execvp(path, argument_array)`
+    - `argument_array` 
+      - Array of strings containing the arguments to the command. 
+      - `argument_array[0]` must be the name of the program.
+      - The last entry must be `NULL`
+
+- `strsep - <string.h>`
+  - Parse a string with a common delimiter 
 ## Friday, 22 November 2019
 ```c
 static void sighandler(int signo) {
