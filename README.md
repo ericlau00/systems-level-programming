@@ -4,7 +4,7 @@
 - `strsep( <SOURCE>, <DELIMETER> )`
 - Locates the first occurrence of any character in the DELIMITER string and replaces it with NULL
 - Returns the beginning of the original string
-- Sets the source string pointer  to point to the index 1 byte after the location of the new NULL
+- Sets the source string pointer to point to the index 1 byte after the location of the new NULL
 - Since the source variable's value is changed, it must be a pointer to a string.
 - To test it out, try the following code:
  
@@ -15,7 +15,7 @@ printf("[%s]\n", strsep( &s1, "-" ));
 printf("[%s]\n", s1);
 ```
 
-Write a function that uses strep to parse a line of arguments
+Write a function that uses strsep to parse a line of arguments
 - Use the following header: `char ** parse_args( char * line );`
 - It should take a string with the command line invocation of a program (like "ls -a -l")
     - Note that there is a " " between each argument
