@@ -12,6 +12,19 @@
 #include <pwd.h>
 #include <grp.h>
 
+char ** parse_args(char * line ) { 
+    char * buff = line;
+    char ** args;
+    int arg = 0;
+    while(buff != NULL) { 
+        args[arg++] = strsep(&buff, " ");
+    }
+    return args; 
+}
+
 int main() {
+    char line[8] = "ls -a -l";
+    char ** args = parse_args(line);
+    execvp(args[0], args);
     return 0;
 }
