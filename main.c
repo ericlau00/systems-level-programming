@@ -19,6 +19,7 @@ char ** parse_args(char * line ) {
     while(buff != NULL) { 
         args[arg++] = strsep(&buff, " ");
     }
+    args[arg] = NULL;
     return args; 
 }
 
