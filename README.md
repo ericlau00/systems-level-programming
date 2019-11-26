@@ -3,6 +3,23 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Tuesday, 26 November 2019
+- `strsep - <string.h>`
+  - Parse a string with a common delimiter 
+  - In place parsing 
+  - `strsep( source, delimiters)`  
+    - Locates the first occurence of any of the specified `delimiters` in a string and replaces it with `NULL`
+    - `delimiters` is a string, each character is interpreted as a distinct delimiter
+    - Returns the beginning of the original string, sets `source` to the string starting at 1 index past the location of the new `NULL`
+    ```c
+    char line[100] = "woah-this-is-cool";
+    char *curr = line; 
+    char *token; 
+    token = strseo(&curr, "-");
+      // replaces the - after woah with NULL
+      // returns a pointer to the w in "woah"
+      // sets curr to point to the t in "this-is-cool"
+    ```
 ## Monday, 25 November 2019
 ### Executive Decisions
 
@@ -28,8 +45,6 @@ The `exec` family - `<unistd.h>`
       - `argument_array[0]` must be the name of the program.
       - The last entry must be `NULL`
 
-- `strsep - <string.h>`
-  - Parse a string with a common delimiter 
 ## Friday, 22 November 2019
 ```c
 static void sighandler(int signo) {
