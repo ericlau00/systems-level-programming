@@ -16,7 +16,7 @@ char ** parse_args(char * line ) {
 }
 
 int main() {
-    char line[8] = "ls -a -l";
+    char line[9] = "ls -a -l";
     char ** args = parse_args(line);
     execvp(args[0], args);
     return 0;
