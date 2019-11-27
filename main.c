@@ -20,12 +20,14 @@ char ** parse_args(char * line ) {
         args[arg++] = strsep(&buff, " ");
     }
     args[arg] = NULL;
+    printf("%p\n", args);
     return args; 
 }
 
 int main() {
     char line[8] = "ls -a -l";
     char ** args = parse_args(line);
+    printf("%p\n", args);
     execvp(args[0], args);
     return 0;
 }
