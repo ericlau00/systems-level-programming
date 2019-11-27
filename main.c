@@ -14,7 +14,7 @@
 
 char ** parse_args(char * line ) { 
     char * buff = line;
-    char ** args;
+    char ** args = malloc(sizeof(char) * 6);
     int arg = 0;
     while(buff != NULL) { 
         args[arg++] = strsep(&buff, " ");
