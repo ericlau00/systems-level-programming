@@ -15,6 +15,7 @@ Managing Sub-Proccesses
   - Returns the pid of the child that exited, or -1 (errno), and gathers information about the child process (this is called reaping)
   - If multiple child processes exit, an arbitrary one will be reaped. 
   - `wait(status)`
+  
 ## Tuesday, 26 November 2019
 - `strsep - <string.h>`
   - Parse a string with a common delimiter 
