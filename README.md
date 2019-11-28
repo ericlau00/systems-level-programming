@@ -7,7 +7,7 @@ This repository contains notes, work from introductory lessons, and projects of 
 - `strsep - <string.h>`
   - Parse a string with a common delimiter 
   - In place parsing 
-  - `strsep( source, delimiters)`  
+  - `strsep( source, delimiters )`  
     - Locates the first occurence of any of the specified `delimiters` in a string and replaces it with `NULL`
     - `delimiters` is a string, each character is interpreted as a distinct delimiter
     - Returns the beginning of the original string, sets `source` to the string starting at 1 index past the location of the new `NULL`
