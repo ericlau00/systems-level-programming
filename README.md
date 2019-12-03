@@ -4,6 +4,24 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Monday, 2 December, 2019
+
+### Wait for it...
+
+#### Managing Sub-Processes
+
+- `wait() <sys/wait.h>`
+  - Stops a parent process from running until any child has exited.
+  - Returns the pid of the child that exited, or -1 (errno), and gathers information about the child process (this is called reaping)
+  - If multiple child processes exit, an arbitrary one will be reaped.
+  - `wait(status)`
+  - Status macros
+    - Usage: `MACRO(status)`
+    - `WIFEXITED`: True if child exited normally
+    - `WEXITSTATUS`: The return value of the child
+    - `WIFSIGNALED`: True if child exited due to a signal
+    - `WTERMSIG`: The signal number intercepted by the child
+
 ## Wednesday, 27 November 2019
 
 ### What the fork?
@@ -15,11 +33,6 @@ Managing Sub-Proccesses
   - The child process is a duplicate of the parent process.
   - All parts of the parent process are copied, including stack and heap memory, and the file table.
   - Returns 0 to the child and the child's pid, or -1 (error), to the parent.
-- `wait() <sys/wait.h>`
-  - Stops a parent process from running until any child has exited.
-  - Returns the pid of the child that exited, or -1 (errno), and gathers information about the child process (this is called reaping)
-  - If multiple child processes exit, an arbitrary one will be reaped.
-  - `wait(status)`
 
 ## Tuesday, 26 November 2019
 
