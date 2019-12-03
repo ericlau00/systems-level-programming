@@ -3,17 +3,18 @@
 You (and a partner if desired - highly suggested) are to write a shell. The shell should implement as many of these features as possible. The first being the most basic up to the last which is the most complex.
 
 1. Read a line at a time, parse the line to separate the command from its arguments. It should then fork and exec the command. The parent process should wait until the exec'd program exits and then it should read the next command.
-- Note: exit and cd cannot be run through a forked child process, you will have to implement these commands on your own.
-  - check out the `chdir()` function
+   - Note: exit and cd cannot be run through a forked child process, you will have to implement these commands on your own.
+     - check out the `chdir()` function
 2. Read and separate multiple commands on one line with ;. That is, the line `ls -l ; echo hello` should first run the command `ls -l` and then `echo hello`.  
 3. Implement simple redirection using > (redirecting stdout) and < (redirecting stdin). - **This will be explained in class**. 
 4. Implement simple pipes, that is: ls | wc would run ls and use the output from ls as the input for wc. - **This will be explained in class.**
-- Check out `popen()` for this. 
+   - Check out `popen()` for this. 
+
 All of these commands work in bash, so use it to check out the functionality of each feature if you are unclear about anything.
 
 Specific requirements
 1. Every function you write must have a function header describing the arguments, return value and what the function does.
-- Use modular design liberally. This is a large program.
+   - Use modular design liberally. This is a large program.
 2. You should have a readme file with the following:
    1. A description of what features your shell implements
    2. A description of what features you attempted to implement but were unsuccessful
