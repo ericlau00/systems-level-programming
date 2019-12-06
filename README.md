@@ -4,6 +4,32 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Friday, 6 December, 2019
+
+### Redirection; how does it ... SQUIRREL
+
+#### File Redirection
+
+- Changing the usual input/output behavior of a program
+- Command line redirection
+  - `>` redirects stdout to a file
+    - Overwrites the contents of the file.
+    - `>>` redirects stdout to a file by appending.
+  - `2>` redirects stderr to a file
+    - Overwrites the file (`2>>` appends)
+  - `&>` redirects stdout and stderr
+    - Overwrites the file (`&>>` appends)
+  - `<` redirects stdin from a file
+
+#### Redirection in c programs
+
+- `dup2 - <unistd.h>`
+  - `dup2( fd1, fd2 )` redirects `fd2` to `fbb1`
+  - Any use of fd2 will not act on the fole for td1
+- `dup - <unistd.h>`
+  - `dup(fd)` duplicates an exiting entry if the file in rthe table
+  - Returns a new file descriptor for the dpublicate entry
+
 ## Monday, 2 December, 2019
 
 ### Wait for it...
