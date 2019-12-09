@@ -1,8 +1,8 @@
 ifeq ($(DEBUG), true)
 	CC = gcc -g
-else 
+else
 	CC = gcc
-endif 
+endif
 
 all: main.c
 	$(CC) -o program main.c
@@ -10,7 +10,7 @@ all: main.c
 val:
 	valgrind --leak-check=yes --track-origins=yes ./program
 
-run: 
+run:
 	./program
 
 clean:
