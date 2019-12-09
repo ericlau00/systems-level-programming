@@ -16,7 +16,7 @@ methods.o: methods.c headers.h
 	$(CC) -c methods.c
 
 val:
-	valgrind -v --leak-check=yes --track-origins=yes ./program
+	valgrind --leak-check=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./program
 
 run:
 	./program

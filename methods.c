@@ -38,7 +38,7 @@ int count(char * line, char delimiter) {
 char ** parser(char * line, char delimiter) {
     char * buff = line;
     char separator[1] = {delimiter};
-    char ** args = malloc(sizeof(char) * count(line, delimiter) + 1);
+    char ** args = malloc(sizeof(char *) * (count(line, delimiter) + 1));
     int arg = 0;
     while(buff != NULL)
         args[arg++] = strsep(&buff, separator);
@@ -50,10 +50,12 @@ int exec_line(char * line) {
     int num_commands = count(line, ';');
     char ** commands = parser(line, ';');
 
-    printf("%d\n", num_commands);
-
     int i;
     for(i = 0; i < num_commands; i++) {
+        if(strcmp(commands[i], "exit") == 0) {
+            free(commands);
+            exit(0);
+        }
         exec_command(commands[i]);
     }
 
@@ -64,15 +66,12 @@ int exec_line(char * line) {
 int exec_command(char * command) {
     char ** args = parser(command, ' ');
 
-    if(strcmp(command, "exit") == 0) {
-        exit(0);
-    }
-
     if(fork() == 0) {
         int i;
         if(execvp(args[0], args) == -1) {
             printf("%s: command not found\n", args[0]);
         }
+        free(args);
         exit(0);
     }
     else {
