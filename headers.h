@@ -12,16 +12,13 @@
 #include <pwd.h>
 #include <grp.h>
 #include <sys/wait.h>
-#include "headers.h"
 
-int main() {
-    int SIZE = 256;
-    char input[SIZE];
+int stripper(char * line, char strip);
 
-    while(1) {
-        fgets(input, SIZE, stdin);
-        stripper(input, '\n');
-        exec_line(input);
-    }
-    return 0;
-}
+int count(char * line, char delimiter);
+
+char ** parser(char * line, char delimiter);
+
+int exec_line(char * line);
+
+int exec_command(char * command);
