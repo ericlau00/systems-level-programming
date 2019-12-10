@@ -12,4 +12,4 @@
 	url = git@github.com:mks65/strings-solon.git
 [submodule "projects/00-my_tunes"]
 	path = projects/00-my_tunes
-	url = git@github.com:MattChann/systems-p00.git
+	url = https://github.com/MattChann/systems-p00.git
