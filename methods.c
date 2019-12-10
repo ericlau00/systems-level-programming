@@ -24,25 +24,25 @@ int stripper(char * line, char strip) {
     return 0;
 }
 
-int count(char * line, char delimiter) {
+int count(char * line, char delim) {
     int count = 1;
     int i;
     for(i = 0 ; line[i] != '\0'; i++) {
-        if(line[i] == delimiter) {
+        if(line[i] == delim) {
             count++;
         }
     }
     return count;
 }
 
-char ** parser(char * line, char delimiter) {
+char ** parser(char * line, char delim) {
     char * buff = line;
-    char separator[1] = {delimiter};
-    char ** args = malloc(sizeof(char *) * (count(line, delimiter) + 1));
+    char separator[1] = {delim};
+    char ** args = malloc(sizeof(char *) * (count(line, delim) + 1));
     int arg = 0;
     while(buff != NULL) {
         char * argument = strsep(&buff, separator);
-        if(strcmp(argument, "") == 0) {
+        if(strcmp(argument, "") == 0 && count(line, delim) > 1) {
             continue;
         }
         args[arg++] = argument;
@@ -80,7 +80,9 @@ int exec_command(char * command) {
     else if(fork() == 0) {
         int i;
         if(execvp(args[0], args) == -1) {
-            printf("%s: command not found\n", args[0]);
+            if(count(command, ' ') > 1) {
+                printf("%s: command not found\n", args[0]);
+            }
         }
         free(args);
         exit(0);

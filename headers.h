@@ -15,9 +15,9 @@
 
 int stripper(char * line, char strip);
 
-int count(char * line, char delimiter);
+int count(char * line, char delim);
 
-char ** parser(char * line, char delimiter);
+char ** parser(char * line, char delim);
 
 int exec_line(char * line);
 
