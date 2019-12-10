@@ -40,8 +40,14 @@ char ** parser(char * line, char delimiter) {
     char separator[1] = {delimiter};
     char ** args = malloc(sizeof(char *) * (count(line, delimiter) + 1));
     int arg = 0;
-    while(buff != NULL)
-        args[arg++] = strsep(&buff, separator);
+    while(buff != NULL) {
+        char * argument = strsep(&buff, separator);
+        if(strcmp(argument, "") == 0) {
+            continue;
+        }
+        args[arg++] = argument;
+
+    }
     args[arg] = NULL;
     return args;
 }
@@ -56,6 +62,7 @@ int exec_line(char * line) {
             free(commands);
             exit(0);
         }
+
         exec_command(commands[i]);
     }
 
@@ -66,7 +73,11 @@ int exec_line(char * line) {
 int exec_command(char * command) {
     char ** args = parser(command, ' ');
 
-    if(fork() == 0) {
+    if(strcmp(args[0], "cd") == 0) {
+        chdir(args[1]);
+    }
+
+    else if(fork() == 0) {
         int i;
         if(execvp(args[0], args) == -1) {
             printf("%s: command not found\n", args[0]);
