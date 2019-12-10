@@ -42,11 +42,10 @@ char ** parser(char * line, char delim) {
     int arg = 0;
     while(buff != NULL) {
         char * argument = strsep(&buff, separator);
-        if(strcmp(argument, "") == 0 && count(line, delim) > 1) {
+        if(strcmp(argument, "") == 0) {
             continue;
         }
         args[arg++] = argument;
-
     }
     args[arg] = NULL;
     return args;
@@ -58,12 +57,14 @@ int exec_line(char * line) {
 
     int i;
     for(i = 0; i < num_commands; i++) {
-        if(strcmp(commands[i], "exit") == 0) {
-            free(commands);
-            exit(0);
-        }
+        if(commands[i] != NULL) {
+            if(strcmp(commands[i], "exit") == 0) {
+                free(commands);
+                exit(0);
+            }
 
-        exec_command(commands[i]);
+            exec_command(commands[i]);
+        }
     }
 
     free(commands);
@@ -73,7 +74,9 @@ int exec_line(char * line) {
 int exec_command(char * command) {
     char ** args = parser(command, ' ');
 
-    if(strcmp(args[0], "cd") == 0) {
+    if(args[0] == NULL) { }
+
+    else if(strcmp(args[0], "cd") == 0) {
         chdir(args[1]);
     }
 
