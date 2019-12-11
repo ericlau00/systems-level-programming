@@ -135,5 +135,21 @@ int redir_stdout(char * command) {
 
 int redir_stdin(char * command) {
     char ** args = parser(command, '<');
+    stripper(args[1], ' ');
+
+    int input = open(args[1], O_RDONLY);
+    if(input < 0) {
+        printf("errno: %d error: %s\n", errno, strerror(errno));
+    }
+
+    int save = dup(0);
+    close(0);
+    dup(input);
+    exec_command(args[0]);
+    close(input);
+    dup2(save, 0);
+
+    return 0;
+
     return 0;
 }
