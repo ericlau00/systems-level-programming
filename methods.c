@@ -14,6 +14,36 @@
 #include <sys/wait.h>
 #include "headers.h"
 
+int exec_line(char * line) {
+    int num_commands = count(line, ';');
+    char ** commands = parser(line, ';');
+
+    int i;
+    for(i = 0; i < num_commands; i++) {
+        if(commands[i] != NULL) {
+            if(strcmp(commands[i], "exit") == 0) {
+                free(commands);
+                exit(0);
+            }
+
+            if(count(commands[i], '>') - 1 > 0) {
+                redir(commands[i], '>');
+            }
+
+            else if (count(commands[i], '<') - 1 > 0) {
+                redir(commands[i], '<');
+            }
+
+            else {
+                exec_command(commands[i]);
+            }
+        }
+    }
+
+    free(commands);
+    return 0;
+}
+
 int stripper(char * line, char strip) {
     while (line[0] == strip) {
         int shift;
@@ -58,36 +88,6 @@ char ** parser(char * line, char delim) {
     return args;
 }
 
-int exec_line(char * line) {
-    int num_commands = count(line, ';');
-    char ** commands = parser(line, ';');
-
-    int i;
-    for(i = 0; i < num_commands; i++) {
-        if(commands[i] != NULL) {
-            if(strcmp(commands[i], "exit") == 0) {
-                free(commands);
-                exit(0);
-            }
-
-            if(count(commands[i], '>') - 1 > 0) {
-                redir_stdout(commands[i]);
-            }
-
-            else if (count(commands[i], '<') - 1 > 0) {
-                redir_stdin(commands[i]);
-            }
-
-            else {
-                exec_command(commands[i]);
-            }
-        }
-    }
-
-    free(commands);
-    return 0;
-}
-
 int exec_command(char * command) {
     char ** args = parser(command, ' ');
 
@@ -114,42 +114,27 @@ int exec_command(char * command) {
     return 0;
 }
 
-int redir_stdout(char * command) {
-    char ** args = parser(command, '>');
+int redir(char * command, char std) {
+    char ** args = parser(command, std);
     stripper(args[1], ' ');
-    int output = open(args[1], O_CREAT | O_EXCL | O_WRONLY, 0777);
-    if (output < 0 && errno == 17) { // file exists
-        output = open(args[1], O_TRUNC | O_WRONLY);
-    }
-    else if (output < 0) {
-        printf("errno: %d error: %s\n", errno, strerror(errno));
-    }
-    int save = dup(1);
-    close(1);
-    dup(output);
+    int put = get_fd(args[1], std);
+
+    int num = (std == '>') ? 1 : 0;
+    int save = dup(num);
+    close(num);
+    dup(put);
     exec_command(args[0]);
-    close(output);
-    dup2(save, 1);
+    close(put);
+    dup2(save, num);
     return 0;
 }
 
-int redir_stdin(char * command) {
-    char ** args = parser(command, '<');
-    stripper(args[1], ' ');
-
-    int input = open(args[1], O_RDONLY);
-    if(input < 0) {
-        printf("errno: %d error: %s\n", errno, strerror(errno));
+int get_fd(char * file, char std) {
+    int put = (std == '>')
+        ? open(file, O_CREAT | O_EXCL | O_WRONLY, 0777)
+        : open(file, O_RDONLY);
+    if (std == '>' && put < 0 && errno == 17) {
+        put = open(file, O_TRUNC | O_WRONLY);
     }
-
-    int save = dup(0);
-    close(0);
-    dup(input);
-    exec_command(args[0]);
-    close(input);
-    dup2(save, 0);
-
-    return 0;
-
-    return 0;
+    return put;
 }
