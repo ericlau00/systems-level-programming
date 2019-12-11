@@ -22,3 +22,7 @@ char ** parser(char * line, char delim);
 int exec_line(char * line);
 
 int exec_command(char * command);
+
+int redir_stdout(char * command);
+
+int redir_stdin(char * command);
