@@ -13,16 +13,10 @@
 #include <grp.h>
 #include <sys/wait.h>
 
-int stripper(char * line, char strip);
-
-int count(char * line, char delim);
-
-char ** parser(char * line, char delim);
-
 int exec_line(char *line);
 
 int exec_command(char * command);
 
-int redir(char * command, char std);
+int exec_redir(char * command, char std);
 
-int get_fd(char * file, char std);
+int exec_fork(char * command, char ** args);

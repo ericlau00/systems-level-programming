@@ -4,16 +4,19 @@ else
 	CC = gcc
 endif
 
-all: main.o methods.o
+DEPENDENCIES = execution.o parse.o
 
-all: main.o methods.o
-	$(CC) -o program main.o methods.o
+all: main.o $(DEPENDENCIES)
+	$(CC) -o program main.o $(DEPENDENCIES)
 
-main.o: main.c headers.h
+main.o: main.c execution.h parse.o
 	$(CC) -c main.c
 
-methods.o: methods.c headers.h
-	$(CC) -c methods.c
+execution.o: execution.c execution.h
+	$(CC) -c execution.c
+
+parse.o: parse.c parse.h
+	$(CC) -c parse.c
 
 val:
 	valgrind --leak-check=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./program

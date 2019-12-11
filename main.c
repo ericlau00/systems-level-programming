@@ -12,7 +12,8 @@
 #include <pwd.h>
 #include <grp.h>
 #include <sys/wait.h>
-#include "headers.h"
+#include "execution.h"
+#include "parse.h"
 
 int main() {
     int SIZE = 256;
