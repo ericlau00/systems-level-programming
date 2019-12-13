@@ -4,6 +4,46 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Thursday, 12 December, 2019
+
+### A Pipe by any Other Name...
+
+Named Pipes
+
+- Also known as FIFOs (first in first out).
+- Same as unnamed pipes except FIFOs have a name that can be used to identify them via different programs.
+- Like unnamed pipes, FIFOs are unidirectional.
+- `mkfifo`
+  - Shell command to make a FIFO
+
+- `mkfifo - <sys/types.h> <sys/stat.h>`
+  - c function to create a FIFO
+  - Return 0 on success and -1 on failure
+  - Once created, the FIFO acts like a regular file, and we can use open, read, write, and close on it.
+  - FIFOs will block on open until both ends of the pipe have a connection.
+  - `mkfifo(name, permissions)`
+
+## Wednesday, 11 December, 2019
+
+### Ceci n'est pas une pipe
+
+Pipe
+
+- A conduit between 2 separate processes on the same computer.
+- Pipes have 2 ends, a raed end and a write end.
+- Pipes act just like files (i.e. you can `read()` and `write()` to send any kind of data).
+- Pipes exist in memory.
+- Unnamed pipes have no external identifier.
+
+- `pipe - <unistd.h>`
+  - Create an unnamed pipe.
+  - Returns 0 if the pipe was created, -1 if not.
+  - `pipe(descriptors)`
+    - `descriptors`
+      - Array that will contain the descriptors for each end of the pipe. Must be an `int` array of size 2.
+      - `descriptors[0]` is the read end.
+      - `descriptors[1]` is the write end.
+
 ## Friday, 6 December, 2019
 
 ### Redirection; how does it ... SQUIRREL
@@ -24,11 +64,11 @@ This repository contains notes, work from introductory lessons, and projects of 
 #### Redirection in c programs
 
 - `dup2 - <unistd.h>`
-  - `dup2( fd1, fd2 )` redirects `fd2` to `fbb1`
-  - Any use of fd2 will not act on the fole for td1
+  - `dup2( fd1, fd2 )` redirects `fd2` to `fd1`
+  - Any use of fd2 will now act on the file for fd1
 - `dup - <unistd.h>`
-  - `dup(fd)` duplicates an exiting entry if the file in rthe table
-  - Returns a new file descriptor for the dpublicate entry
+  - `dup(fd)` duplicates an exiting entry if the file in the table
+  - Returns a new file descriptor for the duplicate entry
 
 ## Monday, 2 December, 2019
 
