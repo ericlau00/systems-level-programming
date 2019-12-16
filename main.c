@@ -8,6 +8,7 @@
 #include <sys/stat.h> //umask, stat
 #include <time.h> //ctime
 #include <dirent.h>
+#include <limits.h>
 #include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
@@ -19,7 +20,16 @@ int main() {
     int SIZE = 256;
     char input[SIZE];
 
+    int uid = getuid();
+    struct passwd * pw = getpwuid(uid);
+
+    char host[HOST_NAME_MAX];
+    char cwd[PATH_MAX];
+
     while(1) {
+        getcwd(cwd, PATH_MAX);
+        gethostname(host, HOST_NAME_MAX);
+        printf("%s@%s:%s$ ", pw->pw_name, host, cwd);
         fgets(input, SIZE, stdin);
         stripper(input, '\n');
         exec_line(input);
