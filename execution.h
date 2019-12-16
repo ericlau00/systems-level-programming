@@ -20,3 +20,5 @@ int exec_command(char * command);
 int exec_redir(char * command, char std, int multi);
 
 int exec_fork(char * command, char ** args);
+
+int exec_pipe(char * command);

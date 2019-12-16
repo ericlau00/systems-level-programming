@@ -40,6 +40,9 @@ int exec_line(char * line) {
             else if (count(commands[i], '<') - 1 == 1)
                 exec_redir(commands[i], '<', 0);
 
+            else if (count(commands[i], '|') - 1 > 0)
+                exec_pipe(commands[i]);
+
             else exec_command(commands[i]);
         }
     }
@@ -49,6 +52,7 @@ int exec_line(char * line) {
 }
 
 int exec_command(char * command) {
+
     char ** args = parser(command, ' ');
 
     if(args[0] == NULL) { }
@@ -91,5 +95,22 @@ int exec_redir(char * command, char std, int multi) {
         exec_command(args[0]);
     close(put);
     dup2(save, num);
+    free(args);
+    return 0;
+}
+
+int exec_pipe(char * command) {
+    char ** args = parser(command, '|');
+    char ** second = parser(args[1], ' ');
+
+    if(fork() == 0) {
+        FILE * stream = popen(args[0], "r");
+        dup2(fileno(stream), STDIN_FILENO);
+        execvp(second[0], second);
+        pclose(stream);
+    }
+
+    free(args);
+    free(second);
     return 0;
 }
