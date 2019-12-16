@@ -35,7 +35,7 @@ int exec_line(char *line);
    Inputs: char * line
 
    Returns: 0
-   
+
    Parses on semicolons
    For each command in the line, check what type of command it is and proceed accordingly
 */
@@ -46,8 +46,8 @@ int exec_command(char * command);
    Inputs: char * command
 
    Returns: 0
-   
-   Retrieves arguments from line 
+
+   Retrieves arguments from line
    Checks if command is to change directory
    Forks and executes command in exec_fork
    Free!
@@ -73,7 +73,7 @@ int exec_fork(char * command, char ** args);
            char ** args
 
    Returns: 0
-   
+
    Executes command in a fork using execvp
 */
 
@@ -97,7 +97,7 @@ int stripper(char * line, char strip);
            char strip
 
    Returns: 0
-   
+
    Removes anything that matches strip.
    Also invokes strip
 */
@@ -109,7 +109,7 @@ int shift(char * line, char strip);
            char strip
 
    Returns: 0
-   
+
    Will shift all matching characters from the start of the char *
 
 */
@@ -134,7 +134,7 @@ int count(char * line, char delim);
            char delim
 
    Returns: 1 + the number of appearances of delim in line
-   
+
    Counts the number of appearances of delim in line
 */
 
