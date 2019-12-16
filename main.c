@@ -23,12 +23,12 @@ int main() {
     int uid = getuid();
     struct passwd * pw = getpwuid(uid);
 
-    char host[HOST_NAME_MAX];
-    char cwd[PATH_MAX];
+    char host[64];
+    char cwd[4096];
 
     while(1) {
-        getcwd(cwd, PATH_MAX);
-        gethostname(host, HOST_NAME_MAX);
+        getcwd(cwd, 4096);
+        gethostname(host, 64);
         printf("%s@%s:%s$ ", pw->pw_name, host, cwd);
         fgets(input, SIZE, stdin);
         stripper(input, '\n');
