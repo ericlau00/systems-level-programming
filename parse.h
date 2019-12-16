@@ -22,3 +22,5 @@ char ** parser(char * line, char delim);
 int count(char * line, char delim);
 
 int get_fd(char * file, char std);
+
+int is_before(char * line, char f, char s);

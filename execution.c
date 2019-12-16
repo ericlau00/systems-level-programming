@@ -28,20 +28,17 @@ int exec_line(char * line) {
             }
 
             if(count(commands[i], '>') - 1 > 0 && count(commands[i], '<') - 1 > 0) {
-                if((int)(strchr(commands[i],'<') - commands[i]) - (int)(strchr(commands[i],'>') - commands[i]))
+                if(is_before(commands[i], '<', '>'))
                     exec_redir(commands[i], '>', 1);
                 else
                     exec_redir(commands[i], '<', 1);
             }
 
-            else if(count(commands[i], '>') - 1 == 1)
-                exec_redir(commands[i], '>', 0);
+            else if(count(commands[i], '>') - 1 == 1) exec_redir(commands[i], '>', 0);
 
-            else if (count(commands[i], '<') - 1 == 1)
-                exec_redir(commands[i], '<', 0);
+            else if (count(commands[i], '<') - 1 == 1) exec_redir(commands[i], '<', 0);
 
-            else if (count(commands[i], '|') - 1 > 0)
-                exec_pipe(commands[i]);
+            else if (count(commands[i], '|') - 1 > 0) exec_pipe(commands[i]);
 
             else exec_command(commands[i]);
         }
@@ -57,14 +54,11 @@ int exec_command(char * command) {
 
     if(args[0] == NULL) { }
 
-    else if(strcmp(args[0], "cd") == 0)
-        chdir(args[1]);
+    else if(strcmp(args[0], "cd") == 0) chdir(args[1]);
 
-    else if(fork() == 0)
-        exec_fork(command, args);
+    else if(fork() == 0) exec_fork(command, args);
 
-    else
-        wait(0);
+    else wait(0);
 
     free(args);
     return 0;

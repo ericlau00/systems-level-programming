@@ -72,3 +72,7 @@ int get_fd(char * file, char std) {
     }
     return put;
 }
+
+int is_before(char * line, char f, char s) {
+    return (int)(strchr(line,f) - line) < (int)(strchr(line,s) - line);
+}
