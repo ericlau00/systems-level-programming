@@ -4,6 +4,51 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Monday, 16 December, 2019
+
+### Sharing is caring
+
+Shared Memory
+
+- `<sys/shm.h>, <sys/ipc.h>, <sys/types.h>`
+- A segment of heap memory that can be accessed by multiple processes.
+- Shared memory is accessed via a key that is known by any process that needs to access it.
+- Shared memory does not get released when a program exits.
+- 5 Shared memory operations
+  - Create the segment (happens once) - `shmget`
+  - Access the segment (happens once per process) - `shmget`
+  - Attach the segment to a variable (once per process) - `shmat`
+  - Detach the segment from a variable (once per process) - `shmdt`
+  - Remove the segment (happens once) - `shmctl`
+
+```c
+#include <sys/ipc.h>
+
+#define KEY 24601
+
+int main() {
+  int * data;
+  int shmd;
+
+  shmget(KEY, sizeof(int), IPC_CREAT | 0640);
+  printf("shmd: %d\n"); // 131072
+
+  data = shmat(shmd, 0, 0);
+
+  printf("*data: %d\n", *data); // 0
+  *data = *data + 10;
+  printf("*data: %d\n", *data); // 10
+
+  shmdt(data); // shared memory still exists but pointer is removed
+  printf("*data: %d\n", *data); // segmentation fault
+
+  return 0;
+}
+```
+
+`ipcs -m`
+`ipcrm -m MEM_KEY`
+
 ## Thursday, 12 December, 2019
 
 ### A Pipe by any Other Name...
