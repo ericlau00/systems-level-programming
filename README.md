@@ -1,11 +1,11 @@
-# Turtle-shell 
+# Turtle-shell
 
 ## by Eric Lau
 
 ## Features
 
 - execute a single command on one line
-- execute multiple commands on one line 
+- execute multiple commands on one line
 - change directories
 - simple redirection with `<` and `>`
 - multi redirection (e.g. `command 1 < command 2 > command3`)
@@ -16,10 +16,10 @@
 
 - when there is no argument for `cd`, change directory to home directory
 - allow user to run a command like `git commit -m "a message"`
-  - not splitting on quotes and making sure there are two quotes 
+  - not splitting on quotes and making sure there are two quotes
 - display username, hostname, and current working directory at beginning of each line
   - does not display nicely when executing `./program < TEST_COMMANDS`
-  
+
 ## Bugs and Notes
 
 - code for multi-redirection in the following manner is implemented but not tested: `command 1 > command 2 < command 3`
@@ -27,98 +27,98 @@
 
 ## Files and Function Headers
 
-`execution.c` handles execution of commands 
+`execution.c` handles execution of commands
 
 ```c
 int exec_line(char *line);
 /**
-   Inputs: char * line 
-   
+   Inputs: char * line
+
    Returns: 0
-   
+
 */
 
 
 int exec_command(char * command);
 /**
    Inputs: char * command
-   
+
    Returns: 0
-   
+
 */
 
 
 int exec_redir(char * command, char std, int multi);
 /**
-   Inputs: char * command 
+   Inputs: char * command
            char std
            int multi
-   
-   Returns: 0 
-   
+
+   Returns: 0
+
 */
 
 
 int exec_fork(char * command, char ** args);
 /**
-   Inputs: char * command 
+   Inputs: char * command
            char ** args
-   
+
    Returns: 0
-   
+
 */
 
 
 int exec_pipe(char * command);
 /**
    Inputs: char * command
-   
+
    Returns: 0
-   
+
 */
 ```
 
-`parse.c` handles getting information on inputs and parsing commands 
+`parse.c` handles getting information on inputs and parsing commands
 
 ```c
 int stripper(char * line, char strip);
 /**
-   Inputs: char * line 
+   Inputs: char * line
            char strip
-   
+
    Returns: 0
 */
 
 
 int shift(char * line, char strip);
 /**
-   Inputs: char * line 
+   Inputs: char * line
            char strip
-   
-   Returns: 0 
-   
+
+   Returns: 0
+
 */
 
 
 char ** parser(char * line, char delim);
 /**
-   Inputs: char * line 
+   Inputs: char * line
            char delim
-   
-   Returns: an array of strings separated by delim 
-   
+
+   Returns: an array of strings separated by delim
+
    Does not add empty arguments to array
-   Mallocs size of array depending on number of delimiters present 
-   Adds null to end of list 
+   Mallocs size of array depending on number of delimiters present
+   Adds null to end of list
 */
 
 
 int count(char * line, char delim);
 /**
-   Inputs: char * line 
-           char delim 
-   
-   Returns: 1 + the number of appearances of delim in line 
+   Inputs: char * line
+           char delim
+
+   Returns: 1 + the number of appearances of delim in line
 */
 
 
@@ -126,24 +126,24 @@ int get_fd(char * file, char std);
 /**
    Inputs: char * file
            char std
-   
+
    Returns: the file descriptor of the file described by char * file
-   
-   Considers whether the the file has already been created 
+
+   Considers whether the the file has already been created
    Will create a new file if not
-   Depending on what direction is being directed, will change permissions of file accordingly 
+   Depending on what direction is being directed, will change permissions of file accordingly
 */
 
 
 int is_before(char * line, char f, char s);
 /**
-   Inputs: char * line 
-           char f 
-           char s 
-   
-   Returns: an integer representing whether the f character is indexed before the s character 
-   
-   Considers whether the char pointer of the first character is less than that of the second 
+   Inputs: char * line
+           char f
+           char s
+
+   Returns: an integer representing whether the f character is indexed before the s character
+
+   Considers whether the char pointer of the first character is less than that of the second
 */
 ```
 
@@ -152,10 +152,10 @@ int is_before(char * line, char f, char s);
 ```c
 int main();
 /**
-   Inputs: 
-   
+   Inputs:
+
    Returns: 0
-   
+
    Loops as long as the user has not executed exit.
    Retrieves input, parses, and executes.
    Recurrently displays username, host, and current working directory.
