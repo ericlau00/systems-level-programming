@@ -6,7 +6,9 @@
 
 ## Attempted
 
-## Bugs
+## Bugs and Notes
+
+code exists for >< redirection but not tested
 
 ## Files and Function Headers
 

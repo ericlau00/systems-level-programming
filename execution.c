@@ -27,25 +27,20 @@ int exec_line(char * line) {
                 exit(0);
             }
 
-
             if(count(commands[i], '>') - 1 > 0 && count(commands[i], '<') - 1 > 0) {
                 if((int)(strchr(commands[i],'<') - commands[i]) - (int)(strchr(commands[i],'>') - commands[i]))
                     exec_redir(commands[i], '>', 1);
-                // else
-                    // exec_out_and_in(commands[i]);
+                else
+                    exec_redir(commands[i], '<', 1);
             }
 
-            else if(count(commands[i], '>') - 1 == 1) {
+            else if(count(commands[i], '>') - 1 == 1)
                 exec_redir(commands[i], '>', 0);
-            }
 
-            else if (count(commands[i], '<') - 1 == 1) {
+            else if (count(commands[i], '<') - 1 == 1)
                 exec_redir(commands[i], '<', 0);
-            }
 
-            else {
-                exec_command(commands[i]);
-            }
+            else exec_command(commands[i]);
         }
     }
 
@@ -58,16 +53,15 @@ int exec_command(char * command) {
 
     if(args[0] == NULL) { }
 
-    else if(strcmp(args[0], "cd") == 0) {
+    else if(strcmp(args[0], "cd") == 0)
         chdir(args[1]);
-    }
 
-    else if(fork() == 0) {
+    else if(fork() == 0)
         exec_fork(command, args);
-    }
-    else {
+
+    else
         wait(0);
-    }
+
     free(args);
     return 0;
 }
@@ -75,9 +69,8 @@ int exec_command(char * command) {
 int exec_fork(char * command, char ** args) {
     int i;
     if(execvp(args[0], args) == -1) {
-        if(count(command, ' ') > 1) {
+        if(count(command, ' ') > 1)
             printf("%s: command not found\n", args[0]);
-        }
     }
     free(args);
     exit(0);
@@ -92,18 +85,10 @@ int exec_redir(char * command, char std, int multi) {
     int save = dup(num);
     close(num);
     dup(put);
-    if(multi) {
-        if (std == '>') {
-            printf("here\n");
-            exec_redir(args[0], '<', 0);
-        }
-        // else {
-        //     exec_redir(args[0], '>', 0);
-        // }
-    }
-    else {
+    if(multi)
+        exec_redir(args[0], (std == '>') ? '<' : '>' , 0);
+    else
         exec_command(args[0]);
-    }
     close(put);
     dup2(save, num);
     return 0;
