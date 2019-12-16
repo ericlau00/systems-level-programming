@@ -27,11 +27,16 @@ int exec_line(char * line) {
                 exit(0);
             }
 
-            if(count(commands[i], '>') - 1 > 0) {
+
+            if(count(commands[i], '>') - 1 > 0 && count(commands[i], '<') - 1 > 0) {
+
+            }
+
+            else if(count(commands[i], '>') - 1 == 0) {
                 exec_redir(commands[i], '>');
             }
 
-            else if (count(commands[i], '<') - 1 > 0) {
+            else if (count(commands[i], '<') - 1 == 0) {
                 exec_redir(commands[i], '<');
             }
 

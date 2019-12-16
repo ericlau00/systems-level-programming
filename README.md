@@ -1,4 +1,22 @@
-# Project 01: Shell[ing] out commands
+# Turtle-shell
+
+## by Eric Lau
+
+## Features
+
+## Attempted
+
+## Bugs
+
+## Files and Function Headers
+
+`execution.c`
+
+`parse.c`
+
+`main.c`
+
+## Project 01: Shell[ing] out commands
 
 You (and a partner if desired - highly suggested) are to write a shell. The shell should implement as many of these features as possible. The first being the most basic up to the last which is the most complex.
 
