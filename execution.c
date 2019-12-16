@@ -72,6 +72,7 @@ int exec_fork(char * command, char ** args) {
     }
     free(args);
     exit(0);
+    return 0;
 }
 
 int exec_redir(char * command, char std, int multi) {

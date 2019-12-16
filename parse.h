@@ -13,9 +13,9 @@
 #include <grp.h>
 #include <sys/wait.h>
 
-int shift(char * line, char strip);
-
 int stripper(char * line, char strip);
+
+int shift(char * line, char strip);
 
 char ** parser(char * line, char delim);
 

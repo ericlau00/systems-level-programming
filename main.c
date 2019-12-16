@@ -29,7 +29,7 @@ int main() {
     while(1) {
         getcwd(cwd, 4096);
         gethostname(host, 64);
-        printf("%s@%s:%s$ ", pw->pw_name, host, cwd);
+        // printf("%s@%s:%s$ ", pw->pw_name, host, cwd);
         fgets(input, SIZE, stdin);
         stripper(input, '\n');
         exec_line(input);
