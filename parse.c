@@ -15,18 +15,23 @@
 #include "parse.h"
 
 int stripper(char * line, char strip) {
+    shift(line, strip);
+    int i;
+    for(i = 0; i < strlen(line); i++) {
+        if(line[i] == strip) {
+            line[i] = '\0';
+        }
+    }
+    return 0;
+}
+
+int shift(char * line, char strip) {
     while (line[0] == strip) {
         int shift;
         for(shift = 1; shift < strlen(line); shift++) {
             line[shift - 1] = line[shift];
         }
         line[shift - 1] = '\0';
-    }
-    int i;
-    for(i = 0; i < strlen(line); i++) {
-        if(line[i] == strip) {
-            line[i] = '\0';
-        }
     }
     return 0;
 }
