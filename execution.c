@@ -29,15 +29,18 @@ int exec_line(char * line) {
 
 
             if(count(commands[i], '>') - 1 > 0 && count(commands[i], '<') - 1 > 0) {
-
+                if((int)(strchr(commands[i],'<') - commands[i]) - (int)(strchr(commands[i],'>') - commands[i]))
+                    exec_redir(commands[i], '>', 1);
+                // else
+                    // exec_out_and_in(commands[i]);
             }
 
-            else if(count(commands[i], '>') - 1 == 0) {
-                exec_redir(commands[i], '>');
+            else if(count(commands[i], '>') - 1 == 1) {
+                exec_redir(commands[i], '>', 0);
             }
 
-            else if (count(commands[i], '<') - 1 == 0) {
-                exec_redir(commands[i], '<');
+            else if (count(commands[i], '<') - 1 == 1) {
+                exec_redir(commands[i], '<', 0);
             }
 
             else {
@@ -80,16 +83,27 @@ int exec_fork(char * command, char ** args) {
     exit(0);
 }
 
-int exec_redir(char * command, char std) {
+int exec_redir(char * command, char std, int multi) {
     char ** args = parser(command, std);
     stripper(args[1], ' ');
     int put = get_fd(args[1], std);
 
-    int num = (std == '>') ? 1 : 0;
+    int num = (std == '>') ? STDOUT_FILENO : STDIN_FILENO;
     int save = dup(num);
     close(num);
     dup(put);
-    exec_command(args[0]);
+    if(multi) {
+        if (std == '>') {
+            printf("here\n");
+            exec_redir(args[0], '<', 0);
+        }
+        // else {
+        //     exec_redir(args[0], '>', 0);
+        // }
+    }
+    else {
+        exec_command(args[0]);
+    }
     close(put);
     dup2(save, num);
     return 0;

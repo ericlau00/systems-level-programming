@@ -27,3 +27,5 @@ run:
 clean:
 	rm *.o
 	rm program
+	rm wholist
+	rm foo
