@@ -4,10 +4,9 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
-
 ## Tuesday, 17 December, 2019
 
-### How do we flag down a resource? 
+### How do we flag down a resource?
 
 - When a new shared memory segment is created, its contents are initialized to zero values.
 
@@ -16,30 +15,30 @@ int main() {
   int shmd;
   char * data;
   char input[3];
-  
+
   shmd = shmget(KEY, SEG_SIZE, IPC_CREAT | 0644); //usually 0600
   data = shmat(shmd, 0, 0);
-  
+
   if(!(*data))
     printf("New segment, no data to display\n");
-  else 
+  else
     printf("Current contents: [%s]\n", data);
-  
+
   printf("Would you like to modify the segment?(y/n) ");
   fgets(input, 3, stdin);
-  
+
   if(input[0] == 'y') {
     printf("Enter new data: ");
     fgets(data, SEG_SIZE, stdin);
     *strchr(data, '\n') = 0;
     printf("Current contents: [%s]\n", data);
   }
-  
-  shmdt(data); // detach pointer from variable 
-  
+
+  shmdt(data); // detach pointer from variable
+
   printf("Would you like to remove the segment?(y/n) ");
   fgets(input, 3, stdin);
-  
+
   if(input[0] == 'y') {
     shmctl(stmd, IPC_RMID, 0);
     printf("segment deleted\n");
@@ -47,9 +46,9 @@ int main() {
 }
 ```
 
-#### Concurrency problems 
+#### Concurrency problems
 
-Several programs can use shared memories at the same time and you could delete data that another program is using. 
+Several programs can use shared memories at the same time and you could delete data that another program is using.
 TWo concurrent programs can write to a file but two write processes might get mixed up in the processor, writing interweavedly.
 
 #### Semaphores
@@ -58,20 +57,20 @@ TWo concurrent programs can write to a file but two write processes might get mi
 - IPC construct used to control access to a shared resource (like a file or shared memory).
 - Most commonly, a semaphore is used as a counter representing how many processes can acess a resource at a given time.
   - If a semaphore has a value of 3, then it can have 3 active "users".
-  - If a semaphore has a value of 0, then it is unavailable. 
-- Most semaphore operations are "atomic", meaning they will not be split up into multiple processor instructions. 
+  - If a semaphore has a value of 0, then it is unavailable.
+- Most semaphore operations are "atomic", meaning they will not be split up into multiple processor instructions.
 
 - Semaphore operations
   - Create a semaphore
-  - Set an initial value 
-  - Remove a semaphore 
+  - Set an initial value
+  - Remove a semaphore
   - Up(S) / V(S) - atomic
-    - Release the semaphore to signal you are done with its associated resource 
-    
+    - Release the semaphore to signal you are done with its associated resource
+
     - Pseudocode
       - S++
   - Down(S) / P(S) - atomic
-  
+
 ## Monday, 16 December, 2019
 
 ### Sharing is caring
