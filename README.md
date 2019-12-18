@@ -4,6 +4,76 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Wednesday, 18 December, 2019
+
+- Semaphore operations
+  - Create a semaphore
+  - Set an initial value
+  - Remove a semaphore
+  - Up(S) / V(S) - atomic
+    - Release the semaphore to signal you are done with its associated resource
+    - Pseudocode
+      - S++
+  - Down(S) / P(S) - atomic
+    - Attempt to take the semaphore.
+    - If the semaphore is 0, wait for it tobe available
+    - Pseudocode
+      - while (S == 0) { block } S--;
+  - `ipcs -s`
+
+```c
+int main() {
+  int semd;
+  int r;
+  int v;
+  semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL | 0644); // can't use same key for semaphore and shared memory
+  // argument 1 represent only making one semaphore in the set of semaphore made
+
+  if (semd == -1) { // if semaphore already exists
+    printf("error %d: %s\n", errno, strerror(errno));
+    semd = semget(KEY, 1, 0); // no permissions are needed (0)
+    //argument 1 represents getting 1 semaphore
+
+    v = semctl(semd, 0, GETVAL, 0);
+    // argument 0 represents the index of the semaphore set (get semaphore 0)
+
+    printf("semctl returned: %d\n", v);
+  }
+  else { // if semaphore does not exist
+    union semun us; // a union is a list of possible data but will only use one of them.
+    // PROGRAM HAS TO DEFINE union semun SEE man semctl (on linux)
+
+    us.val = 1; // has value that the semaphore will have
+    r = semctl(semd, 0, SETVAL, us);
+    printf("semctl returned: %d\n", r);
+  }
+}
+```
+
+```c
+int main() {
+  int semd;
+  int r;
+  int v;
+
+  semd = semget(KEY, 1, 0);
+  struct sembuf sb;
+  sb.sem_num = 0;
+  sb.sem_flg = SEM_UNDO;
+  sb.sem_op = -1; // data member of the struct, defines what you are doing to the semaphore (down the semaphore)
+
+  semop(semd, &sb, 1); // perform the operation defined in sb on the semaphore
+  printf("got the semaphore!\n");
+  sleep(10);
+
+  sb.sem_op = 1; // once previous operation is done, do this new operation
+  semop(semd, &sb, 1);
+  // argument 1 represents number of semaphores you want to operate on
+
+  return 0;
+}
+```
+
 ## Tuesday, 17 December, 2019
 
 ### How do we flag down a resource?
