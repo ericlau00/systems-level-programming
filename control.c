@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <sys/ipc.h>
 #include <sys/sem.h>
@@ -50,10 +51,11 @@ int remove_semaphore(int semd) {
 
 int create_file(char * name) {
     int fd;
-    fd = open(name, O_CREAT | O_EXCL | O_RDWR | O_TRUNC, 0644);
+    fd = open(name, O_CREAT | O_EXCL | O_TRUNC, 0644);
     if (fd < 0) {
-        fd = open(name, O_RDWR | O_TRUNC);
+        fd = open(name, O_TRUNC);
     }
+    close(fd);
     printf("file created\n");
     return fd;
 }
@@ -62,9 +64,23 @@ int remove_file(char * name) {
     if (remove(name) == 0) {
         printf("file removed\n");
     } else {
-        printf("File not removed");
+        printf("File not removed\n");
     }
     return 0;
+}
+
+int read_file(char * name) {
+    int fd;
+    fd = open(name, O_RDONLY);
+    if(fd < 0) {
+        printf("error %d: %s\n", errno, strerror(errno));
+        return 1;
+    }
+    printf("The story so far:\n");
+    char buff[SEG_SIZE];
+    read(fd, buff, SEG_SIZE);
+    printf("%s\n", buff);
+    close(fd);
 }
 
 int create_shared_memory() {
@@ -81,24 +97,21 @@ int remove_shared_memory(int shmd) {
 }
 
 int main(int argc, char * argv[]) {
-    int semd;
-    int shmd;
-    int fd;
     if (argc > 1) {
         if(strcmp(argv[1], "-c") == 0) {
-            semd = create_semaphore();
-            shmd = create_shared_memory();
-            fd = create_file(FILE_NAME);
+            create_semaphore();
+            create_shared_memory();
+            create_file(FILE_NAME);
         }
         else if (strcmp(argv[1], "-r") == 0) {
-            semd = semget(SEM_KEY, 1, 0);
-            shmd = shmget(SHM_KEY, SEG_SIZE, 0600);
+            int semd = semget(SEM_KEY, 1, 0);
+            int shmd = shmget(SHM_KEY, SEG_SIZE, 0600);
             remove_shared_memory(shmd);
             remove_file(FILE_NAME);
             remove_semaphore(semd);
         }
         else if (strcmp(argv[1],"-v") == 0 ) {
-            printf("The story so far:\n");
+            read_file(FILE_NAME);
         }
     }
     return 0;
