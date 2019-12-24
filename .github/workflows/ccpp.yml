@@ -11,10 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: make control
-      run: make control
-    - name: make write
-      run: make write
+    - name: make
+      run: make all
     - name: create semaphore, shared memory, file
       run: ./control -c
     - name: ipcs after create
