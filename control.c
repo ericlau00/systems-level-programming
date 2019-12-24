@@ -71,7 +71,6 @@ int create_shared_memory() {
     int shmd;
     shmd = shmget(SHM_KEY, SEG_SIZE, IPC_CREAT | 0644);
     printf("shared memory created\n");
-    // printf("shared memory id: %d\n", shmd);
     return shmd;
 }
 
@@ -89,7 +88,7 @@ int main(int argc, char * argv[]) {
         if(strcmp(argv[1], "-c") == 0) {
             semd = create_semaphore();
             shmd = create_shared_memory();
-            fd = create_file();
+            // fd = create_file();
         }
         else if (strcmp(argv[1], "-r") == 0) {
             remove_shared_memory(shmd);
