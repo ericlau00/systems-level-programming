@@ -15,7 +15,14 @@
 #define SEG_SIZE 200
 #define FILE_NAME "file"
 
-int main() {
+union semun {
+    int val;
+    struct semid_ds * buf;
+    unsigned short * arrray;
+    struct seminfo *__buf;
+};
+
+int write_line() {
     int shmd;
     char * data;
 
@@ -37,5 +44,25 @@ int main() {
     close(fd);
 
     shmdt(data); // detach pointer from variable
+
+    return 0;
+}
+
+int main() {
+    int semd;
+    int r;
+    int v;
+
+    semd = semget(SEM_KEY, 1, 0);
+    struct sembuf sb;
+    sb.sem_num = 0;
+    sb.sem_op = -1;
+    printf("trying to get in\n");
+    semop(semd, &sb, 1);
+
+    write_line();
+
+    sb.sem_op = 1;
+    semop(semd, &sb, 1);
     return 0;
 }
