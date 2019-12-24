@@ -17,4 +17,5 @@ valwrite:
 	valgrind --leak-check=yes --track-origins=yes ./write
 
 clean:
-	rm program
+	rm control
+	rm write

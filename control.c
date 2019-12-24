@@ -6,8 +6,11 @@
 #include <sys/sem.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <sys/shm.h>
 
-#define KEY 24602
+#define SEM_KEY 24602
+#define SHM_KEY 24601
+#define SEG_SIZE 200
 
 union semun {
     int val;
@@ -20,10 +23,10 @@ int create_semaphore() {
     int semd;
     int v, r;
 
-    semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL | 0644);
+    semd = semget(SEM_KEY, 1, IPC_CREAT | IPC_EXCL | 0644);
     if(semd == -1) {
         printf("error %d: %s\n", errno, strerror(errno));
-        semd = semget(KEY, 1, 0);
+        semd = semget(SEM_KEY, 1, 0);
         v = semctl(semd, 0, GETVAL, 0);
         printf("semctl returned: %d\n", v);
     } else {
@@ -32,27 +35,42 @@ int create_semaphore() {
         r = semctl(semd, 0, SETVAL, us);
         printf("semctl returned: %d\n", r);
     }
+    printf("semaphore created\n");
     return semd;
 }
 
 int remove_semaphore(int semd) {
     semctl(semd, IPC_RMID, 0);
+    printf("semaphore removed\n");
+    return 0;
+}
+
+int create_shared_memory() {
+    int shmd;
+    shmd = shmget(SHM_KEY, SEG_SIZE, IPC_CREAT | 0644);
+    printf("shared memory created\n");
+    return shmd;
+}
+
+int remove_shared_memory(int shmd) {
+    shmctl(shmd, IPC_RMID, 0);
+    printf("shared memory removed\n");
     return 0;
 }
 
 int main(int argc, char * argv[]) {
     int semd;
+    int shmd;
     if (argc > 1) {
         if(strcmp(argv[1], "-c") == 0) {
-            // create
             semd = create_semaphore();
-            printf("semaphore created\n");
-            printf("shared memory created\n");
-            printf("file created\n");
+            shmd = create_shared_memory();
+            // printf("file created\n");
         }
         else if (strcmp(argv[1], "-r") == 0) {
+            remove_shared_memory(shmd);
+            printf("file removed\n");
             remove_semaphore(semd);
-            printf("remove\n");
         }
         else if (strcmp(argv[1],"-v") == 0 ) {
             // view

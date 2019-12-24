@@ -17,7 +17,9 @@ jobs:
       run: make write
     - name: create semaphore
       run: ./control -c
-    - name: ipcs
+    - name: ipcs after create
       run: ipcs
     - name: remove semaphore
       run: ./control -r
+    - name: ipcs after remove
+      run: ipcs
