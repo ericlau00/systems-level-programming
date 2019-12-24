@@ -15,11 +15,15 @@ jobs:
       run: make control
     - name: make write
       run: make write
-    - name: create semaphore
+    - name: create semaphore, shared memory, file
       run: ./control -c
     - name: ipcs after create
       run: ipcs
-    - name: remove semaphore
+    - name: ls after create
+      run: ls -hal
+    - name: remove semaphore, shared memory, file
       run: ./control -r
     - name: ipcs after remove
       run: ipcs
+    - name: ls after remove
+      run: ls -hal

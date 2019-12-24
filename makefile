@@ -19,3 +19,4 @@ valwrite:
 clean:
 	rm control
 	rm write
+	rm file
