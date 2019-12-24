@@ -78,8 +78,9 @@ int read_file(char * name) {
     }
     printf("The story so far:\n");
     char buff[SEG_SIZE];
-    read(fd, buff, SEG_SIZE);
-    printf("%s\n", buff);
+    while(read(fd, buff, SEG_SIZE) > 0) {
+        printf("%s\n", buff);
+    }
     close(fd);
 }
 
