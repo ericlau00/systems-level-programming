@@ -1,17 +1,20 @@
 ifeq ($(DEBUG), true)
 	CC = gcc -g
-else 
+else
 	CC = gcc
-endif 
+endif
 
-all: main.c
-	$(CC) -o program main.c
+control: control.c
+	$(CC) -o control control.c
 
-val:
-	valgrind --leak-check=yes --track-origins=yes ./program
+write: write.c
+	$(CC) -o write write.c
 
-run: 
-	./program
+valcontrol:
+	valgrind --leak-check=yes --track-origins=yes ./control
+
+valwrite:
+	valgrind --leak-check=yes --track-origins=yes ./write
 
 clean:
 	rm program

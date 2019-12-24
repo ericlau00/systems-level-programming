@@ -38,7 +38,7 @@ https://github.com/mks65/semaphone.git
 
 Example Interactions:
 
-```shell
+```bash
 $ ./control -c
 semaphore created
 shared memory created
