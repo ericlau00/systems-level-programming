@@ -36,6 +36,7 @@ valwrite:
 	valgrind --leak-check=yes --track-origins=yes ./write
 
 clean:
+	rm *.o
 	rm control
-	rm file
 	rm write
+	rm file
