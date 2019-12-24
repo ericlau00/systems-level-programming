@@ -28,7 +28,7 @@ int create_semaphore() {
 
     semd = semget(SEM_KEY, 1, IPC_CREAT | IPC_EXCL | 0644);
     if(semd == -1) {
-        printf("error %d: %s\n", errno, strerror(errno));
+        // printf("error %d: %s\n", errno, strerror(errno));
         semd = semget(SEM_KEY, 1, 0);
         v = semctl(semd, 0, GETVAL, 0);
         // printf("semctl returned: %d\n", v);
@@ -48,18 +48,18 @@ int remove_semaphore(int semd) {
     return 0;
 }
 
-int create_file() {
+int create_file(char * name) {
     int fd;
-    fd = open(FILE_NAME, O_CREAT | O_EXCL | O_RDWR | O_TRUNC, 0644);
+    fd = open(name, O_CREAT | O_EXCL | O_RDWR | O_TRUNC, 0644);
     if (fd < 0) {
-        fd = open(FILE_NAME, O_RDWR | O_TRUNC);
+        fd = open(name, O_RDWR | O_TRUNC);
     }
     printf("file created\n");
     return fd;
 }
 
-int remove_file() {
-    if (remove(FILE_NAME) == 0) {
+int remove_file(char * name) {
+    if (remove(name) == 0) {
         printf("file removed\n");
     } else {
         printf("File not removed");
@@ -69,7 +69,7 @@ int remove_file() {
 
 int create_shared_memory() {
     int shmd;
-    shmd = shmget(SHM_KEY, SEG_SIZE, IPC_CREAT | 0644);
+    shmd = shmget(SHM_KEY, SEG_SIZE, IPC_CREAT | 0600);
     printf("shared memory created\n");
     return shmd;
 }
@@ -88,11 +88,13 @@ int main(int argc, char * argv[]) {
         if(strcmp(argv[1], "-c") == 0) {
             semd = create_semaphore();
             shmd = create_shared_memory();
-            // fd = create_file();
+            fd = create_file(FILE_NAME);
         }
         else if (strcmp(argv[1], "-r") == 0) {
+            semd = semget(SEM_KEY, 1, 0);
+            shmd = shmget(SHM_KEY, SEG_SIZE, 0600);
             remove_shared_memory(shmd);
-            // remove_file();
+            remove_file(FILE_NAME);
             remove_semaphore(semd);
         }
         else if (strcmp(argv[1],"-v") == 0 ) {
