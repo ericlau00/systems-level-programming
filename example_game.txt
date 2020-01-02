@@ -1,7 +1,7 @@
  ------------------
 | Guess Whom'st've |
  ------------------
-Your Person Is: Holmes
+Your Character Is: Holmes
 
 0.  DW			[x]
 1.  Mykolyk		[ ]
