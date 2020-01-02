@@ -45,7 +45,7 @@ Allocate memory in the heap for persistent storage of randomized names.
 
 We will use an array to store the randomized names selected from the file.
 
-We will use a struct to contain a resposne that is sent over the network which includes the following information:
+We will use a struct to contain a response that is sent over the network which includes the following information:
 
 - type - whether the response is a question or answer
 - response - the actual message sent
