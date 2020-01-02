@@ -39,6 +39,8 @@ We will be working with a file to access the names of teachers.
 
 #### Allocating memory
 
+Allocate memory in the heap for persistent storage of randomized names.
+
 ### Data Structures
 
 We will use an array to store the randomized names selected from the file.
@@ -55,8 +57,9 @@ We will use a randomization algorithm to pick 16 random names from a file.
 ## Timeline
 
 - Jan 6
-  - Implement algorithm to generate random names
+  - Implement algorithm to generate random names (Eric)
 - Jan 8
+  - Implement dipslay of information and accepting input from the player (Matthew)
 - Jan 10
 - Jan 12
 - Jan 14
