@@ -25,15 +25,23 @@ Our project is a twist on the class tabletop game by Hasbro: Guess Who. Instead 
 
 #### Networking
 
+We will use a server to send questions, answers, and guesses between two players (clients).
+
+At the beginning of the game, we will also use the server to send the list of random names to the players.
+
 #### Processes
 
 We will use processes to fork the host terminal to be able to act both as the server and a player.
 
 #### Working with files
 
+We will be working with a file to access the names of teachers.
+
 #### Allocating memory
 
 ### Data Structures
+
+We will use an array to store the randomized names selected from the file.
 
 We will use a struct to contain a resposne that is sent over the network which includes the following information:
 
@@ -47,8 +55,10 @@ We will use a randomization algorithm to pick 16 random names from a file.
 ## Timeline
 
 - Jan 6
+  - Implement algorithm to generate random names
 - Jan 8
 - Jan 10
 - Jan 12
 - Jan 14
 - Jan 16
+  - Debugging and testing! (everybody)
