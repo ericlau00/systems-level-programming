@@ -1,0 +1,23 @@
+ ------------------
+| Guess Whom'st've |
+ ------------------
+Your Person Is: Holmes
+
+0.  DW			[x]
+1.  Mykolyk		[ ]
+2.  Brooks		[x]
+3.  Holmes		[ ]
+4.  Platek		[ ]
+5.  Konstantinovich	[x]
+6.  Genkina		[ ]
+7.  Chew		[ ]
+8.  Mouzakitis		[x]
+9.  Zamansky		[x]
+10. Banfield		[x]
+11. Ting		[ ]
+12. Sunwoo		[x]
+13. Garber		[ ]
+14. Fang		[ ]
+15. Sterr		[x]
+
+> q/a/g: { question / answer / guess }
