@@ -15,6 +15,7 @@ Our project is a twist on the class tabletop game by Hasbro: Guess Who. Instead 
 6. Question: Player will be prompted to enter a question ending in a question mark. They can also enter "guess" and they will be prompted to choose the ID of the character they believe is the opponent's character.
 7. Answer: Player will be shown opponent's question and then prompted to answer the question.
 8. Flip down character: Player will be prompted to enter characters' IDs to flip down, and then enter "done" when they do not wish to flip down any more characters. 
+9. Once a player's character has been correctly guessed, the game will show a winning or losing message to players, and end the game.
 
 ### Technical Design
 
