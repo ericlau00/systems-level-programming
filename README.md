@@ -9,14 +9,14 @@ Our project is a twist on the class tabletop game by Hasbro: Guess Who. Instead 
 ## User Interface
 
 1. Players will be shown instructions on how to play the game.
-2. Players will be given a randomy selected character.
+2. Players will be given a randomly selected character.
 3. Players will be shown the main interface which will appear as shown below:
 ![Image of Game Interface](/examples/example_game.png)
 4. Based on the state of the game, the player will be able to ask a question, answer a question, or act upon an opponent's answer to flip down their characters.
 5. Player 1 Question --> Player 2 Answer --> Player 1 Flips Down Characters --> Player 2 Question --> Player 1 Answer --> Player 2 Flips Down Characters  --> repeat
-6. Question: Player will be prompted to enter a question ending in a question mark. They can also enter "guess" and they will be prompted to choose the ID of the character they believe is the opponent's character.
-7. Answer: Player will be shown opponent's question and then prompted to answer the question.
-8. Flip down character: Player will be prompted to enter characters' IDs to flip down, and then enter "done" when they do not wish to flip down any more characters.
+6. **Question:** Player will be prompted to enter a question ending in a question mark. They can also enter "guess" and they will be prompted to choose the ID of the character they believe is the opponent's character.
+7. **Answer:** Player will be shown opponent's question and then prompted to answer the question.
+8. **Flip down character:** Player will be prompted to enter characters' IDs to flip down, and then enter "done" when they do not wish to flip down any more characters.
 9. Once a player's character has been correctly guessed, the game will show a winning or losing message to players, and end the game.
 
 ## Technical Design
@@ -31,7 +31,7 @@ At the beginning of the game, we will also use the server to send the list of ra
 
 #### Processes
 
-We will use processes to fork the host terminal to be able to act both as the server and a player.
+We will use processes to fork the host terminal to be able to act both as the server and a client (player).
 
 #### Working with files
 
