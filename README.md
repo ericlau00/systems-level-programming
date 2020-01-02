@@ -9,6 +9,12 @@ Our project is a twist on the class tabletop game by Hasbro: Guess Who. Instead 
 1. Players will be shown instructions on how to play the game.
 2. Players will be given a randomy selected character.
 3. Players will be shown the main interface which will appear as shown below:
+![Image of Game Interface](/examples/example_game.png)
+4. Based on the state of the game, the player will be able to ask a question, answer a question, or act upon an opponent's answer to flip down their characters.
+5. player 1 question -> player 2 answer -> player 1 flips down characters -> player 2 question -> player 1 answer -> player 2 flips down characters -> repeat
+6. Question: Player will be prompted to enter a question ending in a question mark. They can also enter "guess" and they will be prompted to choose the ID of the character they believe is the opponent's character.
+7. Answer: Player will be shown opponent's question and then prompted to answer the question.
+8. Flip down character: Player will be prompted to enter characters' IDs to flip down, and then enter "done" when they do not wish to flip down any more characters. 
 
 ### Technical Design
 
