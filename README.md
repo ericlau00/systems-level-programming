@@ -59,7 +59,7 @@ We will use a randomization algorithm to pick 16 random names from a file.
 - Jan 6
   - Implement algorithm to generate random names (Eric)
 - Jan 8
-  - Implement dipslay of information and accepting input from the player (Matthew)
+  - Implement display of information and accepting input from the player (Matthew)
 - Jan 10
   - Rework DW's source code on networking to allow for forking of client and server from same terminal (Kazi)
   - Continue reworking of networking code to send questions, answers, guesses from client to client (Eric)
