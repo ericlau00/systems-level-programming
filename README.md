@@ -4,6 +4,43 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Friday, 3 January, 2020
+
+### Server / Client Design Patterns
+
+When writing a multi-program project with interprogram communication, figuring out those connections is important!
+
+- Peer-to-peer-program
+  - Client 0 will wait for other client to say hello and then send a message
+  - Direct connection between clients
+  - Good for well structured interactions (e.g. turn-based games)
+  - peer-to-peer format with more than 2 players may get harder to manage
+
+- Single Server
+  - One server handles all connections and all communications.
+  - Client sends input, waits for something to resposnd, and server sends something back
+  - Can be implemented using pipes or sockets
+  - Server needs to know which client it responds to and which client it is receiving information from
+  - Good for real-time components that are not structured (e.g. chats)
+  - One server can get bogged down with a lot of connections
+
+- Forking Server
+  - Standardly used in file servers, ssh, etc.
+  - One main server exists but is fairly specialized
+    - Handles all connections
+    - Does not handle communication
+    - Creates a new subserver to handle all communication
+  - Main server receives initial communication, forks a new subserver. The subserver sends a resposne to the client. Main server connection is severed from the client. Subservers are disconnected from main server
+  - Cannot communicate between clients or subservers once connections are severed.
+
+- Dispatch Server
+  - One main server
+    - Handles all connections
+    - Handles all incoming data from clients
+    - Subservers handle all outgoing data to clients
+    - Routes messages to appropriate subservers
+  - Main server has array of pipes that connect to subservers
+
 ## Wednesday, 18 December, 2019
 
 - Semaphore operations
