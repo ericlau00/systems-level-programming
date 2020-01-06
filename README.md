@@ -4,6 +4,58 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Monday, 6 January, 2020
+
+Network code should run on different computers but you have to have cross OS communication. It is unclear as to the internal machine language across different OSes. There needs to be consistent language. Something like integer representations could be different (endian-ness).
+
+There are standards and protocols in place like internet protocol (IP). Other protocols also exist such as ethernet to connect locally. Ethernet is the overwhelming standard but there was a token standard protocal in the past (See differences [here](https://en.wikipedia.org/wiki/Token_ring#Comparison_with_Ethernet)). Ethernet won out over token ring because it was free.
+
+If I want two computers to talk to each other, they still have to be connected to each other for physical bit transfer. You still have to address the physical level of abstraction.
+
+OSI 7 Layer Model
+
+- Framework for understanding how networks work
+- 7 Application
+  - Most abstract layer (like a web browser, game, or email client).
+  - This is the program that you are writing
+- 3 Network
+  - Networks talking to networks via IP addresses.
+  - Putting together a socket creates a network level connection between two computers in code
+
+  ```c
+  int sd, i;
+
+  sd = socket(AF_INET, SOCK_STREAM, 0);
+  // AF_INET is IPv4
+  // AF_INETv6 is IPv6
+
+  // SOCK_STREAM is TCP (transmission control protocol)
+  // guarantees that receiving computer gets the data and can replicate it in the order it was sent. (as good as a local pipe connection) Has pieces in place to request missing parts.
+
+  // UDP provides information regardless of whether people receive it.
+  ```
+
+  - Messages need to be formatted in a standard way and routes need to send data in a particular way.
+- 2 Data Link
+  - MAC (medium access control) address provides a local connection between computers on the same network
+    - MAC addresses are attached to network cards
+    - They are hexadecimal addresses
+    - They only need to be unique on the same network
+    - Duplicate MAC addresses probably won't end up on the same local network at the same time
+    - Duplicate MAC addresses are not regulated as closely as IP addresses
+    - Can change MAC addresses through software
+  - When you plug a computer into a switch, the switch knows the MAC address of all of the computers and will send the correct information to the correct MAC address.
+    - Not the case for wireless access points or hubs.
+      - Sends all data for all computers to all computers.
+      - Computer ignores everything that is not for his MAC address.
+      - Some software can allow you to see all of the information in a wireless access point (Wireshark).
+- 1 Physical
+  - Most concrete layer
+  - Checks physical connections of lights and wires
+  - Fiber optic cables don't have loss of signals over time
+  - Speed and width of data transfer is still growing
+  - Is it faster than a car full of flash drives?
+
 ## Friday, 3 January, 2020
 
 ### Server / Client Design Patterns
