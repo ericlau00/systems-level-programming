@@ -4,6 +4,47 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Tuesday, 7 January, 2020
+
+Sockets act like a pipe
+
+- Send buffered data between two processes
+- Section of memory which deals with network transfers
+- Socket needs to be a unique connection between two computers
+- IP (Internet Protocol) Address
+  - IP Addresses are externally provided by internet service providers
+- Port
+  - Every computer has 65,536 available ports which allows for multiple sockets for a single IP address.
+  - Web servers that use HTTP use port 80 (for web traffic)
+  - Ports are assigned internally
+- Incoming/ Outgoing Addresses
+  - Two sockets with same IP Addresses and ports with different protocols interact differently
+
+Transmission Control Protocol (Stream)
+
+- End result to a TCP socket is either:
+  - Data will be sent in entirety and the order is correct
+  - Error
+  - Files are not send in entirety; they are sent in packets
+    - Two packets from same data may be sent in different ways
+    - Later packet may come before a previous one
+    - In TCP, packets are ordered and correct for different packet ordering.
+    - TCP also requests for missing packets
+  - Three way handshake
+    - Client to server (client does not know if server receives message)
+    - Server knows it can receive data
+    - Server responds
+    - Client knows that it can receive data, and send data
+    - Server does not know that it can send data until client sends back to server again
+
+Universal Datagram Protocol (UDP)
+
+- There is no three way handshake
+  - Unaware if anyone is listening
+- Does not handle packet ordering or missing packets
+- Much faster protocol and transmission than TCP
+- Used for streaming media
+
 ## Monday, 6 January, 2020
 
 Network code should run on different computers but you have to have cross OS communication. It is unclear as to the internal machine language across different OSes. There needs to be consistent language. Something like integer representations could be different (endian-ness).
@@ -15,6 +56,7 @@ If I want two computers to talk to each other, they still have to be connected t
 OSI 7 Layer Model
 
 - Framework for understanding how networks work
+- At any given layer, you do not have to worry about the layers below or above
 - 7 Application
   - Most abstract layer (like a web browser, game, or email client).
   - This is the program that you are writing
