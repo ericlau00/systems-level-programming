@@ -4,6 +4,96 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+
+## Wednesday, 8 January, 2020
+
+[Beej's Guide to Network Programming](https://beej.us/guide/bgnet/)
+
+IP Addresses in CS Dojo - 149.89.150.(100 - 134, 33, 34)
+
+```c
+// forking_server.c
+#include "networking.h"
+
+void process (char * s);
+void subserver(int from_client);
+
+int main() {
+  int listen_socket;
+  int f;
+  listen_socket = server_setup(); // probably don't touch this
+  // creates a socket on a well defined port 9001
+  // puts it in the listening state
+  // server_setup is not a blocking function
+
+  while (1) {
+    int client_socket = server_connect(listen_socket); // probably don't touch this
+    // this is triggered by client trying to enter the listening socket
+    // a new socket is created and the port number is unknown
+
+    f = fork();
+    if (f == 0 )
+      subserver(client_socket);
+
+      // subserver and main server talk to socket
+
+    else
+
+      // parent closes connection to client
+      // listening socket does not get closed
+      close(client_socket);
+  }
+}
+
+void subserver(int client_socket) {
+
+}
+```
+
+```c
+//client.c
+int main(int argc, char ** argv) {
+  int server_socket;
+  char buffer[BUFFER_SIZE];
+
+  if(argc == 2)
+    server_socket = client_setup(argv[1]); // provide the IP address you are connecting to
+  // client creates a socket and send data to it at 9001
+  // subserver says hi
+  // socket at client end changes to go to the socket at the subserver
+
+  else
+    server_socket = client_setup(TEST_IP);
+
+  while (1) {
+    // read from standard in
+    // write to socket
+    // read from socket
+  }
+}
+```
+
+```c
+//networking.h
+#define BUFFER_SIZE 256
+#define PORT "9001" // pick a different port! (expect this to be a string because there is a potential problem of Endian-ness between OSes)
+#define TEST_IP "127.0.0.1" // the computer's local IP address (expect this to be a string)
+```
+
+```c
+//networking.c
+
+// DO NOT CHANGE THIS FILE
+
+// accept function is the server side of the three way handshake (blocking function)
+// connect function is the client side of the three way handshake
+```
+
+In a peer to peer connection, one computer waits for a connection, and another computer will connect.
+
+The listening computer will act as the "server" in listening state
+The other computer will act as the "client" in conncting state
+
 ## Tuesday, 7 January, 2020
 
 Sockets act like a pipe
@@ -69,7 +159,7 @@ OSI 7 Layer Model
 
   sd = socket(AF_INET, SOCK_STREAM, 0);
   // AF_INET is IPv4
-  // AF_INETv6 is IPv6
+  // AF_INET6 is IPv6
 
   // SOCK_STREAM is TCP (transmission control protocol)
   // guarantees that receiving computer gets the data and can replicate it in the order it was sent. (as good as a local pipe connection) Has pieces in place to request missing parts.
