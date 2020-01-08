@@ -46,8 +46,9 @@ int main() {
 }
 ```
 
+
 `ipcs -m`
-`ipcrm -m MEM_KEY`
+`ipcrm -m SHARED_MEMORY_ID`
 
 ## Thursday, 12 December, 2019
 
