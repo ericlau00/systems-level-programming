@@ -4,6 +4,274 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
+## Tuesday, 7 January, 2020
+
+Sockets act like a pipe
+
+- Send buffered data between two processes
+- Section of memory which deals with network transfers
+- Socket needs to be a unique connection between two computers
+- IP (Internet Protocol) Address
+  - IP Addresses are externally provided by internet service providers
+- Port
+  - Every computer has 65,536 available ports which allows for multiple sockets for a single IP address.
+  - Web servers that use HTTP use port 80 (for web traffic)
+  - Ports are assigned internally
+- Incoming/ Outgoing Addresses
+  - Two sockets with same IP Addresses and ports with different protocols interact differently
+
+Transmission Control Protocol (Stream)
+
+- End result to a TCP socket is either:
+  - Data will be sent in entirety and the order is correct
+  - Error
+  - Files are not send in entirety; they are sent in packets
+    - Two packets from same data may be sent in different ways
+    - Later packet may come before a previous one
+    - In TCP, packets are ordered and correct for different packet ordering.
+    - TCP also requests for missing packets
+  - Three way handshake
+    - Client to server (client does not know if server receives message)
+    - Server knows it can receive data
+    - Server responds
+    - Client knows that it can receive data, and send data
+    - Server does not know that it can send data until client sends back to server again
+
+Universal Datagram Protocol (UDP)
+
+- There is no three way handshake
+  - Unaware if anyone is listening
+- Does not handle packet ordering or missing packets
+- Much faster protocol and transmission than TCP
+- Used for streaming media
+
+## Monday, 6 January, 2020
+
+Network code should run on different computers but you have to have cross OS communication. It is unclear as to the internal machine language across different OSes. There needs to be consistent language. Something like integer representations could be different (endian-ness).
+
+There are standards and protocols in place like internet protocol (IP). Other protocols also exist such as ethernet to connect locally. Ethernet is the overwhelming standard but there was a token standard protocal in the past (See differences [here](https://en.wikipedia.org/wiki/Token_ring#Comparison_with_Ethernet)). Ethernet won out over token ring because it was free.
+
+If I want two computers to talk to each other, they still have to be connected to each other for physical bit transfer. You still have to address the physical level of abstraction.
+
+OSI 7 Layer Model
+
+- Framework for understanding how networks work
+- At any given layer, you do not have to worry about the layers below or above
+- 7 Application
+  - Most abstract layer (like a web browser, game, or email client).
+  - This is the program that you are writing
+- 3 Network
+  - Networks talking to networks via IP addresses.
+  - Putting together a socket creates a network level connection between two computers in code
+
+  ```c
+  int sd, i;
+
+  sd = socket(AF_INET, SOCK_STREAM, 0);
+  // AF_INET is IPv4
+  // AF_INETv6 is IPv6
+
+  // SOCK_STREAM is TCP (transmission control protocol)
+  // guarantees that receiving computer gets the data and can replicate it in the order it was sent. (as good as a local pipe connection) Has pieces in place to request missing parts.
+
+  // UDP provides information regardless of whether people receive it.
+  ```
+
+  - Messages need to be formatted in a standard way and routes need to send data in a particular way.
+- 2 Data Link
+  - MAC (medium access control) address provides a local connection between computers on the same network
+    - MAC addresses are attached to network cards
+    - They are hexadecimal addresses
+    - They only need to be unique on the same network
+    - Duplicate MAC addresses probably won't end up on the same local network at the same time
+    - Duplicate MAC addresses are not regulated as closely as IP addresses
+    - Can change MAC addresses through software
+  - When you plug a computer into a switch, the switch knows the MAC address of all of the computers and will send the correct information to the correct MAC address.
+    - Not the case for wireless access points or hubs.
+      - Sends all data for all computers to all computers.
+      - Computer ignores everything that is not for his MAC address.
+      - Some software can allow you to see all of the information in a wireless access point (Wireshark).
+- 1 Physical
+  - Most concrete layer
+  - Checks physical connections of lights and wires
+  - Fiber optic cables don't have loss of signals over time
+  - Speed and width of data transfer is still growing
+  - Is it faster than a car full of flash drives?
+
+## Friday, 3 January, 2020
+
+### Server / Client Design Patterns
+
+When writing a multi-program project with interprogram communication, figuring out those connections is important!
+
+- Peer-to-peer-program
+  - Client 0 will wait for other client to say hello and then send a message
+  - Direct connection between clients
+  - Good for well structured interactions (e.g. turn-based games)
+  - peer-to-peer format with more than 2 players may get harder to manage
+
+- Single Server
+  - One server handles all connections and all communications.
+  - Client sends input, waits for something to resposnd, and server sends something back
+  - Can be implemented using pipes or sockets
+  - Server needs to know which client it responds to and which client it is receiving information from
+  - Good for real-time components that are not structured (e.g. chats)
+  - One server can get bogged down with a lot of connections
+
+- Forking Server
+  - Standardly used in file servers, ssh, etc.
+  - One main server exists but is fairly specialized
+    - Handles all connections
+    - Does not handle communication
+    - Creates a new subserver to handle all communication
+  - Main server receives initial communication, forks a new subserver. The subserver sends a resposne to the client. Main server connection is severed from the client. Subservers are disconnected from main server
+  - Cannot communicate between clients or subservers once connections are severed.
+
+- Dispatch Server
+  - One main server
+    - Handles all connections
+    - Handles all incoming data from clients
+    - Subservers handle all outgoing data to clients
+    - Routes messages to appropriate subservers
+  - Main server has array of pipes that connect to subservers
+
+## Wednesday, 18 December, 2019
+
+- Semaphore operations
+  - Create a semaphore
+  - Set an initial value
+  - Remove a semaphore
+  - Up(S) / V(S) - atomic
+    - Release the semaphore to signal you are done with its associated resource
+    - Pseudocode
+      - S++
+  - Down(S) / P(S) - atomic
+    - Attempt to take the semaphore.
+    - If the semaphore is 0, wait for it tobe available
+    - Pseudocode
+      - while (S == 0) { block } S--;
+  - `ipcs -s`
+
+```c
+int main() {
+  int semd;
+  int r;
+  int v;
+  semd = semget(KEY, 1, IPC_CREAT | IPC_EXCL | 0644); // can't use same key for semaphore and shared memory
+  // argument 1 represent only making one semaphore in the set of semaphore made
+
+  if (semd == -1) { // if semaphore already exists
+    printf("error %d: %s\n", errno, strerror(errno));
+    semd = semget(KEY, 1, 0); // no permissions are needed (0)
+    //argument 1 represents getting 1 semaphore
+
+    v = semctl(semd, 0, GETVAL, 0);
+    // argument 0 represents the index of the semaphore set (get semaphore 0)
+
+    printf("semctl returned: %d\n", v);
+  }
+  else { // if semaphore does not exist
+    union semun us; // a union is a list of possible data but will only use one of them.
+    // PROGRAM HAS TO DEFINE union semun SEE man semctl (on linux)
+
+    us.val = 1; // has value that the semaphore will have
+    r = semctl(semd, 0, SETVAL, us);
+    printf("semctl returned: %d\n", r);
+  }
+}
+```
+
+```c
+int main() {
+  int semd;
+  int r;
+  int v;
+
+  semd = semget(KEY, 1, 0);
+  struct sembuf sb;
+  sb.sem_num = 0;
+  sb.sem_flg = SEM_UNDO;
+  sb.sem_op = -1; // data member of the struct, defines what you are doing to the semaphore (down the semaphore)
+
+  semop(semd, &sb, 1); // perform the operation defined in sb on the semaphore
+  printf("got the semaphore!\n");
+  sleep(10);
+
+  sb.sem_op = 1; // once previous operation is done, do this new operation
+  semop(semd, &sb, 1);
+  // argument 1 represents number of semaphores you want to operate on
+
+  return 0;
+}
+```
+
+## Tuesday, 17 December, 2019
+
+### How do we flag down a resource?
+
+- When a new shared memory segment is created, its contents are initialized to zero values.
+
+```c
+int main() {
+  int shmd;
+  char * data;
+  char input[3];
+
+  shmd = shmget(KEY, SEG_SIZE, IPC_CREAT | 0644); //usually 0600
+  data = shmat(shmd, 0, 0);
+
+  if(!(*data))
+    printf("New segment, no data to display\n");
+  else
+    printf("Current contents: [%s]\n", data);
+
+  printf("Would you like to modify the segment?(y/n) ");
+  fgets(input, 3, stdin);
+
+  if(input[0] == 'y') {
+    printf("Enter new data: ");
+    fgets(data, SEG_SIZE, stdin);
+    *strchr(data, '\n') = 0;
+    printf("Current contents: [%s]\n", data);
+  }
+
+  shmdt(data); // detach pointer from variable
+
+  printf("Would you like to remove the segment?(y/n) ");
+  fgets(input, 3, stdin);
+
+  if(input[0] == 'y') {
+    shmctl(stmd, IPC_RMID, 0);
+    printf("segment deleted\n");
+  }
+}
+```
+
+#### Concurrency problems
+
+Several programs can use shared memories at the same time and you could delete data that another program is using.
+TWo concurrent programs can write to a file but two write processes might get mixed up in the processor, writing interweavedly.
+
+#### Semaphores
+
+- created by Edsger Dijkstra
+- IPC construct used to control access to a shared resource (like a file or shared memory).
+- Most commonly, a semaphore is used as a counter representing how many processes can acess a resource at a given time.
+  - If a semaphore has a value of 3, then it can have 3 active "users".
+  - If a semaphore has a value of 0, then it is unavailable.
+- Most semaphore operations are "atomic", meaning they will not be split up into multiple processor instructions.
+
+- Semaphore operations
+  - Create a semaphore
+  - Set an initial value
+  - Remove a semaphore
+  - Up(S) / V(S) - atomic
+    - Release the semaphore to signal you are done with its associated resource
+
+    - Pseudocode
+      - S++
+  - Down(S) / P(S) - atomic
+
 ## Monday, 16 December, 2019
 
 ### Sharing is caring
