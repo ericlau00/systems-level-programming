@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     
   while (1) {
       
-    int state_iteration = 1;
+    int state_iteration = 0;
 
     if (state_iteration == 1) {
       printf("enter data: ");
