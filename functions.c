@@ -14,7 +14,7 @@ void rand_characters(char * characters[]) {
   charfile = fopen("characters", "r");
   char temp[255];
   int i;
-  for (i = 0; i < 16; i++) {
+  for (i = 0; i < 133; i++) {
     fgets(temp, 255, charfile);
     char *pos;
     if ((pos=strchr(temp, '\n')) != NULL)
@@ -26,10 +26,10 @@ void rand_characters(char * characters[]) {
   fclose(charfile);
 }
 int main() {
-  char * characters[16];
+  char * characters[133];
   rand_characters(characters);
   int i;
-  for (i = 0; i < 16; i++) {
+  for (i = 0; i < 133; i++) {
     printf("%d:\t%s\n", i, characters[i]);
   }
   return 0;
