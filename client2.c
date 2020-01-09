@@ -5,17 +5,24 @@ void subserver(int from_client);
 
 int main(int argc, char **argv) {
 
+  
+  int server_socket;
+  char buffer[BUFFER_SIZE];
+  server_socket = client_setup(argv[1]);
+  printf("enter data: ");
+  fgets(buffer, sizeof(buffer), stdin);
+  *strchr(buffer, '\n') = 0;
+  write(server_socket, buffer, sizeof(buffer));
+  read(server_socket, buffer, sizeof(buffer));
+  printf("received: [%s]\n", buffer);
+    
   int listen_socket;
   int f;
   listen_socket = server_setup();
-
+    
   while (1) {
-
+      
     int state_iteration = 1;
-
-    int server_socket;
-    char buffer[BUFFER_SIZE];
-    server_socket = client_setup(argv[1]);
 
     if (state_iteration == 1) {
       printf("enter data: ");
