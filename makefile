@@ -1,20 +1,22 @@
-all: client1 client2
+all: server client
 
-client2: client2.o networking.o
-	gcc -o client2 client2.o networking.o
+server: server.o networking.o
+	gcc -o server server.o networking.o
 
-client1: client1.o networking.o
-	gcc -o client1 client1.o networking.o
+client: client.o networking.o
+	gcc -o client client.o networking.o
 
-client2.o: client2.c networking.h
-	gcc -c client2.c
+server.o: server.c networking.h
+	gcc -c server.c
 
-client1.o: client1.c networking.h
-	gcc -c client1.c
+client.o: client.c networking.h
+	gcc -c client.c
 
 networking.o: networking.c networking.h
 	gcc -c networking.c
 
 clean:
+	rm server
+	rm client
 	rm *.o
 	rm *~
