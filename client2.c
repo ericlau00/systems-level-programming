@@ -33,8 +33,7 @@ int main(int argc, char **argv) {
       printf("received: [%s]\n", buffer);
       state_iteration = 0;
     }
-
-    if (state_iteration == 0) {
+    else if (state_iteration == 0) {
       int client_socket = server_connect(listen_socket);
       char buffer[BUFFER_SIZE];
       read(client_socket, buffer, sizeof(buffer));
