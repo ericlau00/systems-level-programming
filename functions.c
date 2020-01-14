@@ -9,7 +9,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 
-void rand_characters(char ** characters) {
+void get_characters(char ** characters) {
     FILE * charfile;
     charfile = fopen("characters", "r");
     char temp[255];
@@ -41,14 +41,12 @@ int _random() {
     return abs(random) % 133;
 }
 
-int main() {
+int get_random() {
     char ** characters = malloc(sizeof(char *) * 133);
-    rand_characters(characters);
+    get_characters(characters);
     int random_ints[16];
     char ** random_characters = malloc(sizeof(char *) * 16);
-    int i;
-    int j;
-    int x;
+    int i, j, x;
     for( i = 0; i < 16; i++ ) {
         x = _random();
         for( j = 0; j < i; j++) {
@@ -63,14 +61,12 @@ int main() {
         printf("%s\n", random_characters[i]);
     }
 
+
+
     for(i = 0; i < 133; i++) {
         free(characters[i]);
     }
     free(characters);
     free(random_characters);
-    // int i;
-    // for (i = 0; i < 133; i++) {
-    //   printf("%d:\t%s\n", i, characters[i]);
-    // }
     return 0;
 }
