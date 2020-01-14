@@ -1,15 +1,22 @@
 #include "networking.h"
+#include "random.h"
 
 void process(char *s);
 void subserver(int from_client);
 int numplayers;
+char ** random_characters;
 
 int main() {
+  random_characters = malloc(sizeof(char *) * 16);
+  get_random(random_characters);
+  // int i;
+  // for (i = 0; i < 16; i++) {
+  //   printf("%s\n", random_characters[i]);
+  // }
 
   int listen_socket;
   int f;
   listen_socket = server_setup();
-  char ** randomcharacters = get_random();
 
   while (1) {
     if (numplayers == 0) {
@@ -19,10 +26,11 @@ int main() {
         printf("1 player connected. 1 more player must connect to play.\n");
     }
     else if (numplayers == 2) {
-        printf("Playing.\n");
+        printf("2 players connected. Playing.\n");
         // setup game
         // get array of 16 characters
     }
+    printf("numplayers %d\n", numplayers);
     int client_socket = server_connect(listen_socket);
     f = fork();
     numplayers++;
@@ -41,7 +49,8 @@ void subserver(int client_socket) {
   while (read(client_socket, buffer, sizeof(buffer))) {
     int pid = getpid();
     printf("[subserver %d] received: [%s]\n", pid, buffer);
-    process(buffer);
+    // process(buffer);
+    int i;
     write(client_socket, buffer, sizeof(buffer));
   }//end read loop
   close(client_socket);

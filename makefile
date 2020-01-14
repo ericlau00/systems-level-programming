@@ -6,10 +6,10 @@ server: server.o networking.o random.o
 client: client.o networking.o
 	gcc -o client client.o networking.o
 
-random.o: random.c
+random.o: random.c random.h
 	gcc -c random.c
 
-server.o: server.c networking.h
+server.o: server.c networking.h random.h
 	gcc -c server.c
 
 client.o: client.c networking.h

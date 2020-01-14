@@ -1,13 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <fcntl.h> //open
-#include <unistd.h> //read, write, close
-#include <errno.h> //errno
-#include <sys/stat.h> //umask, stat
-#include <time.h> //ctime
-#include <dirent.h>
-#include <sys/types.h>
+#include "random.h"
 
 void get_characters(char ** characters) {
     FILE * charfile;
@@ -41,11 +32,10 @@ int _random() {
     return abs(random) % 133;
 }
 
-int get_random() {
-    char ** characters = malloc(sizeof(char *) * 133);
+int get_random(char ** random_characters) {
+    char ** characters = malloc(sizeof(char * ) * 133);
     get_characters(characters);
     int random_ints[16];
-    char ** random_characters = malloc(sizeof(char *) * 16);
     int i, j, x;
     for( i = 0; i < 16; i++ ) {
         x = _random();
@@ -57,13 +47,13 @@ int get_random() {
         random_ints[i] = x;
         random_characters[i] = characters[random_ints[i]];
     }
-    for(i = 0; i < 16; i++) {
-        printf("%s\n", random_characters[i]);
-    }
+    // for(i = 0; i < 16; i++) {
+    //     printf("%s\n", random_characters[i]);
+    // }
     // for(i = 0; i < 133; i++) {
     //     free(characters[i]);
     // }
     // free(characters);
     // free(random_characters);
-    return random_characters;
+    return 0;
 }
