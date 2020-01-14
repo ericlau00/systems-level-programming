@@ -3,6 +3,10 @@
 void process(char *s);
 void subserver(int from_client);
 
+int users[2];
+users[0] = -1;
+users[1] = -1;
+
 int main() {
 
   int listen_socket;
@@ -24,8 +28,9 @@ void subserver(int client_socket) {
   char buffer[BUFFER_SIZE];
 
   while (read(client_socket, buffer, sizeof(buffer))) {
-
-    printf("[subserver %d] received: [%s]\n", getpid(), buffer);
+    int pid = getpid();
+    
+    printf("[subserver %d] received: [%s]\n", pid, buffer);
     process(buffer);
     write(client_socket, buffer, sizeof(buffer));
   }//end read loop
