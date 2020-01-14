@@ -60,13 +60,10 @@ int get_random() {
     for(i = 0; i < 16; i++) {
         printf("%s\n", random_characters[i]);
     }
-
-
-
-    for(i = 0; i < 133; i++) {
-        free(characters[i]);
-    }
-    free(characters);
-    free(random_characters);
-    return 0;
+    // for(i = 0; i < 133; i++) {
+    //     free(characters[i]);
+    // }
+    // free(characters);
+    // free(random_characters);
+    return random_characters;
 }

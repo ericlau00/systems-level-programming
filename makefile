@@ -1,10 +1,13 @@
 all: server client
 
-server: server.o networking.o
-	gcc -o server server.o networking.o
+server: server.o networking.o random.o
+	gcc -o server server.o networking.o random.o
 
 client: client.o networking.o
 	gcc -o client client.o networking.o
+
+random.o: random.c
+	gcc -c random.c
 
 server.o: server.c networking.h
 	gcc -c server.c
