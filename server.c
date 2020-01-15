@@ -51,27 +51,9 @@ void subserver(int client_socket) {
   while (read(client_socket, buffer, sizeof(buffer))) {
     int pid = getpid();
     printf("[subserver %d] received: [%s]\n", pid, buffer);
-    // int i = 5;
+    char message[16][256] = {"hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh" };
 
-    // char * tell = "h";
-
-    // struct response * s;
-    // s->user = 0;
-    // s->type = 1;
-    // s->content = tell;
-
-    // write(client_socket, &i, sizeof(i));
-    // char * test = "test";
-    // int h = 1;
-
-    // struct response * s;
-    // s->user = 0;
-    // s->type = 1;
-    // s->content = "hello";
-
-    char message[10]= "hello";
-
-    write(client_socket, &message, 10 * sizeof(char));
+    write(client_socket, &message, sizeof(message));
     // write(client_socket, buffer, sizeof(buffer));
   }//end read loop
   close(client_socket);
