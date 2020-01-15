@@ -9,10 +9,10 @@ client: client.o networking.o
 random.o: random.c random.h
 	gcc -c random.c
 
-server.o: server.c networking.h random.h
+server.o: server.c networking.h random.h game.h
 	gcc -c server.c
 
-client.o: client.c networking.h
+client.o: client.c networking.h game.h
 	gcc -c client.c
 
 networking.o: networking.c networking.h

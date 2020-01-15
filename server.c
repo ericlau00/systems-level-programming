@@ -1,18 +1,20 @@
 #include "networking.h"
 #include "random.h"
+#include "game.h"
 
 void process(char *s);
 void subserver(int from_client);
 int numplayers;
 char ** random_characters;
 
+// struct board {
+//   int type;
+
+// };
+
 int main() {
   random_characters = malloc(sizeof(char *) * 16);
   get_random(random_characters);
-  // int i;
-  // for (i = 0; i < 16; i++) {
-  //   printf("%s\n", random_characters[i]);
-  // }
 
   int listen_socket;
   int f;
@@ -49,20 +51,39 @@ void subserver(int client_socket) {
   while (read(client_socket, buffer, sizeof(buffer))) {
     int pid = getpid();
     printf("[subserver %d] received: [%s]\n", pid, buffer);
-    // process(buffer);
-    int i;
-    write(client_socket, buffer, sizeof(buffer));
+    // int i = 5;
+
+    // char * tell = "h";
+
+    // struct response * s;
+    // s->user = 0;
+    // s->type = 1;
+    // s->content = tell;
+
+    // write(client_socket, &i, sizeof(i));
+    // char * test = "test";
+    // int h = 1;
+
+    // struct response * s;
+    // s->user = 0;
+    // s->type = 1;
+    // s->content = "hello";
+
+    char message[10]= "hello";
+
+    write(client_socket, &message, 10 * sizeof(char));
+    // write(client_socket, buffer, sizeof(buffer));
   }//end read loop
   close(client_socket);
   exit(0);
 }
 
-void process(char * s) {
-  while (*s) {
-    if (*s >= 'a' && *s <= 'z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
-    else  if (*s >= 'A' && *s <= 'Z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
-    s++;
-  }
-}
+// void process(char * s) {
+//   while (*s) {
+//     if (*s >= 'a' && *s <= 'z')
+//       *s = ((*s - 'a') + 13) % 26 + 'a';
+//     else  if (*s >= 'A' && *s <= 'Z')
+//       *s = ((*s - 'a') + 13) % 26 + 'a';
+//     s++;
+//   }
+// }
