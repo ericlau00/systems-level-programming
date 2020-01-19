@@ -9,3 +9,5 @@ struct response {
 int game_logic(int client, struct response res, char * chosen);
 
 int ask_initial_question(int client, struct response res);
+
+int ask_or_guess(struct response * res);
