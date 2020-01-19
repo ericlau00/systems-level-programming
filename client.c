@@ -1,44 +1,51 @@
 #include "networking.h"
-#include "game.h"
 
 int main(int argc, char **argv) {
 
-  int server_socket;
-  char buffer[BUFFER_SIZE];
+    int client_0;
+    char buffer[BUFFER_SIZE];
 
-  if (argc == 2)
-    server_socket = client_setup( argv[1]);
-  else
-    server_socket = client_setup( TEST_IP );
+    if (argc == 2) {
+        int listen_socket;
+        listen_socket = client_listen();
 
-  char message[16][256];
-  write(server_socket, buffer, sizeof(buffer));
-  read(server_socket, &message, sizeof(message));
-  int i = 0;
-    for(; i < 16; i++) {
-      printf("%s\n", message[i]);
-  }
+        while (1) {
+            int client_1 = client_accept(listen_socket);
+            write(client_1, buffer, sizeof(buffer));
+            while (read(client_1, buffer, sizeof(buffer))) {
+                printf("[other %d] received: [%s]\n", client_1, buffer);
+                write(client_1, buffer, sizeof(buffer));
+            }
+        }
+    }
+    else {
+        client_0 = client_connect( TEST_IP );
 
-  while (1) {
-    printf("enter data: ");
-    fgets(buffer, sizeof(buffer), stdin);
-    *strchr(buffer, '\n') = 0;
-    write(server_socket, buffer, sizeof(buffer));
-    // int i;
-    // struct response * s;
+        while( 1 ) {
+            read(client_0, buffer, sizeof(buffer));
+            printf("received: [%s]\n", buffer);
+            printf("enter data: ");
+            fgets(buffer, sizeof(buffer), stdin);
+            *strchr(buffer, '\n') = 0;
+            write(client_0, buffer, sizeof(buffer));
+        }
+    }
 
-    read(server_socket, &message, sizeof(message));
-    // read(server_socket, &i, sizeof(i));
-    // printf("received: [%d]\n", i);
-    // read(server_socket, &s, sizeof(s));
-    // read(server_socket, buffer, sizeof(buffer));
-    // read(server_socket, &s, sizeof(s));
-    // printf("received: [%d]\n", s->user);
-    // printf("received: [%d]\n", s->type);
-    // printf("received: [%s]\n", s->content);
-    // printf("received: [%d]\n", i);
-    // printf("receive %s\n", message);
 
-    // printf("received: [%s]\n", buffer);
-  }
+    // int other_client_socket;
+    // char buffer[BUFFER_SIZE];
+
+    // if (argc == 2)
+    //     other_client_socket = client_connect( argv[1]);
+    // else
+    //     other_client_socket = client_connect( TEST_IP );
+
+    // while (1) {
+    //     printf("enter data: ");
+    //     fgets(buffer, sizeof(buffer), stdin);
+    //     *strchr(buffer, '\n') = 0;
+    //     write(other_client_socket, buffer, sizeof(buffer));
+    //     read(other_client_socket, buffer, sizeof(buffer));
+    //     printf("received: [%s]\n", buffer);
+    // }
 }

@@ -12,7 +12,7 @@ random.o: random.c random.h
 server.o: server.c networking.h random.h game.h
 	gcc -c server.c
 
-client.o: client.c networking.h game.h
+client.o: client.c networking.h
 	gcc -c client.c
 
 networking.o: networking.c networking.h
