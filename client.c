@@ -7,10 +7,7 @@ int main(int argc, char **argv) {
     char buffer[BUFFER_SIZE];
 
     struct response {
-        int from_client;
-        int type; // 0 is question, 1 is guess, 2 is answer, 3 is done,
-        int client_turn;
-        int prev_turn;
+        int type; // 0 is question, 1 is guess, 2 is answer, 3 is done, 4 is gameover
         char content[256];
     };
 
@@ -24,118 +21,200 @@ int main(int argc, char **argv) {
         int listen_socket;
         listen_socket = client_listen();
 
-        while (1) {
-            //write all the characters
-            int client_1 = client_accept(listen_socket);
-            // write(client_1, &random_characters, sizeof(random_characters));
+        printf("Waiting for player...\n");
 
-            // if (client_turn == 0 && prev_turn == 0) {
-                struct response res;
+        int client_1 = client_accept(listen_socket);
 
-                char temp[3];
-                printf("[Q to ask question // G to guess]: ");
+        printf("Player connected!\n");
 
-                fgets(temp, sizeof(temp), stdin);
-                *strchr(temp, '\n') = 0;
+        char characters[6][20] = {"x","y","z","a","b","c"};
+        char chosen[20]; 
+        strcpy(chosen, characters[2]);
+        write(client_1, &characters, sizeof(characters));
+        printf("Your character is: %s\n", chosen);
 
-                if(strcmp(temp, "Q") == 0) {
-                    res.type = 0;
-                    printf("[Ask your question]: ");
-                }
+        printf("Ask a question: ");
+        struct response res;
+        res.type = 0;
+        fgets(res.content, sizeof(res.content), stdin);
+        *strchr(res.content, '\n') = 0;
+        write(client_1, &res, sizeof(res));
 
-                else if(strcmp(temp, "G") == 0) {
-                    res.type = 1;
-                    printf("[Guess]: ");
-                }
-
+        while(1) {
+            struct response res;
+            read(client_1, &res, sizeof(res));
+            
+            // checking res type
+            // res = question
+            if (res.type == 0) {
+                printf("You were asked: %s\n", res.content);
+                printf("Your answer: ");
+                res.type = 2;
                 fgets(res.content, sizeof(res.content), stdin);
-                *strchr(res.content, '\n') = '\0';
-                write(client_1, &res, sizeof(res));
-
-                if(strcmp(temp, "Q") == 0) {
-                    read(client_1, &res, sizeof(res));
-                    printf("Client 1 answered: %s\n", res.content);
-                    printf("Eliminate a name // G to guess // D to finish: ");
-                    fgets(temp, sizeof(temp), stdin);
-                    *strchr(temp, '\n') = 0;
-                    if(strcmp(temp, "G") == 0) {
-                        res.type = 1;
-                        printf("[Guess]: ");
-                        fgets(res.content, sizeof(res.content), stdin);
-                        *strchr(res.content, '\n') = '\0';
-                        write(client_1, &res, sizeof(res));
-                    }
-                    if(strcmp(temp, "D") == 0) {
-                        res.type = 3;
-                        write(client_1, &res, sizeof(res));
-                    }
+                *strchr(res.content, '\n') = 0;
+            }
+            // res = guess
+            else if (res.type == 1) {
+                printf("Your opponent guessed: %s\n", res.content);
+                if (strcmp(res.content, chosen) == 0) {
+                    printf("HAHAHAHAH U TRASH U LOST\n");
+                    res.type = 4;
+                    strcpy(res.content, "Game Over");
+                    write(client_1, &res, sizeof(res));
+                    exit(0);
+                } 
+                else {
+                    printf("The guess was incorrect\n");
                 }
+                printf("Ask a question or type g to guess: ");
+                char input[256];
+                fgets(input, sizeof(input), stdin);
+                *strchr(input, '\n') = 0;
+                if (strcmp(input, "g") == 0) {
+                    printf("Make a guess: ");
+                    res.type = 1;
+                    fgets(res.content, sizeof(res.content), stdin);
+                    *strchr(res.content, '\n') = 0;
+                }
+                else {
+                    res.type = 0;
+                    strcpy(res.content, input);
+                }
+            }
+            // res = answer
+            else if (res.type == 2) {
+                printf("Your opponent answered: %s\n", res.content);
+                printf("Enter characters name to flip or type done when finished: ");
+                char currflip[20];
+                fgets(currflip, sizeof(currflip), stdin);
+                *strchr(currflip, '\n') = 0;
+                while (strcmp(currflip, "done") != 0) {
+                    //modify board
+                    printf("You flipped: %s\n", currflip);
+                    printf("Enter another characters name to flip or type done when finished: ");
+                    fgets(currflip, sizeof(currflip), stdin);
+                    *strchr(currflip, '\n') = 0;
+                }
+                res.type = 3;
+                strcpy(res.content, "flipping done");
+            }
+            // res = done
+            else if (res.type == 3) {
+                printf("Ask a question or type g to guess: ");
+                char input[256];
+                fgets(input, sizeof(input), stdin);
+                *strchr(input, '\n') = 0;
+                if (strcmp(input, "g") == 0) {
+                    printf("Make a guess: ");
+                    res.type = 1;
+                    fgets(res.content, sizeof(res.content), stdin);
+                    *strchr(res.content, '\n') = 0;
+                }
+                else {
+                    res.type = 0;
+                    strcpy(res.content, input);
+                }
+            }
+            // res = gameover
+            else if (res.type == 4) {
+                printf("Congratulations u are slightly less trash than other guy\n");
+                exit(0);
+            }
+            write(client_1, &res, sizeof(res));
         }
     }
     else {
         client_0 = client_connect( TEST_IP );
 
-        while( 1 ) {
+        printf("You have successfuly connected!\n");
+        
+        char characters[6][20];
+        read(client_0, &characters, sizeof(characters));
+        char chosen[20];
+        strcpy(chosen, characters[3]);
+        printf("Your character is: %s\n", chosen);
+
+        while(1) {
             struct response res;
             read(client_0, &res, sizeof(res));
-            if(res.type == 0) {
-                printf("Client 0 asked: %s\n[Answer]: ", res.content);
-                fgets(res.content, sizeof(res.content), stdin);
-                *strchr(res.content, '\n') = '\0';
+            
+            // checking res type
+            // res = question
+            if (res.type == 0) {
+                printf("You were asked: %s\n", res.content);
+                printf("Your answer: ");
                 res.type = 2;
-                res.from_client = 1;
-                res.client_turn = 1;
-                res.prev_turn= 0;
-                write(client_0, &res, sizeof(res));
-            }
-
-            if(res.type == 1) {
-                // handles guesses
-            }
-
-            if(res.type == 3) {
-                char temp[3];
-                printf("[Q to ask question // G to guess]: ");
-
-                fgets(temp, sizeof(temp), stdin);
-                *strchr(temp, '\n') = 0;
-
-                if(strcmp(temp, "Q") == 0) {
-                    res.type = 0;
-                    printf("[Ask your question]: ");
-                }
-
-                else if(strcmp(temp, "G") == 0) {
-                    res.type = 1;
-                    printf("[Guess]: ");
-                }
-
                 fgets(res.content, sizeof(res.content), stdin);
-                *strchr(res.content, '\n') = '\0';
-                res.from_client = 0;
-                res.client_turn = 0;
-                res.prev_turn= 1;
-                write(client_0, &res, sizeof(res));
-
-                if(strcmp(temp, "Q") == 0) {
-                    read(client_0, &res, sizeof(res));
-                    printf("Client 0 answered: %s\n", res.content);
-                    printf("Eliminate a name // G to guess // D to finish: ");
-                    fgets(temp, sizeof(temp), stdin);
-                    *strchr(temp, '\n') = 0;
-                    if(strcmp(temp, "G") == 0) {
-                        res.type = 1;
-                        printf("[Guess]: ");
-                        fgets(res.content, sizeof(res.content), stdin);
-                        *strchr(res.content, '\n') = '\0';
-                        write(client_0, &res, sizeof(res));
-                    }
-                    if(strcmp(temp, "D") == 0) {
-                        res.type = 3;
-                        write(client_0, &res, sizeof(res));
-                    }
+                *strchr(res.content, '\n') = 0;
+            }
+            // res = guess
+            else if (res.type == 1) {
+                printf("Your opponent guessed: %s\n", res.content);
+                if (strcmp(res.content, chosen) == 0) {
+                    printf("HAHAHAHAH U TRASH U LOST\n");
+                    res.type = 4;
+                    strcpy(res.content, "Game Over");
+                    write(client_0, &res, sizeof(res));
+                    exit(0);
+                } 
+                else {
+                    printf("The guess was incorrect\n");
+                }
+                printf("Ask a question or type g to guess: ");
+                char input[256];
+                fgets(input, sizeof(input), stdin);
+                *strchr(input, '\n') = 0;
+                if (strcmp(input, "g") == 0) {
+                    printf("Make a guess: ");
+                    res.type = 1;
+                    fgets(res.content, sizeof(res.content), stdin);
+                    *strchr(res.content, '\n') = 0;
+                }
+                else {
+                    res.type = 0;
+                    strcpy(res.content, input);
                 }
             }
+            // res = answer
+            else if (res.type == 2) {
+                printf("Your opponent answered: %s\n", res.content);
+                printf("Enter characters name to flip or type done when finished: ");
+                char currflip[20];
+                fgets(currflip, sizeof(currflip), stdin);
+                *strchr(currflip, '\n') = 0;
+                while (strcmp(currflip, "done") != 0) {
+                    //modify board
+                    printf("You flipped: %s\n", currflip);
+                    printf("Enter another characters name to flip or type done when finished: ");
+                    fgets(currflip, sizeof(currflip), stdin);
+                    *strchr(currflip, '\n') = 0;
+                }
+                res.type = 3;
+                strcpy(res.content, "flipping done");
+            }
+            // res = done
+            else if (res.type == 3) {
+                printf("Ask a question or type g to guess: ");
+                char input[256];
+                fgets(input, sizeof(input), stdin);
+                *strchr(input, '\n') = 0;
+                if (strcmp(input, "g") == 0) {
+                    printf("Make a guess: ");
+                    res.type = 1;
+                    fgets(res.content, sizeof(res.content), stdin);
+                    *strchr(res.content, '\n') = 0;
+                }
+                else {
+                    res.type = 0;
+                    strcpy(res.content, input);
+                }
+            }
+            // res = gameover
+            else if (res.type == 4) {
+                printf("Congratulations u are slightly less trash than other guy\n");
+                exit(0);
+            }
+            write(client_0, &res, sizeof(res));
         }
     }
 }
