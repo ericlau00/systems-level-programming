@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
 
     struct response {
         int from_client;
-        int type;
+        int type; // 0 is question, 1 is guess, 2 is answer, 3 is done,
         int client_turn;
         int prev_turn;
         char content[256];
@@ -65,9 +65,22 @@ int main(int argc, char **argv) {
                     read(client_1, &res, sizeof(res));
                     printf("Client 1 answered: %s\n", res.content);
                     printf("Eliminate a name // G to guess // D to finish: ");
-                    fgets(res.content, sizeof(res.content), stdin);
-                    *strchr(res.content, '\n') = '\0';
-                    printf("%s\n", res.content);
+                    fgets(temp, sizeof(temp), stdin);
+                    *strchr(temp, '\n') = 0;
+                    if(strcmp(temp, "G") == 0) {
+                        res.type = 1;
+                        printf("[Guess]: ");
+                        fgets(res.content, sizeof(res.content), stdin);
+                        *strchr(res.content, '\n') = '\0';
+                        // res.from_client = 0;
+                        // res.client_turn = 0;
+                        // res.prev_turn= 1;
+                        write(client_1, &res, sizeof(res));
+                    }
+                    if(strcmp(temp, "D") == 0) {
+                        res.type = 3;
+                        write(client_1, &res, sizeof(res));
+                    }
                     // printf("Enter name to eliminate // Press G to guess // Press D to finish:");
                 }
 
@@ -100,18 +113,69 @@ int main(int argc, char **argv) {
 
 
         while( 1 ) {
-            printf("here again\n");
-            struct response response;
-            read(client_0, &response, sizeof(response));
-            if(response.type == 0) {
-                printf("Client 0 asked: %s\n[Answer]: ", response.content);
-                fgets(response.content, sizeof(response.content), stdin);
-                *strchr(response.content, '\n') = '\0';
-                response.type = 2;
-                response.from_client = 1;
-                response.client_turn = 1;
-                response.prev_turn= 0;
-                write(client_0, &response, sizeof(response));
+            struct response res;
+            read(client_0, &res, sizeof(res));
+            if(res.type == 0) {
+                printf("Client 0 asked: %s\n[Answer]: ", res.content);
+                fgets(res.content, sizeof(res.content), stdin);
+                *strchr(res.content, '\n') = '\0';
+                res.type = 2;
+                res.from_client = 1;
+                res.client_turn = 1;
+                res.prev_turn= 0;
+                write(client_0, &res, sizeof(res));
+            }
+
+            if(res.type == 1) {
+                // handles guesses
+            }
+
+            if(res.type == 3) {
+                char temp[3];
+                printf("[Q to ask question // G to guess]: ");
+
+                fgets(temp, sizeof(temp), stdin);
+                *strchr(temp, '\n') = 0;
+
+                if(strcmp(temp, "Q") == 0) {
+                    res.type = 0;
+                    printf("[Ask your question]: ");
+                }
+
+                else if(strcmp(temp, "G") == 0) {
+                    res.type = 1;
+                    printf("[Guess]: ");
+                }
+
+                fgets(res.content, sizeof(res.content), stdin);
+                *strchr(res.content, '\n') = '\0';
+                res.from_client = 0;
+                res.client_turn = 0;
+                res.prev_turn= 1;
+                write(client_0, &res, sizeof(res));
+
+                if(strcmp(temp, "Q") == 0) {
+                    read(client_0, &res, sizeof(res));
+                    printf("Client 0 answered: %s\n", res.content);
+                    printf("Eliminate a name // G to guess // D to finish: ");
+                    fgets(temp, sizeof(temp), stdin);
+                    *strchr(temp, '\n') = 0;
+                    if(strcmp(temp, "G") == 0) {
+                        res.type = 1;
+                        printf("[Guess]: ");
+                        fgets(res.content, sizeof(res.content), stdin);
+                        *strchr(res.content, '\n') = '\0';
+                        // res.from_client = 0;
+                        // res.client_turn = 0;
+                        // res.prev_turn= 1;
+                        write(client_0, &res, sizeof(res));
+                    }
+                    if(strcmp(temp, "D") == 0) {
+                        res.type = 3;
+                        write(client_0, &res, sizeof(res));
+                    }
+                    // printf("Enter name to eliminate // Press G to guess // Press D to finish:");
+                }
             }
             // printf("enter data: ");
             // fgets(buffer, sizeof(buffer), stdin);
