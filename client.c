@@ -5,7 +5,7 @@ int main(int argc, char **argv) {
     int OTHER_CLIENT;
     struct response res;
 
-    if (argc == 2) {
+    if (argc == 1) {
 
         int listen_socket = client_listen();
 
@@ -29,8 +29,8 @@ int main(int argc, char **argv) {
             game_logic(OTHER_CLIENT, res, chosen);
         }
     }
-    else {
-        OTHER_CLIENT = client_connect( TEST_IP );
+    else if (argc == 2) {
+        OTHER_CLIENT = client_connect( argv[1] );
 
         printf("You have successfuly connected!\n");
 
