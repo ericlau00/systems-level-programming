@@ -47,13 +47,5 @@ int get_random(char ** random_characters) {
         random_ints[i] = x;
         random_characters[i] = characters[random_ints[i]];
     }
-    // for(i = 0; i < 16; i++) {
-    //     printf("%s\n", random_characters[i]);
-    // }
-    // for(i = 0; i < 133; i++) {
-    //     free(characters[i]);
-    // }
-    // free(characters);
-    // free(random_characters);
     return 0;
 }

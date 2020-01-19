@@ -7,8 +7,9 @@ int main(int argc, char **argv) {
     char buffer[BUFFER_SIZE];
 
     if (argc == 2) {
-        char ** random_characters = malloc(sizeof(char *) * 16);
-        get_random(random_characters);
+        char random_characters[16][256];
+        // char ** random_characters = malloc(sizeof(char *) * 16);
+        // get_random(random_characters);
 
         int i = 0;
         for(; i < 16; i++) {
@@ -17,7 +18,7 @@ int main(int argc, char **argv) {
         int listen_socket;
         listen_socket = client_listen();
 
-        // char message[16][256] =
+        // char random_characters[16][256] = {"hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh", "hh" };
         while (1) {
             int client_1 = client_accept(listen_socket);
             write(client_1, &random_characters, sizeof(random_characters));
@@ -30,12 +31,12 @@ int main(int argc, char **argv) {
     else {
         client_0 = client_connect( TEST_IP );
 
-        char message[16][256];
-        read(client_0, &message, sizeof(message));
+        char random_characters[16][256];
+        read(client_0, &random_characters, sizeof(random_characters));
 
         int i = 0;
         for(; i < 16; i++) {
-            printf("%s\n", message[i]);
+            printf("%s\n", random_characters[i]);
         }
 
         while( 1 ) {
@@ -43,8 +44,7 @@ int main(int argc, char **argv) {
             fgets(buffer, sizeof(buffer), stdin);
             *strchr(buffer, '\n') = 0;
             write(client_0, buffer, sizeof(buffer));
-            read(client_0, buffer, sizeof(buffer));
-            printf("received: [%s]\n", buffer);
+            // printf("received: [%s]\n", message);
         }
     }
 
