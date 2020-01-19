@@ -1,22 +1,8 @@
-#include "networking.h"
-#include "random.h"
+#include "game.h"
 
 int main(int argc, char **argv) {
 
-    int client_0;
-    char buffer[BUFFER_SIZE];
-
-    struct response {
-        int type; // 0 is question, 1 is guess, 2 is answer, 3 is done, 4 is gameover
-        char content[256];
-    };
-
-    int prev_turn = 0;
-    int client_turn = 0;
-
     if (argc == 2) {
-
-        char buffer[BUFFER_SIZE];
 
         int listen_socket;
         listen_socket = client_listen();
@@ -28,7 +14,7 @@ int main(int argc, char **argv) {
         printf("Player connected!\n");
 
         char characters[6][20] = {"x","y","z","a","b","c"};
-        char chosen[20]; 
+        char chosen[20];
         strcpy(chosen, characters[2]);
         write(client_1, &characters, sizeof(characters));
         printf("Your character is: %s\n", chosen);
@@ -41,9 +27,8 @@ int main(int argc, char **argv) {
         write(client_1, &res, sizeof(res));
 
         while(1) {
-            struct response res;
             read(client_1, &res, sizeof(res));
-            
+
             // checking res type
             // res = question
             if (res.type == 0) {
@@ -62,7 +47,7 @@ int main(int argc, char **argv) {
                     strcpy(res.content, "Game Over");
                     write(client_1, &res, sizeof(res));
                     exit(0);
-                } 
+                }
                 else {
                     printf("The guess was incorrect\n");
                 }
@@ -124,20 +109,21 @@ int main(int argc, char **argv) {
         }
     }
     else {
-        client_0 = client_connect( TEST_IP );
+        int client_0 = client_connect( TEST_IP );
 
         printf("You have successfuly connected!\n");
-        
+
         char characters[6][20];
         read(client_0, &characters, sizeof(characters));
         char chosen[20];
         strcpy(chosen, characters[3]);
         printf("Your character is: %s\n", chosen);
 
+        struct response res;
+
         while(1) {
-            struct response res;
             read(client_0, &res, sizeof(res));
-            
+
             // checking res type
             // res = question
             if (res.type == 0) {
@@ -156,7 +142,7 @@ int main(int argc, char **argv) {
                     strcpy(res.content, "Game Over");
                     write(client_0, &res, sizeof(res));
                     exit(0);
-                } 
+                }
                 else {
                     printf("The guess was incorrect\n");
                 }
