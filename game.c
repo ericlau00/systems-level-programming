@@ -26,7 +26,7 @@ int game_logic(int client, struct response res, char * chosen) {
 }
 
 int ask_initial_question(int client, struct response res) {
-    res.type = 0;
+    res.type = QUESTION;
     fgets(res.content, sizeof(res.content), stdin);
     *strchr(res.content, '\n') = 0;
     write(client, &res, sizeof(res));
@@ -37,7 +37,7 @@ int ask_initial_question(int client, struct response res) {
 int answer_question(struct response * res) {
     printf("You were asked: %s\n", res->content);
     printf("Your answer: ");
-    res->type = 2;
+    res->type = ANSWER;
     fgets(res->content, sizeof(res->content), stdin);
     *strchr(res->content, '\n') = 0;
 
@@ -48,7 +48,7 @@ int check_guess(struct response * res, char * chosen, int client) {
     printf("Your opponent guessed: %s\n", res->content);
     if (strcmp(res->content, chosen) == 0) {
         printf("HAHAHAHAH U TRASH U LOST\n");
-        res->type = 4;
+        res->type = GAMEOVER;
         strcpy(res->content, "Game Over");
         write(client, &res, sizeof(struct response));
         exit(0);
@@ -72,7 +72,7 @@ int flip_characters(struct response * res) {
         fgets(currflip, sizeof(currflip), stdin);
         *strchr(currflip, '\n') = 0;
     }
-    res->type = 3;
+    res->type = DONE;
     strcpy(res->content, "flipping done");
     return 0;
 }
@@ -84,12 +84,12 @@ int ask_or_guess(struct response * res) {
     *strchr(input, '\n') = 0;
     if (strcmp(input, "g") == 0) {
         printf("Make a guess: ");
-        res->type = 1;
+        res->type = GUESS;
         fgets(res->content, sizeof(res->content), stdin);
         *strchr(res->content, '\n') = 0;
     }
     else {
-        res->type = 0;
+        res->type = QUESTION;
         strcpy(res->content, input);
     }
 
