@@ -3,8 +3,8 @@ all: server client
 server: server.o networking.o random.o
 	gcc -o server server.o networking.o random.o
 
-client: client.o networking.o
-	gcc -o client client.o networking.o
+client: client.o networking.o random.o
+	gcc -o client client.o networking.o random.o
 
 random.o: random.c random.h
 	gcc -c random.c
@@ -12,7 +12,7 @@ random.o: random.c random.h
 server.o: server.c networking.h random.h game.h
 	gcc -c server.c
 
-client.o: client.c networking.h
+client.o: client.c networking.h random.h
 	gcc -c client.c
 
 networking.o: networking.c networking.h
