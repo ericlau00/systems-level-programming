@@ -1,6 +1,15 @@
 #include "game.h"
 
-int logic(int client, struct response res, char * chosen) {
+int ask_initial_question(int client, struct response res) {
+    res.type = 0;
+    fgets(res.content, sizeof(res.content), stdin);
+    *strchr(res.content, '\n') = 0;
+    write(client, &res, sizeof(res));
+
+    return 0;
+}
+
+int game_logic(int client, struct response res, char * chosen) {
     read(client, &res, sizeof(res));
 
     // checking res type
@@ -80,4 +89,6 @@ int logic(int client, struct response res, char * chosen) {
         exit(0);
     }
     write(client, &res, sizeof(res));
+
+    return 0;
 }

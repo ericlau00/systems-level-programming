@@ -6,4 +6,6 @@ struct response {
     char content[256];
 };
 
-int logic(int client, struct response res, char * chosen);
+int game_logic(int client, struct response res, char * chosen);
+
+int ask_initial_question(int client, struct response res);
