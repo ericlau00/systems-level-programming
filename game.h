@@ -20,4 +20,6 @@ int answer_question(struct response * res);
 
 int check_guess(struct response * res, char * chosen, int client);
 
+int flip_characters(struct response * res);
+
 int ask_or_guess(struct response * res);

@@ -11,20 +11,7 @@ int game_logic(int client, struct response res, char * chosen) {
         ask_or_guess(&res);
     }
     else if (res.type == ANSWER) {
-        printf("Your opponent answered: %s\n", res.content);
-        printf("Enter characters name to flip or type done when finished: ");
-        char currflip[20];
-        fgets(currflip, sizeof(currflip), stdin);
-        *strchr(currflip, '\n') = 0;
-        while (strcmp(currflip, "done") != 0) {
-            //modify board
-            printf("You flipped: %s\n", currflip);
-            printf("Enter another characters name to flip or type done when finished: ");
-            fgets(currflip, sizeof(currflip), stdin);
-            *strchr(currflip, '\n') = 0;
-        }
-        res.type = 3;
-        strcpy(res.content, "flipping done");
+        flip_characters(&res);
     }
     else if (res.type == DONE) {
         ask_or_guess(&res);
@@ -69,6 +56,25 @@ int check_guess(struct response * res, char * chosen, int client) {
     else {
         printf("The guess was incorrect\n");
     }
+    return 0;
+}
+
+int flip_characters(struct response * res) {
+    printf("Your opponent answered: %s\n", res->content);
+    printf("Enter characters name to flip or type done when finished: ");
+    char currflip[20];
+    fgets(currflip, sizeof(currflip), stdin);
+    *strchr(currflip, '\n') = 0;
+    while (strcmp(currflip, "done") != 0) {
+        //modify board
+        printf("You flipped: %s\n", currflip);
+        printf("Enter another characters name to flip or type done when finished: ");
+        fgets(currflip, sizeof(currflip), stdin);
+        *strchr(currflip, '\n') = 0;
+    }
+    res->type = 3;
+    strcpy(res->content, "flipping done");
+    return 0;
 }
 
 int ask_or_guess(struct response * res) {
