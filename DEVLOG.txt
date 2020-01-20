@@ -53,3 +53,6 @@ Working base game functionality including turns and passing structs between sock
 
 ericL -- 2020-01-19 14:42
 Completed most of refactoring including removing uneccessary variables and moving game logic into functions.
+
+ericL -- 2020-01-20 13:13
+Made board struct and choose random characters per player and print board on every turn.
