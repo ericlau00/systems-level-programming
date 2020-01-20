@@ -8,7 +8,13 @@ int game_logic(int client, struct response res, char * chosen) {
     }
     else if (res.type == GUESS) {
         check_guess(&res, chosen, client);
-        ask_or_guess(&res);
+        if(res.type == GAMEOVER) {
+            write(client, &res, sizeof(struct response));
+            exit(0);
+        }
+        else {
+            ask_or_guess(&res);
+        }
     }
     else if (res.type == ANSWER) {
         flip_characters(&res);
@@ -50,8 +56,6 @@ int check_guess(struct response * res, char * chosen, int client) {
         printf("HAHAHAHAH U TRASH U LOST\n");
         res->type = GAMEOVER;
         strcpy(res->content, "Game Over");
-        write(client, &res, sizeof(struct response));
-        exit(0);
     }
     else {
         printf("The guess was incorrect\n");
@@ -92,6 +96,4 @@ int ask_or_guess(struct response * res) {
         res->type = QUESTION;
         strcpy(res->content, input);
     }
-
-    return 0;
 }
