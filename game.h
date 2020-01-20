@@ -17,18 +17,20 @@ struct gameboard {
     char characters[16][20];
 };
 
-int game_setup(struct gameboard * board, char * chosen);
+int board_setup(struct gameboard * board);
 
-int print_board(struct gameboard * board, char * chosen);
+int chosen_setup(int * chosen);
 
-int game_logic(int client, struct response res, char * chosen, struct gameboard * board);
+int print_board(struct gameboard * board, int chosen);
+
+int game_logic(int client, struct response res, int chosen, struct gameboard * board);
 
 int ask_initial_question(int client, struct response res);
 
 int answer_question(struct response * res);
 
-int check_guess(struct response * res, char * chosen, int client);
+int check_guess(struct response * res, int chosen, int client, struct gameboard * board);
 
-int flip_characters(struct response * res);
+int flip_characters(struct response * res, struct gameboard * board);
 
 int ask_or_guess(struct response * res);
