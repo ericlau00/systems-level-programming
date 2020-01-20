@@ -4,6 +4,10 @@ int main(int argc, char **argv) {
 
     int OTHER_CLIENT;
     struct response res;
+    struct gameboard board;
+    char chosen[20];
+
+    game_setup(&board, chosen);
 
     if (argc == 1) {
 
@@ -15,18 +19,15 @@ int main(int argc, char **argv) {
 
         printf("Player connected!\n");
 
-        char characters[6][20] = {"x","y","z","a","b","c"};
-        write(OTHER_CLIENT, &characters, sizeof(characters));
+        write(OTHER_CLIENT, &(board.characters), sizeof(board.characters));
 
-        char chosen[20];
-        strcpy(chosen, characters[2]);
-        printf("Your character is: %s\n", chosen);
+        print_board(&board, chosen);
 
         printf("Ask a question: ");
         ask_initial_question(OTHER_CLIENT, res);
 
         while(1) {
-            game_logic(OTHER_CLIENT, res, chosen);
+            game_logic(OTHER_CLIENT, res, chosen, &board);
         }
     }
     else if (argc == 2) {
@@ -34,15 +35,10 @@ int main(int argc, char **argv) {
 
         printf("You have successfuly connected!\n");
 
-        char characters[6][20];
-        read(OTHER_CLIENT, &characters, sizeof(characters));
-
-        char chosen[20];
-        strcpy(chosen, characters[3]);
-        printf("Your character is: %s\n", chosen);
+        read(OTHER_CLIENT, &(board.characters), sizeof(board.characters));
 
         while(1) {
-            game_logic(OTHER_CLIENT, res, chosen);
+            game_logic(OTHER_CLIENT, res, chosen, &board);
         }
     }
     close(OTHER_CLIENT);

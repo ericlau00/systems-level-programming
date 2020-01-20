@@ -8,11 +8,20 @@
 #define GAMEOVER 4
 
 struct response {
-    int type; // 0 is question, 1 is guess, 2 is answer, 3 is done, 4 is gameover
+    int type;
     char content[256];
 };
 
-int game_logic(int client, struct response res, char * chosen);
+struct gameboard {
+    int index[16];
+    char characters[16][20];
+};
+
+int game_setup(struct gameboard * board, char * chosen);
+
+int print_board(struct gameboard * board, char * chosen);
+
+int game_logic(int client, struct response res, char * chosen, struct gameboard * board);
 
 int ask_initial_question(int client, struct response res);
 

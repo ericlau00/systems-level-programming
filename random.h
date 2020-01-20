@@ -9,8 +9,10 @@
 #include <dirent.h>
 #include <sys/types.h>
 
-int get_random(char ** random_characters);
+int get_random(char random_characters[16][20]);
 
-int _random();
+int _random(int div);
 
 void get_characters(char ** characters);
+
+int get_chosen(char * chosen, char characters[16][20]);

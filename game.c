@@ -1,6 +1,30 @@
 #include "game.h"
 
-int game_logic(int client, struct response res, char * chosen) {
+int game_setup(struct gameboard * board, char * chosen) {
+    get_random(board->characters);
+    get_chosen(chosen, board->characters);
+    int i = 0;
+    for(i = 0; i < 16; i++) {
+        board->index[i] = 0;
+    }
+    return 0;
+}
+
+int print_board(struct gameboard * board, char * chosen) {
+    int i = 0;
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("Your character is: %s\n", chosen);
+    for(; i < 16; i++) {
+        printf("%d. %s %2d\n", i, board->characters[i], board->index[i]);
+    }
+}
+
+int game_logic(int client, struct response res, char * chosen, struct gameboard * board) {
+
+    print_board(board, chosen);
     read(client, &res, sizeof(res));
 
     if (res.type == QUESTION) {
