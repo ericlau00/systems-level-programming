@@ -4,7 +4,7 @@
 
 ## Project Description
 
-Our project is a twist on the class tabletop game by Hasbro: Guess Who. Instead of trying to guess fictional characters based on their appearance, players must guess Stuyvesant High School faculty or notable students by asking questions based on their prior knowledge of the school community. Two players will each be shown the instructions and then given a randomly selected character. The gameplay will consist of the two players going back and forth asking questions, analyzing answers to "flip down characters" (eliminate their possibility of being the opponents character), and, finally guessing the opponent's character.
+Our project is a twist on the classic tabletop game by Hasbro: Guess Who. Instead of trying to guess fictional characters based on their appearance, players must guess Stuyvesant High School faculty or notable students by asking questions based on their prior knowledge of the school community. Two players will each be shown the instructions and then given a randomly selected character. The gameplay will consist of the two players going back and forth asking questions, analyzing answers to "flip down characters" (eliminate their possibility of being the opponents character), and, finally guessing the opponent's character.
 
 ## User Interface
 
@@ -29,9 +29,9 @@ We will use a server to send questions, answers, and guesses between two players
 
 At the beginning of the game, we will also use the server to send the list of random names to the players.
 
-#### Processes
+#### Piping
 
-We will use processes to fork the host terminal to be able to act both as the server and a client (player).
+We will use piping to execute the wc command on our characters file and get the number of characters in the file.
 
 #### Working with files
 
