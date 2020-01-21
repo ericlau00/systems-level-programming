@@ -16,6 +16,8 @@ int chosen_setup(int * chosen) {
 int print_board(struct gameboard * board, int chosen) {
     int i;
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf(HEADER);
+    printf("\n");
     for(i = 0; i < 16; i++) {
         // printf("%d. %s  %2d\n", i, board->characters[i], board->index[i]);
         if (i <= 9) {

@@ -1,6 +1,7 @@
 #include "networking.h"
 #include "random.h"
 
+#define HEADER " ______________________\n|                      |\n|   Guess Whom'st've   |\n|______________________|\n"
 #define QUESTION 0
 #define GUESS 1
 #define ANSWER 2
