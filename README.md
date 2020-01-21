@@ -22,5 +22,8 @@ Guess Whom'st've is a twist on the classic tabletop game by Hasbro: Guess Who. I
 9) Player 2 can flip down the characters that do not align with Player 1's answer by typing in their ID. Once they are done flipping, they can type done.
 10) During any prompt to ask a question, a player can type g and then guess the opponent's character. Steps 4-9 will repeat until a player successfuly guesses their opponent's character.
 
+## Other Information
+Made numerous attempts to use ncurses, but refrained from including it in our final program due to various errors. Our progress using ncurses can be found on the `frontend` branch.
+
 ## Works Cited
 Hasbro Guess Who Classic Game by Hasbro Gaming
