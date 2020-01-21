@@ -10,7 +10,6 @@ int main(int argc, char **argv) {
     board_setup(&board);
 
     if (argc == 1) {
-
         int listen_socket = client_listen();
 
         printf("Waiting for player...\n");

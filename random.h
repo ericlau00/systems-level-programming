@@ -9,6 +9,8 @@
 #include <dirent.h>
 #include <sys/types.h>
 
+int num_characters(int * x);
+
 int get_random(char random_characters[16][20]);
 
 int random_int(int div);
