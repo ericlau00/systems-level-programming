@@ -9,7 +9,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 
-int num_characters(int * x);
+int num_characters();
 
 int get_random(char random_characters[16][20]);
 

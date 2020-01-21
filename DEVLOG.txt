@@ -62,3 +62,6 @@ Converted chosen character to an integer, accepting integer input for IDs, and w
 
 kaziJ -- 2020-01-20 21:42
 Moved original README.md into PROPOSAL.md and started working on new README.md.
+
+kaziJ -- 2020-01-20 22:50
+Used piping to get number of characters from characters file to be used in random functions.

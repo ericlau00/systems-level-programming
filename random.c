@@ -1,6 +1,6 @@
 #include "random.h"
 
-int num_characters(int * x) {
+int num_characters() {
     char temp[256];
     int i = 0;
     FILE * wc;
@@ -11,12 +11,9 @@ int num_characters(int * x) {
         }
         temp[i] = 0;
         pclose(wc);
-        char * result;
-        strcpy(result, temp);
         int numnewlines, numlines, numchars;
-        sscanf(result, "%d %d %d characters\n", &numnewlines, &numlines, &numchars);
-        *x = numlines;
-        return 0;
+        sscanf(temp, "%d %d %d characters\n", &numnewlines, &numlines, &numchars);
+        return numlines;
     }
     else {
         return -1;
@@ -24,8 +21,7 @@ int num_characters(int * x) {
 }
 
 void get_characters(char ** characters) {
-    int numchars;
-    num_characters(&numchars);
+    int numchars = num_characters();
     FILE * charfile;
     charfile = fopen("characters", "r");
     char temp[255];
@@ -59,8 +55,7 @@ int random_int(int div) {
 }
 
 int get_random(char random_characters[16][20]) {
-    int numchars;
-    num_characters(&numchars);
+    int numchars = num_characters();
     char ** characters = malloc(sizeof(char * ) * numchars);
     get_characters(characters);
     int random_ints[16];
