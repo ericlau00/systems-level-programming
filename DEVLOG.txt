@@ -59,3 +59,6 @@ Made board struct and choose random characters per player and print board on eve
 
 kaziJ -- 2020-01-20 14:42
 Converted chosen character to an integer, accepting integer input for IDs, and working flipping characters.
+
+kaziJ -- 2020-01-20 21:42
+Moved original README.md into PROPOSAL.md and started working on new README.md.
