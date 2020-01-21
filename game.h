@@ -23,6 +23,8 @@ int chosen_setup(int * chosen);
 
 int print_board(struct gameboard * board, int chosen);
 
+int name_size(char *name);
+
 int game_logic(int client, struct response res, int chosen, struct gameboard * board);
 
 int ask_initial_question(int client, struct response res);

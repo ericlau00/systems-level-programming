@@ -15,14 +15,40 @@ int chosen_setup(int * chosen) {
 
 int print_board(struct gameboard * board, int chosen) {
     int i;
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("Your character is: %s\n", board->characters[chosen]);
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     for(i = 0; i < 16; i++) {
-        printf("%d. %s %2d\n", i, board->characters[i], board->index[i]);
+        // printf("%d. %s  %2d\n", i, board->characters[i], board->index[i]);
+        if (i <= 9) {
+            printf("%d.  %s", i, board->characters[i]);
+        }
+        else {
+            printf("%d. %s", i, board->characters[i]);
+        }
+
+        int size = name_size(board->characters[i]);
+        // printf("size: %d\n", size);
+        int j;
+        for (j=0; j<(24-size); j++) {
+            printf(" ");
+        }
+
+        if (board->index[i]) {
+            printf("[X]\n");
+        }
+        else {
+            printf("[ ]\n");
+        }
     }
+    printf("\n");
+    printf("\tYour character is: %s\n\n\n", board->characters[chosen]);
+}
+
+int name_size(char *name) {
+    int i=0;
+    while(name[i] != '\0') {
+        i++;
+    }
+    return i;
 }
 
 int game_logic(int client, struct response res, int chosen, struct gameboard * board) {
@@ -50,7 +76,7 @@ int game_logic(int client, struct response res, int chosen, struct gameboard * b
         ask_or_guess(&res);
     }
     else if (res.type == GAMEOVER) {
-        printf("Congratulations u are slightly less trash than other guy\n");
+        printf("YOU WON!\n");
         exit(0);
     }
     write(client, &res, sizeof(res));
@@ -82,7 +108,7 @@ int check_guess(struct response * res, int chosen, int client, struct gameboard 
     sscanf(res->content, "%d", &guess);
     printf("Your opponent guessed: %s\n", board->characters[guess]);
     if (guess == chosen) {
-        printf("HAHAHAHAH U TRASH U LOST\n");
+        printf("YOU LOST!\n");
         res->type = GAMEOVER;
         strcpy(res->content, "Game Over");
     }
