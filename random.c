@@ -17,7 +17,7 @@ void get_characters(char ** characters) {
     fclose(charfile);
 }
 
-int _random(int div) {
+int random_int(int div) {
     int random;
     int fd = open("/dev/random", O_RDONLY);
     if (fd < 0) {
@@ -29,7 +29,8 @@ int _random(int div) {
         return 0;
     }
     close(fd);
-    return abs(random) % div;
+    int ans = abs(random) % div;
+    return ans;
 }
 
 int get_random(char random_characters[16][20]) {
@@ -38,19 +39,14 @@ int get_random(char random_characters[16][20]) {
     int random_ints[16];
     int i, j, x;
     for( i = 0; i < 16; i++ ) {
-        x = _random(133);
+        x = random_int(133);
         for( j = 0; j < i; j++) {
             while(x == random_ints[j]) {
-                x = _random(133);
+                x = random_int(133);
             }
         }
         random_ints[i] = x;
         strcpy(random_characters[i], characters[random_ints[i]]);
     }
-    return 0;
-}
-
-int get_chosen(char * chosen, char characters[16][20]) {
-    strcpy(chosen, characters[_random(16)]);
     return 0;
 }

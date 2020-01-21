@@ -11,8 +11,6 @@
 
 int get_random(char random_characters[16][20]);
 
-int _random(int div);
+int random_int(int div);
 
 void get_characters(char ** characters);
-
-int get_chosen(char * chosen, char characters[16][20]);

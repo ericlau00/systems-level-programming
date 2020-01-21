@@ -5,9 +5,9 @@ int main(int argc, char **argv) {
     int OTHER_CLIENT;
     struct response res;
     struct gameboard board;
-    char chosen[20];
+    int chosen;
 
-    game_setup(&board, chosen);
+    board_setup(&board);
 
     if (argc == 1) {
 
@@ -18,6 +18,8 @@ int main(int argc, char **argv) {
         OTHER_CLIENT = client_accept(listen_socket);
 
         printf("Player connected!\n");
+
+        chosen_setup(&chosen);
 
         write(OTHER_CLIENT, &(board.characters), sizeof(board.characters));
 
@@ -34,6 +36,8 @@ int main(int argc, char **argv) {
         OTHER_CLIENT = client_connect( argv[1] );
 
         printf("You have successfuly connected!\n");
+
+        chosen_setup(&chosen);
 
         read(OTHER_CLIENT, &(board.characters), sizeof(board.characters));
 

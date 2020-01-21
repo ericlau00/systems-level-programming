@@ -56,3 +56,6 @@ Completed most of refactoring including removing uneccessary variables and movin
 
 ericL -- 2020-01-20 13:13
 Made board struct and choose random characters per player and print board on every turn.
+
+kaziJ -- 2020-01-20 14:42
+Converted chosen character to an integer, accepting integer input for IDs, and working flipping characters.
