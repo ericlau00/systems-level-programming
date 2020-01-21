@@ -21,3 +21,6 @@ Guess Whom'st've is a twist on the classic tabletop game by Hasbro: Guess Who. I
 8) Player 1 must answer Player 2's question.
 9) Player 2 can flip down the characters that do not align with Player 1's answer by typing in their ID. Once they are done flipping, they can type done.
 10) During any prompt to ask a question, a player can type g and then guess the opponent's character. Steps 4-9 will repeat until a player successfuly guesses their opponent's character.
+
+## Works Cited
+Hasbro Guess Who Classic Game by Hasbro Gaming
