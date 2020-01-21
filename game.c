@@ -97,7 +97,7 @@ int ask_initial_question(int client, struct response res) {
 
 int answer_question(struct response * res) {
     printf("You were asked: %s\n", res->content);
-    printf("Your answer: ");
+    printf("Your answer (yes/no): ");
     res->type = ANSWER;
     fgets(res->content, sizeof(res->content), stdin);
     *strchr(res->content, '\n') = 0;
