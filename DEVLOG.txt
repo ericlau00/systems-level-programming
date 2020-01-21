@@ -54,6 +54,9 @@ Working base game functionality including turns and passing structs between sock
 ericL -- 2020-01-19 14:42
 Completed most of refactoring including removing uneccessary variables and moving game logic into functions.
 
+matthewC -- 2020-01-20 01:13
+Worked on integrating ncurses functionality with regular code and finalizing layout of visual outputs
+
 ericL -- 2020-01-20 13:13
 Made board struct and choose random characters per player and print board on every turn.
 
@@ -65,3 +68,8 @@ Moved original README.md into PROPOSAL.md and started working on new README.md.
 
 kaziJ -- 2020-01-20 22:50
 Used piping to get number of characters from characters file to be used in random functions.
+
+matthewC -- 2020-01-21 02:45
+Attempted to fully transition functionality to using ncurses library
+Reverted to regular interface without ncurses after many failed attempts
+Made regular interface prettier
