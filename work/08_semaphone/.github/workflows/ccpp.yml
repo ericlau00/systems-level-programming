@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: make
+      run: make all
+    - name: create semaphore, shared memory, file
+      run: ./control -c
+    - name: ipcs after create
+      run: ipcs
+    - name: ls after create
+      run: ls -hal
+    - name: remove semaphore, shared memory, file
+      run: ./control -r
+    - name: ipcs after remove
+      run: ipcs
+    - name: ls after remove
+      run: ls -hal
