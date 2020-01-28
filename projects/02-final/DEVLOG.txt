@@ -1,0 +1,75 @@
+GUESS WHOM'ST'VE DEVLOG
+
+ericL -- 2020-01-01 21:59
+Created repository with base files.
+
+kaziJ -- 2020-01-02 00:15
+Finished project description and user interface in README.md.
+
+ericL -- 2020-01-02 01:03
+Finished timeline and technical design in README.md.
+
+kaziJ -- 2020-01-07 12:03
+Created functions to read character names from a file and put them into an array.
+
+kaziJ -- 2020-01-08 10:58
+Removed newlines from end of character names when putting them into an array.
+
+kaziJ -- 2020-01-09 11:51
+Started working on client to client infrastructure.
+
+matthewC -- 2020-01-09 12:21
+Working on and testing client to client infrastructure.
+
+kaziJ -- 2020-01-10 11:48
+Branched to attempt create 2 clients 1 server infrastructure.
+
+kaziJ -- 2020-01-14 11:16
+Cleaned and working 2 clients 1 server infrastructure.
+
+ericL -- 2020-01-14 11:18
+Created get random characters from an array and put them into a new array.
+
+kaziJ -- 2020-01-14 11:58
+Added code to differentiate between player connections.
+
+ericL -- 2020-01-15 11:18
+Testing passing strings between sockets.
+
+matthewC -- 2020-01-16 11:18
+Requested DW to install ncurses library to generate visuals and create the GUI.
+
+matthewC -- 2020-01-17 11:09
+Attempted to use ncurses.
+
+ericL -- 2020-01-19 02:59
+Basic client to client server infrastructure.
+
+ericL -- 2020-01-19 05:40
+Fully working client to client server infrastructure.
+
+kaziJ -- 2020-01-19 13:06
+Working base game functionality including turns and passing structs between sockets.
+
+ericL -- 2020-01-19 14:42
+Completed most of refactoring including removing uneccessary variables and moving game logic into functions.
+
+matthewC -- 2020-01-20 01:13
+Worked on integrating ncurses functionality with regular code and finalizing layout of visual outputs
+
+ericL -- 2020-01-20 13:13
+Made board struct and choose random characters per player and print board on every turn.
+
+kaziJ -- 2020-01-20 14:42
+Converted chosen character to an integer, accepting integer input for IDs, and working flipping characters.
+
+kaziJ -- 2020-01-20 21:42
+Moved original README.md into PROPOSAL.md and started working on new README.md.
+
+kaziJ -- 2020-01-20 22:50
+Used piping to get number of characters from characters file to be used in random functions.
+
+matthewC -- 2020-01-21 02:45
+Attempted to fully transition functionality to using ncurses library
+Reverted to regular interface without ncurses after many failed attempts
+Made regular interface prettier

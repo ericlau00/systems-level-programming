@@ -4,7 +4,6 @@ Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
 This repository contains notes, work from introductory lessons, and projects of the course.
 
-
 ## Wednesday, 8 January, 2020
 
 [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/)
@@ -403,7 +402,6 @@ int main() {
   return 0;
 }
 ```
-
 
 `ipcs -m`
 `ipcrm -m SHARED_MEMORY_ID`
