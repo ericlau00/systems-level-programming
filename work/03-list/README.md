@@ -1,4 +1,4 @@
-# Work 08: Enlist Your C Skillz
+# Work 03: Enlist Your C Skillz
 
 This will be due **Monday(10/28) morning.**
 
