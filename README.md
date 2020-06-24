@@ -2,7 +2,7 @@
 
 Systems Level Programming w/ JonAlf Dyrland-Weaver at Stuyvesant 2019-2020
 
-This repository contains notes, work from introductory lessons, and projects from the course.
+This repository contains notes, assignments, and projects from the course.
 
 ## Wednesday, 8 January, 2020
 
